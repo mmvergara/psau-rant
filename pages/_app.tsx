@@ -4,14 +4,21 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import type { AppProps } from "next/app";
 
 const psauTheme = createTheme({
+  typography:{
+    fontFamily: "Poppins",
+  },
   palette: {
     primary: {
-      main: "#25532e",
+      main: "#0B4619",
+      "100": "#116530",
     },
-    secondary:{
-      main: "#e4c76b",
-    }
+    secondary: {
+      main: "#FFCC1D",
+      "100": "#E8E8CC",
+    },
+
   },
+
 });
 
 export default function App({ Component, pageProps }: AppProps) {

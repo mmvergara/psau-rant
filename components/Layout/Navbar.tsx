@@ -21,7 +21,9 @@ import { useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import { borderRadius } from "@mui/system";
 import NavDrawer from "./Drawer/NavDrawer";
+import { useRouter } from "next/router";
 const Navbar = () => {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -55,6 +57,7 @@ const Navbar = () => {
             color="secondary"
             variant="contained"
             style={{ fontWeight: 600, color: "primary.main" }}
+            onClick={() => router.push("/auth/signin")}
           >
             Login
           </Button>

@@ -1,11 +1,9 @@
-import { FirebaseAuth } from "@/firebase/Firebase-Client";
-import useAuthStateRouter from "@/utilities/hooks/useAuthStateRouter";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { FirebaseAuth } from "@/firebase/Firebase-Client";
 import { authSchema } from "@/utilities/ValidationSchemas";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import useGoogleSignInRouter from "@/utilities/hooks/useGoogleSignInRouter";
 import CircularProgress from "@mui/material/CircularProgress";
 import googleIcon from "../../public/icons/google.svg";
 import Typography from "@mui/material/Typography";
@@ -14,16 +12,11 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Image from "next/image";
+import useGoogleSignInRouter from "@/utilities/hooks/useGoogleSignInRouter";
 
 const SignInPage = () => {
-  const { user, loading, router, signInWithGoogle } = useGoogleSignInRouter();
+  const { user, router, signInWithGoogle } = useGoogleSignInRouter();
   const [isLoading, setIsLoading] = useState(false);
-
-  if (user) {
-    router.push("/");
-    return <></>;
-  }
-  console.log(loading);
 
   const handleSignIn = async () => {
     setIsLoading(true);
@@ -41,6 +34,7 @@ const SignInPage = () => {
     try {
       const userCredentials = await signInWithGoogle();
       if (!userCredentials) throw new Error();
+      router.push("/");
     } catch (e) {
       toast.error("Google Sign In Failed");
     }
@@ -54,7 +48,11 @@ const SignInPage = () => {
 
   const emailErrors = formik.touched.email && formik.errors.email;
   const passwordErrors = formik.touched.password && formik.errors.password;
-  console.log(emailErrors, passwordErrors);
+
+  if (user) {
+    router.push("/");
+    return <></>;
+  }
   return (
     <Container maxWidth="md" sx={{ marginTop: "5vh" }}>
       <Box
@@ -132,7 +130,7 @@ const SignInPage = () => {
             Sign In with Google
           </Typography>
         </Button>
-        <Button onClick={() => router.push("/auth/signup")}>
+        <Button type="button" onClick={() => router.push("/auth/signup")}>
           Create New Account
         </Button>
       </Box>

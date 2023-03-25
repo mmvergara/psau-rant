@@ -12,18 +12,21 @@ import Menu from "@mui/material/Menu";
 import Box from "@mui/material/Box";
 import { useEffect, useState } from "react";
 import AddUsernameModal from "./AddUsernameModal";
+import { signOut } from "firebase/auth";
+import { FirebaseAuth } from "@/firebase/Firebase-Client";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const { router, user } = useAuthStateRouter();
+  const path = router.pathname;
+  console.log(path);
 
   const [openAddUsernameModal, setOpenAddUsernameModal] = useState(false);
   useEffect(() => {
-    console.log("useEffect");
-    if (user && !user.displayName) {
-      console.log("NO USERNAME");
+    if (user && !user.displayName && path !== "/auth/signup") {
       setOpenAddUsernameModal(true);
     }
-  }, [user]);
+  }, [user, path]);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -39,6 +42,17 @@ const Navbar = () => {
   };
 
   const toggleDrawer = () => setDrawerOpen((o) => !o);
+
+  const handleLogoutMenuBtnClick = async () => {
+    try {
+      await signOut(FirebaseAuth);
+      toast.success("Signed Out Successfully");
+      handleClose();
+      router.push("/");
+    } catch (error) {
+      toast.error("Sign Out Failed");
+    }
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -94,7 +108,7 @@ const Navbar = () => {
             }}
           >
             <MenuItem onClick={handleClose}>Settings</MenuItem>
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
+            <MenuItem onClick={handleLogoutMenuBtnClick}>Logout</MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>

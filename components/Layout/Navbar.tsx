@@ -1,38 +1,29 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import useAuthStateRouter from "@/utilities/hooks/useAuthStateRouter";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import {
-  BackdropRoot,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  Paper,
-} from "@mui/material";
-import { useState } from "react";
-import Drawer from "@mui/material/Drawer";
-import { borderRadius } from "@mui/system";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
 import NavDrawer from "./Drawer/NavDrawer";
-import { useRouter } from "next/router";
+import MenuItem from "@mui/material/MenuItem";
+import MenuIcon from "@mui/icons-material/Menu";
+import Toolbar from "@mui/material/Toolbar";
+import Button from "@mui/material/Button";
+import AppBar from "@mui/material/AppBar";
+import Menu from "@mui/material/Menu";
+import Box from "@mui/material/Box";
+import { useState } from "react";
+
 const Navbar = () => {
-  const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const { router, user } = useAuthStateRouter();
   const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const toggleDrawer = () => setDrawerOpen((o) => !o);
 
   return (
@@ -53,17 +44,20 @@ const Navbar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             PSAU Rant
           </Typography>
-          <Button
-            color="secondary"
-            variant="contained"
-            style={{ fontWeight: 600, color: "primary.main" }}
-            onClick={() => router.push("/auth/signin")}
-          >
-            Login
-          </Button>
-          <IconButton size="large" color="inherit" onClick={handleClick}>
-            <AccountCircle />
-          </IconButton>
+          {user ? (
+            <IconButton size="large" color="inherit" onClick={handleClick}>
+              <AccountCircle />
+            </IconButton>
+          ) : (
+            <Button
+              color="secondary"
+              variant="contained"
+              style={{ fontWeight: 600, color: "primary.main" }}
+              onClick={() => router.push("/auth/signin")}
+            >
+              Login
+            </Button>
+          )}
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}

@@ -3,26 +3,17 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import HomeIcon from "@mui/icons-material/Home";
-import {
-  BackdropRoot,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  Paper,
-} from "@mui/material";
+import { List, ListItem, Paper } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
-import { useRouter } from "next/router";
-import { width } from "@mui/system";
-
+import { signOut } from "firebase/auth";
+import { FirebaseAuth } from "@/firebase/Firebase-Client";
+import { toast } from "react-toastify";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import useAuthStateRouter from "@/utilities/hooks/useAuthStateRouter";
 type Props = {
   drawerOpen: boolean;
   toggleDrawer: () => void;
@@ -34,7 +25,7 @@ type DrawerLinks = {
 };
 
 const NavDrawer = ({ drawerOpen, toggleDrawer }: Props) => {
-  const router = useRouter();
+  const { router, user } = useAuthStateRouter();
   const drawerLinks: DrawerLinks[] = [
     { name: "Home", icon: <HomeIcon htmlColor="#ffffff" />, url: "/" },
     {
@@ -55,7 +46,17 @@ const NavDrawer = ({ drawerOpen, toggleDrawer }: Props) => {
     day: "numeric",
     year: "numeric",
   });
-  
+
+  const handleLogout = async () => {
+    try {
+      await signOut(FirebaseAuth);
+      router.push("/");
+      toggleDrawer();
+    } catch (error) {
+      toast.error("Sign Out Failed");
+    }
+  };
+
   return (
     <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer}>
       <Paper
@@ -68,6 +69,7 @@ const NavDrawer = ({ drawerOpen, toggleDrawer }: Props) => {
           padding: "0px 30px",
           paddingTop: "20px",
           flexDirection: "column",
+          justifyContent: "space-between",
           gap: "1em",
         }}
       >
@@ -76,12 +78,12 @@ const NavDrawer = ({ drawerOpen, toggleDrawer }: Props) => {
             sx={{
               fontWeight: "bold",
               color: "primary.100",
-              letterSpacing: "2px",
+              letterSpacing: "1px",
               mb: 1,
             }}
             align="left"
           >
-            Hiya! Mark
+            Hiya! {user?.displayName || ""}
           </Typography>
           <Typography>{formattedDate}</Typography>
           {drawerLinks.map((link) => {
@@ -119,6 +121,35 @@ const NavDrawer = ({ drawerOpen, toggleDrawer }: Props) => {
             );
           })}
         </List>
+        {user && (
+          <Button
+            sx={{
+              opacity: 0.8,
+              fontSize: "1.2em",
+              gap: "2px",
+              borderRadius: "8px",
+              marginBottom: "20px",
+              width: "100%",
+              padding: "10px 0px",
+            }}
+            color="error"
+            variant="contained"
+            onClick={handleLogout}
+          >
+            <Box
+              sx={{
+                letterSpacing: "2px",
+                display: "flex",
+                gap: "1em",
+                width: "100%",
+                px: "22px",
+              }}
+            >
+              <ExitToAppIcon />
+              <Typography mt="1px">Sign Out</Typography>
+            </Box>
+          </Button>
+        )}
       </Paper>
     </Drawer>
   );

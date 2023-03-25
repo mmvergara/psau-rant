@@ -1,42 +1,62 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import useAuthStateRouter from "@/utilities/hooks/useAuthStateRouter";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import {
-  BackdropRoot,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  Paper,
-} from "@mui/material";
-import { useState } from "react";
-import Drawer from "@mui/material/Drawer";
-import { borderRadius } from "@mui/system";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
 import NavDrawer from "./Drawer/NavDrawer";
-import { useRouter } from "next/router";
+import MenuItem from "@mui/material/MenuItem";
+import MenuIcon from "@mui/icons-material/Menu";
+import Toolbar from "@mui/material/Toolbar";
+import Button from "@mui/material/Button";
+import AppBar from "@mui/material/AppBar";
+import Menu from "@mui/material/Menu";
+import Box from "@mui/material/Box";
+import { useEffect, useState } from "react";
+import AddUsernameModal from "./AddUsernameModal";
+import { signOut } from "firebase/auth";
+import { FirebaseAuth } from "@/firebase/Firebase-Client";
+import { toast } from "react-toastify";
+
 const Navbar = () => {
-  const router = useRouter();
+  const { router, user } = useAuthStateRouter();
+  const path = router.pathname;
+  console.log(path);
+
+  const [openAddUsernameModal, setOpenAddUsernameModal] = useState(false);
+  useEffect(() => {
+    if (user && !user.displayName && path !== "/auth/signup") {
+      setOpenAddUsernameModal(true);
+    }
+  }, [user, path]);
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+
+  const handleAccountIconClick = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const [drawerOpen, setDrawerOpen] = useState(false);
+
   const toggleDrawer = () => setDrawerOpen((o) => !o);
+
+  const handleLogoutMenuBtnClick = async () => {
+    try {
+      await signOut(FirebaseAuth);
+      toast.success("Signed Out Successfully");
+      handleClose();
+      router.push("/");
+    } catch (error) {
+      toast.error("Sign Out Failed");
+    }
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
+      {openAddUsernameModal && <AddUsernameModal />}
       <AppBar position="static" color="primary">
         <NavDrawer drawerOpen={drawerOpen} toggleDrawer={toggleDrawer} />
         <Toolbar>
@@ -53,17 +73,24 @@ const Navbar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             PSAU Rant
           </Typography>
-          <Button
-            color="secondary"
-            variant="contained"
-            style={{ fontWeight: 600, color: "primary.main" }}
-            onClick={() => router.push("/auth/signin")}
-          >
-            Login
-          </Button>
-          <IconButton size="large" color="inherit" onClick={handleClick}>
-            <AccountCircle />
-          </IconButton>
+          {user ? (
+            <IconButton
+              size="large"
+              color="inherit"
+              onClick={handleAccountIconClick}
+            >
+              <AccountCircle />
+            </IconButton>
+          ) : (
+            <Button
+              color="secondary"
+              variant="contained"
+              style={{ fontWeight: 600, color: "primary.main" }}
+              onClick={() => router.push("/auth/signin")}
+            >
+              Login
+            </Button>
+          )}
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}
@@ -81,7 +108,7 @@ const Navbar = () => {
             }}
           >
             <MenuItem onClick={handleClose}>Settings</MenuItem>
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
+            <MenuItem onClick={handleLogoutMenuBtnClick}>Logout</MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>

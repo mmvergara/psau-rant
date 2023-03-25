@@ -1,13 +1,9 @@
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { signupSchema } from "@/utilities/ValidationSchemas";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import useGoogleSignInRouter from "@/utilities/hooks/useGoogleSignInRouter";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -15,23 +11,32 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import useAuthStateRouter from "@/utilities/hooks/useAuthStateRouter";
+import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
 
 const SignInPage = () => {
-  const { user, router } = useAuthStateRouter();
+  const { user, router, loading } = useAuthStateRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSignUp = async () => {
     setIsLoading(true);
-    const { email, password } = formik.values;
+    const { email, password, username } = formik.values;
     try {
-      await createUserWithEmailAndPassword(FirebaseAuth, email, password);
-      router.push("/");
+      const createdUser = await createUserWithEmailAndPassword(
+        FirebaseAuth,
+        email,
+        password
+      );
+      await updateProfile(createdUser.user, { displayName: username });
+      toast.success("Successfully created account");
+      router.reload();
+      setIsLoading(false);
     } catch (e) {
       toast.error("Failed to create account");
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
+  // Formik ===================
   const formik = useFormik({
     initialValues: { username: "", email: "", password: "" },
     onSubmit: handleSignUp,
@@ -42,10 +47,13 @@ const SignInPage = () => {
   const emailErrors = formik.touched.email && formik.errors.email;
   const passwordErrors = formik.touched.password && formik.errors.password;
 
-  if (user) {
+  if (user && !isLoading) {
     router.push("/");
     return <></>;
   }
+
+  if (loading) return <CenterCircularProgress />;
+
   return (
     <Container maxWidth="md" sx={{ marginTop: "5vh" }}>
       <Box

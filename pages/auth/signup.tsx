@@ -67,6 +67,7 @@ const SignInPage = () => {
           fontWeight={500}
           color="primary"
           textAlign="center"
+          fontSize={{ xs: "1.5rem", sm: "2rem", md: "3.5rem" }}
         >
           Sign Up
         </Typography>

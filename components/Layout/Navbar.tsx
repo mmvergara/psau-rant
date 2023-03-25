@@ -10,24 +10,39 @@ import Button from "@mui/material/Button";
 import AppBar from "@mui/material/AppBar";
 import Menu from "@mui/material/Menu";
 import Box from "@mui/material/Box";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AddUsernameModal from "./AddUsernameModal";
 
 const Navbar = () => {
+  const { router, user } = useAuthStateRouter();
+
+  const [openAddUsernameModal, setOpenAddUsernameModal] = useState(false);
+  useEffect(() => {
+    console.log("useEffect");
+    if (user && !user.displayName) {
+      console.log("NO USERNAME");
+      setOpenAddUsernameModal(true);
+    }
+  }, [user]);
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const { router, user } = useAuthStateRouter();
   const open = Boolean(anchorEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleAccountIconClick = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const toggleDrawer = () => setDrawerOpen((o) => !o);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
+      {openAddUsernameModal && <AddUsernameModal />}
       <AppBar position="static" color="primary">
         <NavDrawer drawerOpen={drawerOpen} toggleDrawer={toggleDrawer} />
         <Toolbar>
@@ -45,7 +60,11 @@ const Navbar = () => {
             PSAU Rant
           </Typography>
           {user ? (
-            <IconButton size="large" color="inherit" onClick={handleClick}>
+            <IconButton
+              size="large"
+              color="inherit"
+              onClick={handleAccountIconClick}
+            >
               <AccountCircle />
             </IconButton>
           ) : (

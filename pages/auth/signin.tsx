@@ -1,6 +1,6 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
-import { authSchema } from "@/utilities/ValidationSchemas";
+import { signinSchema } from "@/utilities/ValidationSchemas";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -43,7 +43,7 @@ const SignInPage = () => {
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     onSubmit: handleSignIn,
-    validationSchema: authSchema,
+    validationSchema: signinSchema,
   });
 
   const emailErrors = formik.touched.email && formik.errors.email;

@@ -3,7 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { authSchema } from "@/utilities/ValidationSchemas";
+import { signupSchema } from "@/utilities/ValidationSchemas";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -33,11 +33,12 @@ const SignInPage = () => {
   };
 
   const formik = useFormik({
-    initialValues: { email: "", password: "" },
+    initialValues: { username: "", email: "", password: "" },
     onSubmit: handleSignUp,
-    validationSchema: authSchema,
+    validationSchema: signupSchema,
   });
 
+  const usernameErrors = formik.touched.username && formik.errors.username;
   const emailErrors = formik.touched.email && formik.errors.email;
   const passwordErrors = formik.touched.password && formik.errors.password;
 
@@ -71,6 +72,16 @@ const SignInPage = () => {
         >
           Sign Up
         </Typography>
+        <TextField
+          name="username"
+          label="Username"
+          variant="filled"
+          sx={{ width: "100%", maxWidth: "400px" }}
+          error={!!usernameErrors}
+          helperText={usernameErrors}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
         <TextField
           name="email"
           label="Email"

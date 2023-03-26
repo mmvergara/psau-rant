@@ -15,18 +15,21 @@ import AddUsernameModal from "./AddUsernameModal";
 import { signOut } from "firebase/auth";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
 import { toast } from "react-toastify";
+import { getUserUsernameById } from "@/firebase/services/auth_service";
 
 const Navbar = () => {
   const { router, user } = useAuthStateRouter();
   const path = router.pathname;
-  console.log(path);
 
   const [openAddUsernameModal, setOpenAddUsernameModal] = useState(false);
   useEffect(() => {
-    if (user && !user.displayName && path !== "/auth/signup") {
-      setOpenAddUsernameModal(true);
-    }
-  }, [user, path]);
+    const checkUsername = async (user_id: string) => {
+      const { data } = await getUserUsernameById(user_id);
+      if (!data) setOpenAddUsernameModal(true);
+    };
+
+    if (user) checkUsername(user.uid);
+  }, [user]);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);

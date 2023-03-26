@@ -12,7 +12,6 @@ const username = string()
   .max(255)
   .required("Username field is required");
 
-  
 export const signinSchema = object({
   email,
   password,
@@ -24,4 +23,15 @@ export const signupSchema = object({
 });
 export const updateUsernameSchema = object({
   username,
+});
+
+export const rantSchema = object({
+  rant_title: string()
+    .min(3, "Minimun of 3 characters for the rant title")
+    .max(255)
+    .required("Rant title field is required"),
+  rant_content: string()
+    .min(3, "Minimun of 3 characters for the rant content")
+    .max(255)
+    .required("Rant content field is required"),
 });

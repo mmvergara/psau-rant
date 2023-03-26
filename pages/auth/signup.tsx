@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import useAuthStateRouter from "@/utilities/hooks/useAuthStateRouter";
 import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
+import { signUpFirebaseWithEmailAndPassword } from "@/firebase/services/auth_service";
 
 const SignInPage = () => {
   const { user, router, loading } = useAuthStateRouter();
@@ -19,21 +20,14 @@ const SignInPage = () => {
 
   const handleSignUp = async () => {
     setIsLoading(true);
-    const { email, password, username } = formik.values;
-    try {
-      const createdUser = await createUserWithEmailAndPassword(
-        FirebaseAuth,
-        email,
-        password
-      );
-      await updateProfile(createdUser.user, { displayName: username });
-      toast.success("Successfully created account");
-      router.reload();
-      setIsLoading(false);
-    } catch (e) {
-      toast.error("Failed to create account");
-      setIsLoading(false);
+    const { errM } = await signUpFirebaseWithEmailAndPassword(formik.values);
+    setIsLoading(false);
+    if (errM) {
+      toast.error(errM);
+      return;
     }
+    formik.resetForm();
+    toast.success("Successfully signed up");
   };
 
   // Formik ===================

@@ -1,26 +1,36 @@
+import useAuthStateRouter from "@/utilities/hooks/useAuthStateRouter";
+import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { useFormik } from "formik";
 import { rantSchema } from "@/utilities/ValidationSchemas";
-import useAuthStateRouter from "@/utilities/hooks/useAuthStateRouter";
-import { addRant } from "@/firebase/services/rant_services";
+import { addRant, getAllRant } from "@/firebase/services/rant_services";
 import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 
 const RantCreate = () => {
   const { user } = useAuthStateRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSubmitRant = async () => {
     const { rant_title, rant_content } = formik.values;
     if (!user) return;
-    const { data, error } = await addRant({
+    setIsLoading(true);
+    const { error } = await addRant({
       rant_title,
       rant_content,
       rant_author: user.uid,
     });
-    if (data) toast.success("Rant Created");
-    if (error) toast.error(error);
+    setIsLoading(false);
+    if (error) {
+      toast.error(error);
+      return;
+    }
+    toast.success("Rant Created");
+    formik.resetForm();
   };
 
   const formik = useFormik({
@@ -66,9 +76,14 @@ const RantCreate = () => {
           }}
         >
           <TextField
+            name="rant_title"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            name="rant_title"
+            value={formik.values.rant_title}
+            error={
+              formik.touched.rant_title && Boolean(formik.errors.rant_title)
+            }
+            helperText={formik.touched.rant_title && formik.errors.rant_title}
             label="Rant Title"
             variant="outlined"
           />
@@ -76,13 +91,28 @@ const RantCreate = () => {
             name="rant_content"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            value={formik.values.rant_content}
+            error={
+              formik.touched.rant_content && Boolean(formik.errors.rant_content)
+            }
+            helperText={
+              formik.touched.rant_content && formik.errors.rant_content
+            }
             sx={{ mt: 2 }}
             label="Rant 💢"
             variant="outlined"
             multiline
           />
-          <Button type="submit" sx={{ mt: 2 }} variant="contained">
-            Submit Rant 😡
+          <Button
+            type="submit"
+            sx={{ mt: 2, color: "white" }}
+            variant="contained"
+          >
+            {isLoading ? (
+              <CircularProgress color="inherit" size={25} />
+            ) : (
+              "Submit Rant 😡"
+            )}
           </Button>
         </Box>
       </Box>

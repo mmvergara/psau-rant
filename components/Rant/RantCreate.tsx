@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { useFormik } from "formik";
 import { rantSchema } from "@/utilities/ValidationSchemas";
-import { addRant, getAllRant } from "@/firebase/services/rant_services";
+import { addRant } from "@/firebase/services/rant_services";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 

@@ -1,5 +1,4 @@
 import { updateUsernameSchema } from "@/utilities/ValidationSchemas";
-import { updateProfile } from "firebase/auth";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -10,6 +9,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import { addUserUsername } from "@/firebase/services/auth_service";
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -26,18 +26,20 @@ const AddUsernameModal = () => {
   const { user, router } = useAuthStateRouter();
   const [isLoading, setIsLoading] = useState(false);
   const handleAddUsername = async () => {
-    console.log("handled");
     if (!user) return;
-    setIsLoading(true);
     const { username } = formik.values;
-    try {
-      await updateProfile(user, { displayName: username });
-      toast.success("Successfully updated username");
-      router.reload();
-    } catch (error) {
-      toast.error("Failed to update username");
-    }
+
+    setIsLoading(true);
+    const { errM: errM2 } = await addUserUsername(user.uid, username);
     setIsLoading(false);
+
+    if (errM2) {
+      toast.error(errM2);
+      return;
+    }
+
+    toast.success("Successfully updated username");
+    router.reload();
   };
 
   if (!user) router.push("/auth/signin");

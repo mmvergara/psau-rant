@@ -9,7 +9,7 @@ import { useFormik } from "formik";
 import { rantSchema } from "@/utilities/ValidationSchemas";
 import { addRant } from "@/firebase/services/rant_services";
 import { toast } from "react-toastify";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const RantCreate = () => {
   const { user } = useAuthStateRouter();

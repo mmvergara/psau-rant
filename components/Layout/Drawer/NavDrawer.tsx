@@ -11,9 +11,9 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { signOut } from "firebase/auth";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
 import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
+
 type Props = {
   drawerOpen: boolean;
   toggleDrawer: () => void;
@@ -89,7 +89,7 @@ const NavDrawer = ({ drawerOpen, toggleDrawer }: Props) => {
           <Typography>{formattedDate}</Typography>
           {drawerLinks.map((link) => {
             return (
-              <ListItem sx={{ padding: 0 }}>
+              <ListItem key={link.name} sx={{ padding: 0 }}>
                 <Button
                   sx={{
                     color: "#ffffff",

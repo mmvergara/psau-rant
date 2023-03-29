@@ -4,6 +4,7 @@ export type RantNoId = {
   rant_title: string;
   rant_content: string;
   rant_author: string;
+  rant_likes: string[];
   rant_date: Timestamp;
 };
 
@@ -12,6 +13,7 @@ export type RantWithId = {
   rant_title: string;
   rant_content: string;
   rant_author: string;
+  rant_likes: string[];
   rant_date: Timestamp;
 };
 

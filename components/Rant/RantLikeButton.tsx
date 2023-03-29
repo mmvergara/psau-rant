@@ -2,6 +2,7 @@ import { handleLikeRant } from "@/firebase/services/rant_services";
 import { useUserData } from "@/context/AuthContext";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Button from "@mui/material/Button";
 
@@ -17,7 +18,7 @@ const RantLikeButton = ({ liked, totalLike, rantId }: Props) => {
   const [totalLikes, setTotalLikes] = useState(totalLike || 0);
   const likeHandler = async () => {
     setIsLiked((o) => !o);
-    setTotalLikes((tl) => (!isLiked ? tl - 1 : tl + 1));
+    setTotalLikes((tl) => (isLiked ? tl - 1 : tl + 1));
     const { error } = await handleLikeRant(rantId, isLiked, user?.uid);
     if (error) return toast.error(error);
   };
@@ -35,7 +36,7 @@ const RantLikeButton = ({ liked, totalLike, rantId }: Props) => {
       }}
       onClick={likeHandler}
     >
-      <FavoriteBorderIcon /> {totalLikes}
+      {isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />} {totalLikes}
     </Button>
   );
 };

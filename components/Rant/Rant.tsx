@@ -5,13 +5,22 @@ import { getTimeElapsedString } from "@/utilities/Date";
 import Divider from "@mui/material/Divider";
 import { RantWithId } from "@/types/models/rant_types";
 import RantLikeButton from "./RantLikeButton";
+import { useUserData } from "@/context/AuthContext";
 type Props = {
   rantWithId: RantWithId;
 };
 const Rant = ({ rantWithId }: Props) => {
-  const { rant_title, rant_content, rant_author, rant_date, rant_id } =
-    rantWithId;
-
+  const { user } = useUserData();
+  const {
+    rant_title,
+    rant_content,
+    rant_author,
+    rant_date,
+    rant_id,
+    rant_likes,
+  } = rantWithId;
+  const isLiked = rant_likes.some((like) => like === user?.uid);
+  const totalLikes = rant_likes.length;
   const timeElapsed = getTimeElapsedString(new Date(rant_date.toDate()));
   return (
     <Box
@@ -63,7 +72,11 @@ const Rant = ({ rantWithId }: Props) => {
               {timeElapsed}
             </Typography>
           </Box>
-          <RantLikeButton liked={false} rantId={rant_id} totalLike={5} />
+          <RantLikeButton
+            liked={isLiked}
+            rantId={rant_id}
+            totalLike={totalLikes}
+          />
         </Box>
       </Box>
     </Box>

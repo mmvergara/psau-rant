@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
 import { signUpFirebaseWithEmailAndPassword } from "@/firebase/services/auth_service";
-import { useUserData } from "@/context/useName";
+import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 
 const SignInPage = () => {

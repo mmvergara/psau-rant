@@ -12,7 +12,7 @@ import { signOut } from "firebase/auth";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
-import { useUserData } from "@/context/useName";
+import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 type Props = {
   drawerOpen: boolean;

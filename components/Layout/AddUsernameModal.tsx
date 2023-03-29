@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { addUserUsername } from "@/firebase/services/auth_service";
-import { useUserData } from "@/context/useName";
+import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 const style = {
   position: "absolute" as "absolute",

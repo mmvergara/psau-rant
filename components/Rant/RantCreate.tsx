@@ -10,7 +10,7 @@ import { addRant } from "@/firebase/services/rant_services";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import CampaignIcon from "@mui/icons-material/Campaign";
-import { useUserData } from "@/context/useName";
+import { useUserData } from "@/context/AuthContext";
 
 const RantCreate = () => {
   const { user } = useUserData();

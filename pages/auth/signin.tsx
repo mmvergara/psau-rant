@@ -1,4 +1,8 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
 import { signinSchema } from "@/utilities/ValidationSchemas";
 import { useFormik } from "formik";
@@ -12,10 +16,12 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Image from "next/image";
-import useGoogleSignInRouter from "@/utilities/hooks/useGoogleSignInRouter";
+import { useRouter } from "next/router";
+import { useUserData } from "@/context/AuthContext";
 
 const SignInPage = () => {
-  const { user, router, signInWithGoogle } = useGoogleSignInRouter();
+  const router = useRouter();
+  const { user } = useUserData();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSignIn = async () => {
@@ -32,9 +38,10 @@ const SignInPage = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      const userCredentials = await signInWithGoogle();
+      const provider = new GoogleAuthProvider();
+      const userCredentials = await signInWithPopup(FirebaseAuth, provider);
       if (!userCredentials) throw new Error();
-      router.push("/");
+      router.reload();
     } catch (e) {
       toast.error("Google Sign In Failed");
     }

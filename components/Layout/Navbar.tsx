@@ -14,10 +14,13 @@ import AddUsernameModal from "./AddUsernameModal";
 import { signOut } from "firebase/auth";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
 import { toast } from "react-toastify";
-import { useUserData } from "@/context/useName";
+import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
+type Props = {
+  authIsLoading: boolean;
+};
 
-const Navbar = () => {
+const Navbar = ({ authIsLoading }: Props) => {
   const router = useRouter();
   const { username, user } = useUserData();
 
@@ -25,12 +28,14 @@ const Navbar = () => {
 
   const checkUsername = () => {
     // if user is logged in and username is not set, open add username modal
+    console.log(router.pathname);
+    if (router.pathname === "/auth/signin") return;
     if (user && !!username) setOpenAddUsernameModal(true);
   };
 
   useEffect(() => {
     checkUsername();
-  }, [user]);
+  }, [user, router.pathname]);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -77,23 +82,27 @@ const Navbar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             PSAU Rant
           </Typography>
-          {user ? (
-            <IconButton
-              size="large"
-              color="inherit"
-              onClick={handleAccountIconClick}
-            >
-              <AccountCircle />
-            </IconButton>
-          ) : (
-            <Button
-              color="secondary"
-              variant="contained"
-              style={{ fontWeight: 600, color: "primary.main" }}
-              onClick={() => router.push("/auth/signin")}
-            >
-              Login
-            </Button>
+          {!authIsLoading && (
+            <>
+              {user ? (
+                <IconButton
+                  size="large"
+                  color="inherit"
+                  onClick={handleAccountIconClick}
+                >
+                  <AccountCircle />
+                </IconButton>
+              ) : (
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  style={{ fontWeight: 600, color: "primary.main" }}
+                  onClick={() => router.push("/auth/signin")}
+                >
+                  Login
+                </Button>
+              )}
+            </>
           )}
           <Menu
             id="basic-menu"

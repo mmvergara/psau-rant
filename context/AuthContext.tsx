@@ -52,7 +52,7 @@ export const UserDataProvider = ({ children }: providerProps) => {
 
   return (
     <UserDataContext.Provider value={value}>
-      <Navbar />
+    <Navbar authIsLoading={loading} />
       {loading ? <CenterCircularProgress /> : children}
     </UserDataContext.Provider>
   );

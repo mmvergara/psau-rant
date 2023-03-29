@@ -3,10 +3,11 @@ import Navbar from "@/components/Layout/Navbar";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
 import { getUserDataById } from "@/firebase/services/auth_service";
 import { User } from "firebase/auth";
+import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-type userData = {
+export type userData = {
   username: string;
   user: User | null | undefined;
 };
@@ -33,31 +34,36 @@ export const UserDataProvider = ({ children }: providerProps) => {
     user: null,
     username: "",
   });
-
+  const [needToSetUsername, setNeedToSetUsername] = useState(false);
   const [settingNameLoading, setSettingNameLoading] = useState(true);
+  const router = useRouter();
 
   const loading = authStateLoading || settingNameLoading;
-
   const getAndSetUserData = async (u: User) => {
-    setSettingNameLoading(true);
+    console.log("getAndSetUserData");
     const { data } = await getUserDataById(u.uid);
-    if (!data) return;
-    setUserData((lu) => ({ ...lu, username: data.username }));
     setSettingNameLoading(false);
+    if (!data) {
+      return setNeedToSetUsername(true);
+    }
+    setUserData((lu) => ({ ...lu, username: data.username }));
   };
 
   useEffect(() => {
-    if (user) getAndSetUserData(user);
-  }, [user]);
+    if (user) {
+      getAndSetUserData(user);
+    } else {
+      setSettingNameLoading(false);
+    }
+  }, [user, router.pathname]);
 
   const value = {
-    username: userData?.username || "",
+    username: userData?.username,
     user,
   };
-
   return (
     <UserDataContext.Provider value={value}>
-      <Navbar authIsLoading={loading} />
+      <Navbar authIsLoading={loading} needToSetUsername={needToSetUsername} />
       {loading ? <CenterCircularProgress /> : children}
     </UserDataContext.Provider>
   );

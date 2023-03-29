@@ -11,11 +11,12 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import { useUserData } from "@/context/AuthContext";
+import { useRouter } from "next/router";
 
 const RantCreate = () => {
-  const { user } = useUserData();
+  const router = useRouter();
+  const { user, username } = useUserData();
   const [isLoading, setIsLoading] = useState(false);
-  const { username } = useUserData();
 
   const handleSubmitRant = async () => {
     const { rant_title, rant_content } = formik.values;
@@ -25,6 +26,7 @@ const RantCreate = () => {
       rant_title,
       rant_content,
       rant_author: username,
+      rant_likes: [],
     });
     setIsLoading(false);
     if (error) {
@@ -43,6 +45,11 @@ const RantCreate = () => {
     validationSchema: rantSchema,
     onSubmit: handleSubmitRant,
   });
+
+  if (!user) {
+    router.push("/auth/signin");
+    return <></>;
+  }
 
   return (
     <Container maxWidth="sm">

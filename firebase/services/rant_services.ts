@@ -63,17 +63,14 @@ export const getAllRant = async () => {
       id: doc.id,
       ...doc.data(),
     }));
-    console.log(likes);
 
     const rants: RantWithId[] = [];
 
     querySnapshot.forEach((doc) => {
-      console.log(doc.get("likes"));
       const rant: RantWithId = {
         rant_id: doc.id,
         ...(doc.data() as RantNoId),
       };
-      console.log(rant);
       rants.push(rant);
     });
 

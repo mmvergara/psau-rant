@@ -11,35 +11,26 @@ import Menu from "@mui/material/Menu";
 import Box from "@mui/material/Box";
 import { useEffect, useState } from "react";
 import AddUsernameModal from "./AddUsernameModal";
-import { signOut } from "firebase/auth";
+import { signOut, UserMetadata } from "firebase/auth";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
 import { toast } from "react-toastify";
-import { useUserData } from "@/context/AuthContext";
+import { userData, useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 type Props = {
   authIsLoading: boolean;
+  needToSetUsername: boolean;
 };
 
-const Navbar = ({ authIsLoading }: Props) => {
+const Navbar = ({ authIsLoading, needToSetUsername }: Props) => {
   const router = useRouter();
-  const { username, user } = useUserData();
+  const { user } = useUserData();
 
-  const [openAddUsernameModal, setOpenAddUsernameModal] = useState(false);
-
-  const checkUsername = () => {
-    // if user is logged in and username is not set, open add username modal
-    if (router.pathname === "/auth/signin") return;
-    if (!authIsLoading && user && !username) setOpenAddUsernameModal(true);
-  };
-
-  useEffect(() => {
-    checkUsername();
-  }, [user, router.pathname]);
+  const openAddUsernameModal =
+    needToSetUsername && router.pathname !== "/auth/signin";
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const open = Boolean(anchorEl);
-
   const handleAccountIconClick = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {

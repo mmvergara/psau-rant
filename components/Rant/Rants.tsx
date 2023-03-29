@@ -10,7 +10,6 @@ import Rant from "./Rant";
 const Rants = () => {
   const router = useRouter();
   const [rants, setRants] = useState<RantWithId[]>([]);
-  console.log(rants);
   const fetchRants = async () => {
     const { error, data } = await getAllRant();
     if (error || !data) {

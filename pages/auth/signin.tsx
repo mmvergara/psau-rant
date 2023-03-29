@@ -55,7 +55,6 @@ const SignInPage = () => {
 
   const emailErrors = formik.touched.email && formik.errors.email;
   const passwordErrors = formik.touched.password && formik.errors.password;
-
   if (user) {
     router.push("/");
     return <></>;

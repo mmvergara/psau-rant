@@ -8,12 +8,12 @@ import ListItem from "@mui/material/ListItem";
 import Paper from "@mui/material/Paper";
 import Drawer from "@mui/material/Drawer";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import useAuthStateRouter from "@/utilities/hooks/useAuthStateRouter";
 import { signOut } from "firebase/auth";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
 import { toast } from "react-toastify";
-import { getUserUsernameById } from "@/firebase/services/auth_service";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useUserData } from "@/context/useName";
+import { useRouter } from "next/router";
 type Props = {
   drawerOpen: boolean;
   toggleDrawer: () => void;
@@ -25,9 +25,8 @@ type DrawerLinks = {
 };
 
 const NavDrawer = ({ drawerOpen, toggleDrawer }: Props) => {
-  const { router, user } = useAuthStateRouter();
-  const [username, setUsername] = useState("");
-
+  const router = useRouter();
+  const { username, user } = useUserData();
   const drawerLinks: DrawerLinks[] = [
     { name: "Home", icon: <HomeIcon htmlColor="#ffffff" />, url: "/" },
     {
@@ -59,13 +58,6 @@ const NavDrawer = ({ drawerOpen, toggleDrawer }: Props) => {
     }
   };
 
-  useEffect(() => {
-    const getUsername = async (user_id: string) => {
-      const { data } = await getUserUsernameById(user_id);
-      if (data) setUsername(data.username);
-    };
-    getUsername(user?.uid || "");
-  }, [user]);
   return (
     <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer}>
       <Paper

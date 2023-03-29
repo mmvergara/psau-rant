@@ -2,7 +2,6 @@ import { updateUsernameSchema } from "@/utilities/ValidationSchemas";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import useAuthStateRouter from "@/utilities/hooks/useAuthStateRouter";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -10,6 +9,8 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { addUserUsername } from "@/firebase/services/auth_service";
+import { useUserData } from "@/context/useName";
+import { useRouter } from "next/router";
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -23,7 +24,9 @@ const style = {
 };
 
 const AddUsernameModal = () => {
-  const { user, router } = useAuthStateRouter();
+  const { user } = useUserData();
+  const router = useRouter();
+
   const [isLoading, setIsLoading] = useState(false);
   const handleAddUsername = async () => {
     if (!user) return;

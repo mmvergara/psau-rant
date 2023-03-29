@@ -1,14 +1,14 @@
 import { getAllRant } from "@/firebase/services/rant_services";
 import { RantWithId } from "@/types/models/rant_types";
-import useAuthStateRouter from "@/utilities/hooks/useAuthStateRouter";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Rant from "./Rant";
 
 const Rants = () => {
-  const { user, loading, router } = useAuthStateRouter();
+  const router = useRouter();
   const [rants, setRants] = useState<RantWithId[]>([]);
 
   const fetchRants = async () => {

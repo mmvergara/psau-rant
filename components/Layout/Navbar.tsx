@@ -1,4 +1,3 @@
-import useAuthStateRouter from "@/utilities/hooks/useAuthStateRouter";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -15,20 +14,22 @@ import AddUsernameModal from "./AddUsernameModal";
 import { signOut } from "firebase/auth";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
 import { toast } from "react-toastify";
-import { getUserUsernameById } from "@/firebase/services/auth_service";
+import { useUserData } from "@/context/useName";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
-  const { router, user } = useAuthStateRouter();
-  const path = router.pathname;
+  const router = useRouter();
+  const { username, user } = useUserData();
 
   const [openAddUsernameModal, setOpenAddUsernameModal] = useState(false);
-  useEffect(() => {
-    const checkUsername = async (user_id: string) => {
-      const { data } = await getUserUsernameById(user_id);
-      if (!data) setOpenAddUsernameModal(true);
-    };
 
-    if (user) checkUsername(user.uid);
+  const checkUsername = () => {
+    // if user is logged in and username is not set, open add username modal
+    if (user && !!username) setOpenAddUsernameModal(true);
+  };
+
+  useEffect(() => {
+    checkUsername();
   }, [user]);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

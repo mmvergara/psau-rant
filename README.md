@@ -18,3 +18,8 @@
 - user's can only like if they havent liked yet
 - user's can only like once
 - user's can only unlike if they already like and that they own the like
+
+
+
+### Optimization
+- create useAuthState with username context

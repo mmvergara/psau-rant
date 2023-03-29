@@ -1,23 +1,59 @@
+import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
+import Navbar from "@/components/Layout/Navbar";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
+import { getUserDataById } from "@/firebase/services/auth_service";
 import { User } from "firebase/auth";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-type nameContext = {
+type userData = {
   username: string;
-  email: string;
+  user: User | null | undefined;
+};
+type providerProps = {
+  children: JSX.Element | JSX.Element[];
 };
 
-export const nameContext = createContext<null | nameContext>(null);
+export const UserDataContext = createContext<userData>({
+  user: null,
+  username: "",
+});
 
-export const useNameContext = () => {
-  const [u, loading, error] = useAuthState(FirebaseAuth);
+export const useUserData = () => {
+  const context = useContext(UserDataContext);
+  if (!context) {
+    throw new Error("useUserData must be used within a UserDataProvider");
+  }
+  return context;
+};
 
-  const [user, setUser] = useState<User | null>(u);
+export const UserDataProvider = ({ children }: providerProps) => {
+  const [user, loading] = useAuthState(FirebaseAuth);
+  const [userData, setUserData] = useState<userData>({
+    user: null,
+    username: "",
+  });
+
+  const getAndSetUserData = async (u: User) => {
+    console.log("Setting user data");
+    const { data } = await getUserDataById(u.uid);
+    if (!data) return;
+    setUserData((lu) => ({ ...lu, username: data.username }));
+  };
 
   useEffect(() => {
-    setUser(u);
+    if (user) getAndSetUserData(user);
   }, [user]);
 
-  return { user };
+  const value = {
+    username: userData?.username || "",
+    user,
+  };
+
+  return (
+    <UserDataContext.Provider value={value}>
+      <Navbar />
+      {loading ? <CenterCircularProgress /> : children}
+    </UserDataContext.Provider>
+  );
 };

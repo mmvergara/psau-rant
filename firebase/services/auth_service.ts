@@ -65,7 +65,7 @@ export const addUserUsername = async (user_id: string, username: string) => {
   }
 };
 
-export const getUserUsernameById = async (user_id: string) => {
+export const getUserDataById = async (user_id: string) => {
   try {
     const userRef = await getDoc(doc(FirebaseFirestore, "users", user_id));
     return { errM: null, data: userRef.data() as FirestoreUser };

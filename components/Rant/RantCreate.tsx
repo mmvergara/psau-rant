@@ -1,4 +1,3 @@
-import useAuthStateRouter from "@/utilities/hooks/useAuthStateRouter";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -11,20 +10,21 @@ import { addRant } from "@/firebase/services/rant_services";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import CampaignIcon from "@mui/icons-material/Campaign";
+import { useUserData } from "@/context/useName";
 
 const RantCreate = () => {
-  const { user } = useAuthStateRouter();
+  const { user } = useUserData();
   const [isLoading, setIsLoading] = useState(false);
+  const { username } = useUserData();
 
   const handleSubmitRant = async () => {
-    console.log("rant submitted");
     const { rant_title, rant_content } = formik.values;
     if (!user) return;
     setIsLoading(true);
     const { error } = await addRant({
       rant_title,
       rant_content,
-      rant_author: user.uid,
+      rant_author: username,
     });
     setIsLoading(false);
     if (error) {

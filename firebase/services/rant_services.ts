@@ -3,6 +3,7 @@ import { FirebaseError } from "firebase/app";
 import {
   addDoc,
   collection,
+  collectionGroup,
   deleteDoc,
   doc,
   getDocs,
@@ -47,7 +48,9 @@ export const deleteRant = async (rant_id: string) => {
 
 export const getAllRant = async () => {
   try {
-    const querySnapshot = await getDocs(collection(FirebaseFirestore, "rants"));
+    const querySnapshot = await getDocs(
+      collectionGroup(FirebaseFirestore, "rants")
+    );
     const rants: RantWithId[] = [];
 
     querySnapshot.forEach((doc) => {
@@ -55,6 +58,7 @@ export const getAllRant = async () => {
         rant_id: doc.id,
         ...(doc.data() as RantNoId),
       };
+      console.log(rant);
       rants.push(rant);
     });
 
@@ -66,13 +70,16 @@ export const getAllRant = async () => {
 };
 
 export const handleLikeRant = async (
-  isLiked: boolean,
   rant_id: string,
-  user_id: string
+  isLiked: boolean,
+  user_id: string | undefined
 ) => {
+  if (!user_id) return { error: "User not logged in", data: null };
   if (isLiked) {
+    console.log("delete like");
     return await deleteLikeRant(rant_id, user_id);
   } else {
+    console.log("add like");
     return await addLikeRant(rant_id, user_id);
   }
 };
@@ -82,8 +89,7 @@ export const addLikeRant = async (rant_id: string, user_id: string) => {
     const docRef = await setDoc(
       doc(FirebaseFirestore, "rants", rant_id, "likes", user_id),
       {
-        rant_like_id: user_id,
-        rant_like_author: user_id,
+        rant_like_date: Timestamp.now(),
       }
     );
     return { error: null, data: docRef };

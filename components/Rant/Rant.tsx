@@ -1,15 +1,16 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+
 import { getTimeElapsedString } from "@/utilities/Date";
-import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import { RantWithId } from "@/types/models/rant_types";
+import RantLikeButton from "./RantLikeButton";
 type Props = {
   rantWithId: RantWithId;
 };
 const Rant = ({ rantWithId }: Props) => {
-  const { rant_title, rant_content, rant_author, rant_date } = rantWithId;
+  const { rant_title, rant_content, rant_author, rant_date, rant_id } =
+    rantWithId;
 
   const timeElapsed = getTimeElapsedString(new Date(rant_date.toDate()));
   return (
@@ -62,20 +63,7 @@ const Rant = ({ rantWithId }: Props) => {
               {timeElapsed}
             </Typography>
           </Box>
-
-          <Button
-            color="error"
-            variant="contained"
-            sx={{
-              display: "flex",
-              gap: 1,
-              borderRadius: "20px",
-              px: 0,
-              bgcolor: "#f23c3d",
-            }}
-          >
-            <FavoriteBorderIcon /> 2
-          </Button>
+          <RantLikeButton liked={false} rantId={rant_id} totalLike={5} />
         </Box>
       </Box>
     </Box>

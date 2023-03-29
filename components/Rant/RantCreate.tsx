@@ -10,12 +10,14 @@ import { rantSchema } from "@/utilities/ValidationSchemas";
 import { addRant } from "@/firebase/services/rant_services";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import CampaignIcon from "@mui/icons-material/Campaign";
 
 const RantCreate = () => {
   const { user } = useAuthStateRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmitRant = async () => {
+    console.log("rant submitted");
     const { rant_title, rant_content } = formik.values;
     if (!user) return;
     setIsLoading(true);
@@ -111,7 +113,10 @@ const RantCreate = () => {
             {isLoading ? (
               <CircularProgress color="inherit" size={25} />
             ) : (
-              "Submit Rant 😡"
+              <>
+                Submit Rant
+                <CampaignIcon sx={{ ml: 1 }} />
+              </>
             )}
           </Button>
         </Box>

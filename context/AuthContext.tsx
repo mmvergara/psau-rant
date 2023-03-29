@@ -28,17 +28,22 @@ export const useUserData = () => {
 };
 
 export const UserDataProvider = ({ children }: providerProps) => {
-  const [user, loading] = useAuthState(FirebaseAuth);
+  const [user, authStateLoading] = useAuthState(FirebaseAuth);
   const [userData, setUserData] = useState<userData>({
     user: null,
     username: "",
   });
 
+  const [settingNameLoading, setSettingNameLoading] = useState(true);
+
+  const loading = authStateLoading || settingNameLoading;
+
   const getAndSetUserData = async (u: User) => {
-    console.log("Setting user data");
+    setSettingNameLoading(true);
     const { data } = await getUserDataById(u.uid);
     if (!data) return;
     setUserData((lu) => ({ ...lu, username: data.username }));
+    setSettingNameLoading(false);
   };
 
   useEffect(() => {
@@ -52,7 +57,7 @@ export const UserDataProvider = ({ children }: providerProps) => {
 
   return (
     <UserDataContext.Provider value={value}>
-    <Navbar authIsLoading={loading} />
+      <Navbar authIsLoading={loading} />
       {loading ? <CenterCircularProgress /> : children}
     </UserDataContext.Provider>
   );

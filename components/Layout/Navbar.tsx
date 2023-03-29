@@ -28,9 +28,8 @@ const Navbar = ({ authIsLoading }: Props) => {
 
   const checkUsername = () => {
     // if user is logged in and username is not set, open add username modal
-    console.log(router.pathname);
     if (router.pathname === "/auth/signin") return;
-    if (user && !!username) setOpenAddUsernameModal(true);
+    if (!authIsLoading && user && !username) setOpenAddUsernameModal(true);
   };
 
   useEffect(() => {

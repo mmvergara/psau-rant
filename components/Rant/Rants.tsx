@@ -25,6 +25,7 @@ const Rants = () => {
   return (
     <Container maxWidth="md">
       <Button onClick={() => router.push("/rant/create")}>Create Rant</Button>
+      <Button onClick={() => router.push("/cards/create")}>Create Card Set</Button>
       {rants.map((rant) => (
         <Rant key={rant.rant_id} rantWithId={rant} />
       ))}

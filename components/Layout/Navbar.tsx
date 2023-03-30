@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import AppBar from "@mui/material/AppBar";
 import Menu from "@mui/material/Menu";
 import Box from "@mui/material/Box";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import AddUsernameModal from "./AddUsernameModal";
 import { signOut, UserMetadata } from "firebase/auth";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";

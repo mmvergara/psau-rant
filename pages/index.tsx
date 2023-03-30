@@ -1,5 +1,11 @@
+import Rants from "@/components/Rant/Rants";
+
 function Home() {
-  return <></>;
+  return (
+    <>
+      <Rants />
+    </>
+  );
 }
 
 export default Home;

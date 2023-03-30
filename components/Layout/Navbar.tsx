@@ -1,4 +1,3 @@
-import useAuthStateRouter from "@/utilities/hooks/useAuthStateRouter";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -10,28 +9,28 @@ import Button from "@mui/material/Button";
 import AppBar from "@mui/material/AppBar";
 import Menu from "@mui/material/Menu";
 import Box from "@mui/material/Box";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import AddUsernameModal from "./AddUsernameModal";
-import { signOut } from "firebase/auth";
+import { signOut, UserMetadata } from "firebase/auth";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
 import { toast } from "react-toastify";
+import { userData, useUserData } from "@/context/AuthContext";
+import { useRouter } from "next/router";
+type Props = {
+  authIsLoading: boolean;
+  needToSetUsername: boolean;
+};
 
-const Navbar = () => {
-  const { router, user } = useAuthStateRouter();
-  const path = router.pathname;
-  console.log(path);
+const Navbar = ({ authIsLoading, needToSetUsername }: Props) => {
+  const router = useRouter();
+  const { user } = useUserData();
 
-  const [openAddUsernameModal, setOpenAddUsernameModal] = useState(false);
-  useEffect(() => {
-    if (user && !user.displayName && path !== "/auth/signup") {
-      setOpenAddUsernameModal(true);
-    }
-  }, [user, path]);
+  const openAddUsernameModal =
+    needToSetUsername && router.pathname !== "/auth/signin";
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const open = Boolean(anchorEl);
-
   const handleAccountIconClick = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -73,23 +72,27 @@ const Navbar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             PSAU Rant
           </Typography>
-          {user ? (
-            <IconButton
-              size="large"
-              color="inherit"
-              onClick={handleAccountIconClick}
-            >
-              <AccountCircle />
-            </IconButton>
-          ) : (
-            <Button
-              color="secondary"
-              variant="contained"
-              style={{ fontWeight: 600, color: "primary.main" }}
-              onClick={() => router.push("/auth/signin")}
-            >
-              Login
-            </Button>
+          {!authIsLoading && (
+            <>
+              {user ? (
+                <IconButton
+                  size="large"
+                  color="inherit"
+                  onClick={handleAccountIconClick}
+                >
+                  <AccountCircle />
+                </IconButton>
+              ) : (
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  style={{ fontWeight: 600, color: "primary.main" }}
+                  onClick={() => router.push("/auth/signin")}
+                >
+                  Login
+                </Button>
+              )}
+            </>
           )}
           <Menu
             id="basic-menu"

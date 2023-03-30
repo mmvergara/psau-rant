@@ -1,19 +1,19 @@
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import HomeIcon from "@mui/icons-material/Home";
-import { List, ListItem, Paper } from "@mui/material";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Paper from "@mui/material/Paper";
 import Drawer from "@mui/material/Drawer";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { signOut } from "firebase/auth";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
 import { toast } from "react-toastify";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import useAuthStateRouter from "@/utilities/hooks/useAuthStateRouter";
+import { useUserData } from "@/context/AuthContext";
+import { useRouter } from "next/router";
+
 type Props = {
   drawerOpen: boolean;
   toggleDrawer: () => void;
@@ -25,7 +25,8 @@ type DrawerLinks = {
 };
 
 const NavDrawer = ({ drawerOpen, toggleDrawer }: Props) => {
-  const { router, user } = useAuthStateRouter();
+  const router = useRouter();
+  const { username, user } = useUserData();
   const drawerLinks: DrawerLinks[] = [
     { name: "Home", icon: <HomeIcon htmlColor="#ffffff" />, url: "/" },
     {
@@ -83,12 +84,12 @@ const NavDrawer = ({ drawerOpen, toggleDrawer }: Props) => {
             }}
             align="left"
           >
-            Hiya! {user?.displayName || ""}
+            Hiya! {username}
           </Typography>
           <Typography>{formattedDate}</Typography>
           {drawerLinks.map((link) => {
             return (
-              <ListItem sx={{ padding: 0 }}>
+              <ListItem key={link.name} sx={{ padding: 0 }}>
                 <Button
                   sx={{
                     color: "#ffffff",

@@ -1,5 +1,3 @@
-import { FirebaseAuth } from "@/firebase/Firebase-Client";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { signupSchema } from "@/utilities/ValidationSchemas";
 import { useFormik } from "formik";
 import { useState } from "react";
@@ -10,30 +8,26 @@ import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import useAuthStateRouter from "@/utilities/hooks/useAuthStateRouter";
 import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
+import { signUpFirebaseWithEmailAndPassword } from "@/firebase/services/auth_service";
+import { useUserData } from "@/context/AuthContext";
+import { useRouter } from "next/router";
 
 const SignInPage = () => {
-  const { user, router, loading } = useAuthStateRouter();
+  const { user } = useUserData();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSignUp = async () => {
     setIsLoading(true);
-    const { email, password, username } = formik.values;
-    try {
-      const createdUser = await createUserWithEmailAndPassword(
-        FirebaseAuth,
-        email,
-        password
-      );
-      await updateProfile(createdUser.user, { displayName: username });
-      toast.success("Successfully created account");
-      router.reload();
-      setIsLoading(false);
-    } catch (e) {
-      toast.error("Failed to create account");
-      setIsLoading(false);
+    const { errM } = await signUpFirebaseWithEmailAndPassword(formik.values);
+    setIsLoading(false);
+    if (errM) {
+      toast.error(errM);
+      return;
     }
+    formik.resetForm();
+    toast.success("Successfully signed up");
   };
 
   // Formik ===================
@@ -51,8 +45,6 @@ const SignInPage = () => {
     router.push("/");
     return <></>;
   }
-
-  if (loading) return <CenterCircularProgress />;
 
   return (
     <Container maxWidth="md" sx={{ marginTop: "5vh" }}>

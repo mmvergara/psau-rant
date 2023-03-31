@@ -12,6 +12,7 @@ export const psauTheme = createTheme({
     secondary: {
       main: "#ecd8a4",
       "100": "#E8E8CC",
+      "200": "#FFCC1D",
     },
   },
   components: {

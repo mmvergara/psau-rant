@@ -2,7 +2,6 @@ import { Card } from "@/types/models/card_types";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 
 type Props = {
@@ -31,7 +30,7 @@ const CardCreateBox = ({ CardData, onCardChange, onCardDelete }: Props) => {
         pt: 3,
         bgcolor: "white",
         boxShadow: 3,
-        borderTop: "10px solid green",
+        borderTop: "10px solid #0f5f22",
         borderRadius: 1,
       }}
     >
@@ -44,9 +43,22 @@ const CardCreateBox = ({ CardData, onCardChange, onCardDelete }: Props) => {
         }}
       >
         <Typography>Card #{card_id}</Typography>
-        <Button color="error" onClick={() => onCardDelete(card_id)}>
+        <Box
+          sx={{
+            cursor: "pointer",
+            color: "rgb(244, 67, 54)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 0.5,
+            "&:hover": {
+              backgroundColor: "rgba(0, 0, 0, 0.04)",
+            },
+          }}
+          onClick={() => onCardDelete(card_id)}
+        >
           <CloseIcon />
-        </Button>
+        </Box>
       </Box>
       <TextField
         label="Term"

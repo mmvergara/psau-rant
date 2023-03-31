@@ -1,34 +1,50 @@
-import Card from "@/components/cards/Card";
-import { useState } from "react";
-import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-import { CardExamConfig, CardSet } from "@/types/models/card_types";
-import Fab from "@mui/material/Fab";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import { Typography } from "@mui/material";
-import { getCardSetById } from "@/firebase/services/cards_services";
-import { toast } from "react-toastify";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
 import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
+import Container from "@mui/material/Container";
+import Card from "@/components/cards/Card";
+import Box from "@mui/material/Box";
+import Fab from "@mui/material/Fab";
+import { useEffect, useState } from "react";
+import { CardExamConfig } from "@/types/models/card_types";
+import { getCardSetById } from "@/firebase/services/cards_services";
+import { Typography } from "@mui/material";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import { sortAndDeduplicateDiagnostics } from "typescript";
 
 const CardSetExamPage: React.FC = () => {
   const router = useRouter();
-  const cardset = router.query.cardset;
+  const cardset = router.query.cardset as string;
+  const termFirst = !!router.query.termFirst;
+  const shuffled = !!router.query.shuffled;
+
   const [cardData, setCardData] = useState<Card[]>([]);
+
   const getCardSet = async () => {
     const { data, error } = await getCardSetById(cardset as string);
     if (error) return toast.error(error);
-    if (data) return setCardData(data.card_set_cards);
-    router.push("/");
+    if (data) {
+      let cardSet = data.card_set_cards;
+      if (shuffled) {
+        cardSet.sort(() => Math.random() - 0.5);
+        cardSet = cardSet.map((card, index) => ({
+          ...card,
+          card_id: String(index + 1),
+        }));
+        cardSet.sort((a, b) => +a.card_id - +b.card_id);
+        console.log("shuffled", cardSet);
+      }
+
+      setCardData(cardSet);
+    }
   };
   useEffect(() => {
     getCardSet();
   }, []);
 
   const [config, setConfig] = useState<CardExamConfig>({
-    termFirst: true,
+    termFirst,
     activeCardId: "1",
     actionDirection: "previous",
   });
@@ -44,6 +60,7 @@ const CardSetExamPage: React.FC = () => {
       actionDirection: "next",
     });
   };
+
   const showPreviousCard = () => {
     const nextCardId = cardData.findIndex(
       (card) => card.card_id === config.activeCardId
@@ -112,12 +129,6 @@ const CardSetExamPage: React.FC = () => {
         >
           <KeyboardArrowRightIcon />
         </Fab>
-        {/* <Button variant="contained" sx={{flexGrow:1,borderRadius:0}}onClick={showPreviousCard}>
-          previous card
-        </Button>
-        <Button variant="contained" sx={{flexGrow:1,borderRadius:0}}onClick={showNextCard}>
-          next card
-        </Button> */}
       </Box>
     </Container>
   );

@@ -4,13 +4,9 @@ import { useField } from "formik";
 import { useState } from "react";
 
 const CardSetCreate = () => {
-  
   return (
     <>
-      <TextField
-
-      
-      />
+      <TextField />
     </>
   );
 };

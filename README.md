@@ -20,6 +20,7 @@
 - user's can only unlike if they already like and that they own the like
 
 
-
-### Optimization
-- create useAuthState with username context
+### Fix
+1. undo unlike/like when request failed
+2. flash cards
+3. add keyboard controls on flash cards

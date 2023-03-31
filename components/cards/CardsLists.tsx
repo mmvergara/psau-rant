@@ -6,13 +6,23 @@ import { Box, Paper, Typography } from "@mui/material";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import CenterCircularProgress from "../Layout/CenterCircularProgress";
+import CardPlayModal from "./CardPlayModal";
 
 const CardsList = () => {
   const { user } = useUserData();
+  const [loading, setLoading] = useState<boolean>(true);
   const [cardSets, setCardSets] = useState<CardSet[]>([]);
+  const [activeCardSet, setActiveCardSet] = useState<CardSet | null>(null);
+
+  const handleActiveCardSet = (cardSet: CardSet | null) =>
+    setActiveCardSet(cardSet);
+
   const fetchAllCardSets = async () => {
     if (!user) return;
+    setLoading(true);
     const { data, error } = await getAllCardsByUserId(user.uid);
+    setLoading(false);
     if (error) {
       toast.error(error);
     }
@@ -25,12 +35,21 @@ const CardsList = () => {
   }, []);
 
   return (
-    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
+    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, pb: 8 }}>
+      {activeCardSet && (
+        <CardPlayModal
+          activeCardSet={activeCardSet}
+          handleActiveCardSet={handleActiveCardSet}
+        />
+      )}
+      {loading && <CenterCircularProgress />}
+      {!loading && cardSets.length === 0 && (
+        <Typography>Your created cards will show here</Typography>
+      )}
       {cardSets.map((cardSet) => {
         return (
           <Paper
-            component={Link}
-            href={`/cards/${cardSet.card_set_id}/quiz`}
+            component="button"
             elevation={5}
             variant="outlined"
             sx={{
@@ -42,7 +61,9 @@ const CardsList = () => {
               overflow: "hidden",
               ":hover": { bgcolor: "#d1ffbd", boxShadow: 4 },
               textDecoration: "none",
+              display: "flex",
             }}
+            onClick={() => handleActiveCardSet(cardSet)}
           >
             <Typography>{truncateString(cardSet.card_set_name, 90)}</Typography>
           </Paper>

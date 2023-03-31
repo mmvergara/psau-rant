@@ -17,10 +17,22 @@ const RantLikeButton = ({ liked, totalLike, rantId }: Props) => {
   const [isLiked, setIsLiked] = useState(liked || false);
   const [totalLikes, setTotalLikes] = useState(totalLike || 0);
   const likeHandler = async () => {
-    setIsLiked((o) => !o);
-    setTotalLikes((tl) => (isLiked ? tl - 1 : tl + 1));
+    let liked: boolean = isLiked;
+    let currentTotalLikes: number = totalLikes;
+    setIsLiked((o) => {
+      liked = !o;
+      return liked;
+    });
+    setTotalLikes((tl) => {
+      currentTotalLikes = isLiked ? tl - 1 : tl + 1;
+      return currentTotalLikes;
+    });
     const { error } = await handleLikeRant(rantId, isLiked, user?.uid);
-    if (error) return toast.error(error);
+    if (error) {
+      setIsLiked(!liked);
+      setTotalLikes(liked ? currentTotalLikes - 1 : currentTotalLikes + 1);
+      return toast.error(error);
+    }
   };
 
   return (

@@ -2,6 +2,17 @@ import Card from "@/components/cards/Card";
 import { useState } from "react";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import { CardExamConfig } from "@/types/models/card_types";
+import * as React from "react";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import NavigationIcon from "@mui/icons-material/Navigation";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import { Typography } from "@mui/material";
 
 const CardSetExamPage: React.FC = () => {
   const cardData = [
@@ -42,9 +53,10 @@ const CardSetExamPage: React.FC = () => {
     },
   ];
 
-  const [config, setConfig] = useState({
+  const [config, setConfig] = useState<CardExamConfig>({
     termFirst: true,
     activeCardId: "1",
+    actionDirection: "previous",
   });
 
   const showNextCard = () => {
@@ -52,14 +64,22 @@ const CardSetExamPage: React.FC = () => {
       (card) => card.card_id === config.activeCardId
     );
     if (nextCardId + 1 >= cardData.length) return;
-    setConfig({ ...config, activeCardId: cardData[nextCardId + 1].card_id });
+    setConfig({
+      ...config,
+      activeCardId: cardData[nextCardId + 1].card_id,
+      actionDirection: "next",
+    });
   };
   const showPreviousCard = () => {
     const nextCardId = cardData.findIndex(
       (card) => card.card_id === config.activeCardId
     );
     if (nextCardId - 1 < 0) return;
-    setConfig({ ...config, activeCardId: cardData[nextCardId - 1].card_id });
+    setConfig({
+      ...config,
+      activeCardId: cardData[nextCardId - 1].card_id,
+      actionDirection: "previous",
+    });
   };
 
   return (
@@ -70,13 +90,61 @@ const CardSetExamPage: React.FC = () => {
         alignItems: "center",
         flexDirection: "column",
         pt: 3,
+        overflow: "hidden",
       }}
     >
+      <Typography
+        sx={{
+          fontWeight: 600,
+          color: "primary.main",
+          borderRadius: 1,
+          textAlign: "center",
+          mb: 2,
+        }}
+      >{`${config.activeCardId} / ${cardData.length}`}</Typography>
       {cardData.map((card) => {
         return <Card cardData={card} config={config} />;
       })}
-      <Button onClick={showNextCard}>next card</Button>
-      <Button onClick={showPreviousCard}>previous card</Button>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          gap: 3,
+          mt: 2,
+        }}
+      >
+        <Fab
+          variant="extended"
+          color="primary"
+          aria-label="add"
+          sx={{ width: "150px" }}
+          onClick={showPreviousCard}
+          disabled={config.activeCardId === "1"}
+        >
+          <KeyboardArrowLeftIcon />
+        </Fab>
+
+        <Fab
+          variant="extended"
+          color="primary"
+          aria-label="add"
+          sx={{ width: "150px" }}
+          onClick={showNextCard}
+          disabled={
+            config.activeCardId === cardData[cardData.length - 1].card_id
+          }
+        >
+          <KeyboardArrowRightIcon />
+        </Fab>
+        {/* <Button variant="contained" sx={{flexGrow:1,borderRadius:0}}onClick={showPreviousCard}>
+          previous card
+        </Button>
+        <Button variant="contained" sx={{flexGrow:1,borderRadius:0}}onClick={showNextCard}>
+          next card
+        </Button> */}
+      </Box>
     </Container>
   );
 };

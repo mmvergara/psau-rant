@@ -10,3 +10,10 @@ export type CardSet = {
   card_set_author_id: string;
   card_set_cards: Card[];
 };
+
+
+export type CardExamConfig = {
+  termFirst: boolean;
+  activeCardId: string;
+  actionDirection: "previous" | "next";
+};

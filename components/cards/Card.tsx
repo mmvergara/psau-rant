@@ -9,13 +9,23 @@ type Props = {
 };
 
 function Card({ cardData, config }: Props) {
-  const { card_term, card_definition, card_id } = cardData;
-  const [flipped, setFlipped] = useState(!config.termFirst);
-
+  const { card_term, card_definition } = cardData;
+  const [flipped, setFlipped] = useState(false);
+  useEffect(() => {
+    setFlipped(false);
+  }, [config.activeCardId]);
   const handleClick = () => {
     setFlipped(!flipped);
   };
-  if (config.activeCardId !== cardData.card_id) return <></>;
+
+  const isCurrentCard = config.activeCardId === cardData.card_id;
+
+  if (!isCurrentCard) {
+    return null;
+  }
+
+  const frontContent = config.termFirst ? card_term : card_definition;
+  const backContent = !config.termFirst ? card_term : card_definition;
 
   return (
     <Box
@@ -29,12 +39,12 @@ function Card({ cardData, config }: Props) {
     >
       <Box className="front">
         <Typography sx={{ fontSize: { sm: 16, md: 24 } }}>
-          {card_term}
+          {frontContent}
         </Typography>
       </Box>
       <Box className="back">
         <Typography sx={{ fontSize: { sm: 16, md: 24 } }}>
-          {card_definition}
+          {backContent}
         </Typography>
       </Box>
     </Box>

@@ -1,6 +1,6 @@
 export type Card = {
   card_id: string;
-  cart_term: string;
+  card_term: string;
   card_definition: string;
 };
 
@@ -9,4 +9,11 @@ export type CardSet = {
   card_set_name: string;
   card_set_author_id: string;
   card_set_cards: Card[];
+};
+
+
+export type CardExamConfig = {
+  termFirst: boolean;
+  activeCardId: string;
+  actionDirection: "previous" | "next";
 };

@@ -87,10 +87,8 @@ export const handleLikeRant = async (
 ) => {
   if (!user_id) return { error: "User not logged in", data: null };
   if (isLiked) {
-    console.log("delete like");
     return await deleteLikeRant(rant_id, user_id);
   } else {
-    console.log("add like");
     return await addLikeRant(rant_id, user_id);
   }
 };

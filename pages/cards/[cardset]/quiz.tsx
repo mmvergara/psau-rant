@@ -33,7 +33,6 @@ const CardSetExamPage: React.FC = () => {
           card_id: String(index + 1),
         }));
         cardSet.sort((a, b) => +a.card_id - +b.card_id);
-        console.log("shuffled", cardSet);
       }
 
       setCardData(cardSet);

@@ -34,7 +34,6 @@ const CardPlayModal = ({ activeCardSet, handleActiveCardSet }: Props) => {
     const path = `/cards/${card_set_id}/quiz?${shuffled ? "shuffled=true" : ""}${
       termFirst ? "&termFirst=true" : ""
     }`;
-    console.log(path);
     router.push(path);
   };
   return (

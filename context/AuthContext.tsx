@@ -40,7 +40,6 @@ export const UserDataProvider = ({ children }: providerProps) => {
 
   const loading = authStateLoading || settingNameLoading;
   const getAndSetUserData = async (u: User) => {
-    console.log("getAndSetUserData");
     const { data } = await getUserDataById(u.uid);
     setSettingNameLoading(false);
     if (!data) {

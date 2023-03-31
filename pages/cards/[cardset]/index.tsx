@@ -8,7 +8,6 @@ const CardPreview = () => {
   const cardset = router.query.cardset;
   const getCardSet = async () => {
     const { data, error } = await getCardSetById(cardset as string);
-    console.log(data);
     if(error) {
       toast.error(error);
     }

@@ -21,3 +21,12 @@ export const simplifyFirebaseAuthError = (error: string) => {
       return error;
   }
 };
+
+// if string is longer than 20 characters, truncate it and add ellipsis
+export const truncateString = (s: string, length: number) => {
+  if (s.length > length) {
+    return s.substring(0, length) + "...";
+  } else {
+    return s;
+  }
+};

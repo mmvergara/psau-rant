@@ -8,6 +8,7 @@ import ListItem from "@mui/material/ListItem";
 import Paper from "@mui/material/Paper";
 import Drawer from "@mui/material/Drawer";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import StyleIcon from "@mui/icons-material/Style";
 import { signOut } from "firebase/auth";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
 import { toast } from "react-toastify";
@@ -29,6 +30,11 @@ const NavDrawer = ({ drawerOpen, toggleDrawer }: Props) => {
   const { username, user } = useUserData();
   const drawerLinks: DrawerLinks[] = [
     { name: "Home", icon: <HomeIcon htmlColor="#ffffff" />, url: "/" },
+    {
+      name: "Flip Cards",
+      icon: <StyleIcon htmlColor="#ffffff" />,
+      url: "/cards",
+    },
     {
       name: "Settings",
       icon: <SettingsIcon htmlColor="#ffffff" />,

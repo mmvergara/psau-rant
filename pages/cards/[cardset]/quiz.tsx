@@ -1,56 +1,31 @@
 import Card from "@/components/cards/Card";
 import { useState } from "react";
 import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { CardExamConfig } from "@/types/models/card_types";
+import { CardExamConfig, CardSet } from "@/types/models/card_types";
 import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import NavigationIcon from "@mui/icons-material/Navigation";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { Typography } from "@mui/material";
+import { getCardSetById } from "@/firebase/services/cards_services";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
 
 const CardSetExamPage: React.FC = () => {
-  const cardData = [
-    {
-      card_id: "1",
-      card_term: "React",
-      card_definition: "A JavaScript library for building user interfaces.",
-    },
-    {
-      card_id: "2",
-      card_term: "Node.js",
-      card_definition:
-        "A JavaScript runtime built on Chrome's V8 JavaScript engine.",
-    },
-    {
-      card_id: "3",
-      card_term: "HTML",
-      card_definition:
-        "Hypertext Markup Language is the standard markup language for creating web pages and web applications.",
-    },
-    {
-      card_id: "4",
-      card_term: "CSS",
-      card_definition:
-        "Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in HTML or XML.",
-    },
-    {
-      card_id: "5",
-      card_term: "JavaScript",
-      card_definition:
-        "A high-level, interpreted programming language that conforms to the ECMAScript specification.",
-    },
-    {
-      card_id: "6",
-      card_term: "JSON",
-      card_definition:
-        "JavaScript Object Notation is an open standard format that uses human-readable text to transmit data objects consisting of attribute–value pairs.",
-    },
-  ];
+  const router = useRouter();
+  const cardset = router.query.cardset;
+  const [cardData, setCardData] = useState<Card[]>([]);
+  const getCardSet = async () => {
+    const { data, error } = await getCardSetById(cardset as string);
+    if (error) return toast.error(error);
+    if (data) return setCardData(data.card_set_cards);
+    router.push("/");
+  };
+  useEffect(() => {
+    getCardSet();
+  }, []);
 
   const [config, setConfig] = useState<CardExamConfig>({
     termFirst: true,
@@ -80,7 +55,7 @@ const CardSetExamPage: React.FC = () => {
       actionDirection: "previous",
     });
   };
-
+  if (cardData.length === 0) return <CenterCircularProgress />;
   return (
     <Container
       sx={{

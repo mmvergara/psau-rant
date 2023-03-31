@@ -8,8 +8,15 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { CircularProgress } from "@mui/material";
+import { createCardSet } from "@/firebase/services/cards_services";
+import { useUserData } from "@/context/AuthContext";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 const CardSetCreate = () => {
+  const { user } = useUserData();
+  const router = useRouter();
+  const [cardSetName, setCardSetName] = useState("");
   const [cards, setCards] = useState<Card[]>([
     {
       card_id: "1",
@@ -22,6 +29,26 @@ const CardSetCreate = () => {
       card_definition: "",
     },
   ]);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const handleSubmitCardSet = async () => {
+    if (!user) return;
+    setIsLoading(true);
+    const { data, error } = await createCardSet({
+      card_set_name: cardSetName,
+      card_set_author_id: user.uid,
+      card_set_cards: cards,
+    });
+    setIsLoading(false);
+    if (error) {
+      toast.error(error);
+    }
+    if (data) {
+      console.log({ data });
+      toast.success("Card set created");
+      router.push(`/cards/${data.id}/quiz`);
+    }
+  };
 
   const handleCardChange = (
     card_id: string,
@@ -62,7 +89,6 @@ const CardSetCreate = () => {
     setCards(newCards);
   };
 
-
   const addCardRef = useRef<HTMLButtonElement | null>(null);
   const scrollToBottom = () =>
     addCardRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -90,6 +116,8 @@ const CardSetCreate = () => {
             width: "100%",
             maxWidth: "250px",
           }}
+          value={cardSetName}
+          onChange={(e) => setCardSetName(e.target.value)}
         />{" "}
         <Button
           type="button"
@@ -125,7 +153,7 @@ const CardSetCreate = () => {
       <Button
         ref={addCardRef}
         type="button"
-        onClick={handleAddCard}
+        onClick={handleSubmitCardSet}
         variant="contained"
         sx={{
           width: "200px",
@@ -136,7 +164,7 @@ const CardSetCreate = () => {
         }}
       >
         <AddCircleOutlineIcon sx={{ mr: 1 }} /> Create Card Set
-        <CircularProgress size={24} color="inherit" />
+        {/* <CircularProgress size={24} color="inherit" /> */}
       </Button>
     </Container>
   );

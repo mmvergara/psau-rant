@@ -1,6 +1,13 @@
 import { Card, CardSet } from "@/types/models/card_types";
 import { FirebaseError } from "firebase/app";
-import { addDoc, collection, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+} from "firebase/firestore";
 import { FirebaseFirestore } from "../Firebase-Client";
 
 type createCardSetInfo = {
@@ -52,6 +59,17 @@ export const getCardSetById = async (card_set_id: string) => {
       ...card_set.data(),
     } as CardSet;
     return { error: null, data };
+  } catch (e) {
+    const error = e as FirebaseError;
+    return { error: error.message, data: null };
+  }
+};
+
+export const deleteCardSetById = async (card_set_id: string) => {
+  try {
+    const card_set_ref = doc(FirebaseFirestore, "card_sets", card_set_id);
+    await deleteDoc(card_set_ref);
+    return { error: null, data: "success" };
   } catch (e) {
     const error = e as FirebaseError;
     return { error: error.message, data: null };

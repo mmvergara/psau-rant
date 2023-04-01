@@ -34,10 +34,19 @@ const CardsList = () => {
     fetchAllCardSets();
   }, []);
 
+  const onCardDelete = () => {
+    setCardSets(
+      cardSets.filter(
+        (cardSet) => cardSet.card_set_id !== activeCardSet?.card_set_id
+      )
+    );
+    setActiveCardSet(null);
+  };
   return (
     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, pb: 8 }}>
       {activeCardSet && (
         <CardPlayModal
+          onCardDelete={onCardDelete}
           activeCardSet={activeCardSet}
           handleActiveCardSet={handleActiveCardSet}
         />

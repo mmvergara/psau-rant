@@ -1,10 +1,14 @@
+import { deleteCardSetById } from "@/firebase/services/cards_services";
 import { CardSet } from "@/types/models/card_types";
 import { Modal, Box, Typography, Button, Stack, Divider } from "@mui/material";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 type Props = {
   activeCardSet: CardSet | null;
   handleActiveCardSet: (cardSet: CardSet | null) => void;
+  onCardDelete: () => void;
 };
 const style = {
   position: "absolute" as "absolute",
@@ -19,7 +23,11 @@ const style = {
   outline: "none",
 };
 
-const CardPlayModal = ({ activeCardSet, handleActiveCardSet }: Props) => {
+const CardPlayModal = ({
+  activeCardSet,
+  handleActiveCardSet,
+  onCardDelete,
+}: Props) => {
   if (!activeCardSet) return null;
   const router = useRouter();
   const { card_set_id, card_set_name } = activeCardSet;
@@ -31,10 +39,20 @@ const CardPlayModal = ({ activeCardSet, handleActiveCardSet }: Props) => {
     shuffled: boolean;
     termFirst: boolean;
   }) => {
-    const path = `/cards/${card_set_id}/quiz?${shuffled ? "shuffled=true" : ""}${
-      termFirst ? "&termFirst=true" : ""
-    }`;
+    const path = `/cards/${card_set_id}/quiz?${
+      shuffled ? "shuffled=true" : ""
+    }${termFirst ? "&termFirst=true" : ""}`;
     router.push(path);
+  };
+
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  const handleDeleteCardSet = async () => {
+    setIsDeleting(true);
+    const { error } = await deleteCardSetById(card_set_id);
+    setIsDeleting(false);
+    onCardDelete();
+    if (error) return toast.error(error);
+    toast.success("Card Set Deleted");
   };
   return (
     <Modal open={true} onClose={() => handleActiveCardSet(null)}>
@@ -76,6 +94,23 @@ const CardPlayModal = ({ activeCardSet, handleActiveCardSet }: Props) => {
             }}
           >
             Term First + Shuffled
+          </Button>
+          <Divider />
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => {
+              handleCardPlay({ shuffled: true, termFirst: true });
+            }}
+          >
+            Edit Card Set
+          </Button>
+          <Button
+            variant="outlined"
+            color="error"
+            onClick={handleDeleteCardSet}
+          >
+            {isDeleting ? "Deleting..." : "Delete Card Set"}
           </Button>
         </Stack>
       </Box>

@@ -45,7 +45,7 @@ const CardSetCreate = () => {
     }
     if (data) {
       toast.success("Card set created");
-      router.push(`/cards/${data.id}/quiz`);
+      router.push(`/cards/`);
     }
   };
 

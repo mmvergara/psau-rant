@@ -11,7 +11,6 @@ import { getCardSetById } from "@/firebase/services/cards_services";
 import { Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import { sortAndDeduplicateDiagnostics } from "typescript";
 
 const CardSetExamPage: React.FC = () => {
   const router = useRouter();
@@ -19,29 +18,8 @@ const CardSetExamPage: React.FC = () => {
   const termFirst = !!router.query.termFirst;
   const shuffled = !!router.query.shuffled;
 
+  const [isFetching, setIsFetching] = useState<boolean>(true);
   const [cardData, setCardData] = useState<Card[]>([]);
-
-  const getCardSet = async () => {
-    const { data, error } = await getCardSetById(cardset as string);
-    if (error) return toast.error(error);
-    if (data) {
-      let cardSet = data.card_set_cards;
-      if (shuffled) {
-        cardSet.sort(() => Math.random() - 0.5);
-        cardSet = cardSet.map((card, index) => ({
-          ...card,
-          card_id: String(index + 1),
-        }));
-        cardSet.sort((a, b) => +a.card_id - +b.card_id);
-      }
-
-      setCardData(cardSet);
-    }
-  };
-  useEffect(() => {
-    getCardSet();
-  }, []);
-
   const [config, setConfig] = useState<CardExamConfig>({
     termFirst,
     activeCardId: "1",
@@ -71,7 +49,44 @@ const CardSetExamPage: React.FC = () => {
       actionDirection: "previous",
     });
   };
-  if (cardData.length === 0) return <CenterCircularProgress />;
+
+  const getCardSet = async () => {
+    const { data, error } = await getCardSetById(cardset as string);
+    setIsFetching(false);
+    if (error) return toast.error(error);
+    if (data) {
+      let cardSet = data.card_set_cards;
+      if (shuffled) {
+        cardSet.sort(() => Math.random() - 0.5);
+        cardSet = cardSet.map((card, index) => ({
+          ...card,
+          card_id: String(index + 1),
+        }));
+        cardSet.sort((a, b) => +a.card_id - +b.card_id);
+      }
+      setCardData(cardSet);
+    }
+  };
+
+  useEffect(() => {
+    getCardSet();
+  }, []);
+
+  // Keyboard events
+  const rightArrow = useKeyPress("ArrowRight");
+  const leftArrow = useKeyPress("ArrowLeft");
+  useEffect(() => {
+    if (rightArrow) showNextCard();
+    if (leftArrow) showPreviousCard();
+  }, [rightArrow, leftArrow]);
+
+  // Render
+  if (isFetching) return <CenterCircularProgress />;
+  if (!isFetching && cardData.length === 0) {
+    toast.error("Card set not found");
+    router.push("/");
+  }
+
   return (
     <Container
       sx={{
@@ -134,3 +149,32 @@ const CardSetExamPage: React.FC = () => {
 };
 
 export default CardSetExamPage;
+
+// Hook
+function useKeyPress(targetKey: string) {
+  // State for keeping track of whether key is pressed
+  const [keyPressed, setKeyPressed] = useState<boolean>(false);
+  // If pressed key is our target key then set to true
+  function downHandler({ key }: KeyboardEvent) {
+    if (key === targetKey) {
+      setKeyPressed(true);
+    }
+  }
+  function upHandler({ key }: KeyboardEvent) {
+    if (key === targetKey) {
+      setKeyPressed(false);
+    }
+  }
+
+  // Add event listeners
+  useEffect(() => {
+    window.addEventListener("keydown", downHandler);
+    window.addEventListener("keyup", upHandler);
+    // Remove event listeners on cleanup
+    return () => {
+      window.removeEventListener("keydown", upHandler);
+      window.removeEventListener("keydown", downHandler);
+    };
+  }, []); // Empty array ensures that effect is only run on mount and unmount
+  return keyPressed;
+}

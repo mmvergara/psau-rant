@@ -1,15 +1,15 @@
 import { getAllRant } from "@/firebase/services/rant_services";
 import { RantWithId } from "@/types/models/rant_types";
-import Button from "@mui/material/Button";
+
 import Container from "@mui/material/Container";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Rant from "./Rant";
+import RantControls from "./RantControls";
 
 const Rants = () => {
-  const router = useRouter();
   const [rants, setRants] = useState<RantWithId[]>([]);
+
   const fetchRants = async () => {
     const { error, data } = await getAllRant();
     if (error || !data) {
@@ -24,8 +24,7 @@ const Rants = () => {
   }, []);
   return (
     <Container maxWidth="md">
-      <Button onClick={() => router.push("/rant/create")}>Create Rant</Button>
-      <Button onClick={() => router.push("/cards/create")}>Create Card Set</Button>
+      <RantControls />
       {rants.map((rant) => (
         <Rant key={rant.rant_id} rantWithId={rant} />
       ))}

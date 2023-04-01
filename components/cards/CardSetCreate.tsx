@@ -45,7 +45,7 @@ const CardSetCreate = () => {
     }
     if (data) {
       toast.success("Card set created");
-      router.push(`/cards/`);
+      router.push(`/cards?activeCard=${data.id}`);
     }
   };
 
@@ -162,8 +162,13 @@ const CardSetCreate = () => {
           border: "1px solid #0B4619",
         }}
       >
-        <AddCircleOutlineIcon sx={{ mr: 1 }} /> Create Card Set
-        {/* <CircularProgress size={24} color="inherit" /> */}
+        {isLoading ? (
+          <>
+            <AddCircleOutlineIcon sx={{ mr: 1 }} /> Create Card Set
+          </>
+        ) : (
+          <CircularProgress size={24} color="inherit" />
+        )}
       </Button>
     </Container>
   );

@@ -4,12 +4,15 @@ import { CardSet } from "@/types/models/card_types";
 import { truncateString } from "@/utilities/StringFormatter";
 import { Box, Paper, Typography } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import CenterCircularProgress from "../Layout/CenterCircularProgress";
 import CardPlayModal from "./CardPlayModal";
 
 const CardsList = () => {
+  const router = useRouter();
+  const { activeCard } = router.query;
   const { user } = useUserData();
   const [loading, setLoading] = useState<boolean>(true);
   const [cardSets, setCardSets] = useState<CardSet[]>([]);
@@ -24,10 +27,13 @@ const CardsList = () => {
     const { data, error } = await getAllCardsByUserId(user.uid);
     setLoading(false);
     if (error) {
-      toast.error(error);
+      return toast.error(error);
     }
     if (data) {
       setCardSets(data);
+      setActiveCardSet(
+        data.find((cardSet) => cardSet.card_set_id === activeCard || "") || null
+      );
     }
   };
   useEffect(() => {

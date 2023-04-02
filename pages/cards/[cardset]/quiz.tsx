@@ -106,7 +106,6 @@ const CardSetExamPage: React.FC = () => {
     setIsFetching(true);
     let newCardSet = cardSet;
     if (filterdCards) {
-      console.log("filterdCards", filterdCards);
       newCardSet = newCardSet.filter((card) =>
         filterdCards.includes(card.card_id)
       );

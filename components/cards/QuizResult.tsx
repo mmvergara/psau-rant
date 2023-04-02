@@ -71,7 +71,7 @@ const QuizResult = ({
       <Button
         sx={{ my: 1 }}
         variant="contained"
-        onClick={() => onResetCards(iKnowCardsId, isShuffled)}
+        onClick={() => onResetCards(null, isShuffled)}
       >
         All Cards
       </Button>

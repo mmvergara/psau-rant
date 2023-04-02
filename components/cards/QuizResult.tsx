@@ -15,7 +15,7 @@ const QuizResult = ({
   shuffled,
 }: Props) => {
   return (
-    <Box>
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
       <Button onClick={() => onResetCards(null, shuffled)}>Replay Cards</Button>
       <Button onClick={() => onResetCards(isStillLearningCardsId, true)}>
         Replay "Still Learning" Cards

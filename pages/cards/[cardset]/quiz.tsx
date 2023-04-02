@@ -1,23 +1,18 @@
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
+import QuizControls from "@/components/cards/QuizControls";
+import useKeyPress from "@/utilities/hooks/useKeyPress";
+import QuizResult from "@/components/cards/QuizResult";
 import Container from "@mui/material/Container";
 import Card from "@/components/cards/Card";
-import Box from "@mui/material/Box";
 import { useEffect, useState } from "react";
 import { CardExamConfig } from "@/types/models/card_types";
 import { getCardSetById } from "@/firebase/services/cards_services";
 import { Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import Button from "@mui/material/Button";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import useKeyPress from "@/utilities/hooks/useKeyPress";
 
 const CardSetExamPage: React.FC = () => {
   const router = useRouter();
-  const isMobile = useMediaQuery("(max-width: 600px");
 
   const cardsetid = router.query.cardset as string;
   const termFirst = !!router.query.termFirst;
@@ -47,12 +42,15 @@ const CardSetExamPage: React.FC = () => {
       ]);
     }
 
+    setLastCardId(config.activeCardId);
+
     // if it's the last card, show the result
     if (nextCardId + 1 >= cardSet.length) {
-      setEnded
+      setEnded(true);
       return;
     }
 
+    // show the next card
     setConfig({
       ...config,
       activeCardId: cardSet[nextCardId + 1].card_id,
@@ -65,6 +63,10 @@ const CardSetExamPage: React.FC = () => {
       (card) => card.card_id === config.activeCardId
     );
     if (nextCardId - 1 < 0) return;
+
+    setIsStillLearningCardsId((p) => p.filter((id) => id !== lastCardId));
+    setIKnowCardsId((p) => p.filter((id) => id !== lastCardId));
+
     setConfig({
       ...config,
       activeCardId: cardSet[nextCardId - 1].card_id,
@@ -92,6 +94,7 @@ const CardSetExamPage: React.FC = () => {
 
   // Card Reset Functions
   const [ended, setEnded] = useState<boolean>(false);
+  const [lastCardId, setLastCardId] = useState<string | null>(null);
   const [iKnowCardsId, setIKnowCardsId] = useState<string[]>([]);
   const [isStillLearningCardsId, setIsStillLearningCardsId] = useState<
     string[]
@@ -123,7 +126,10 @@ const CardSetExamPage: React.FC = () => {
       activeCardId: "1",
       actionDirection: "previous",
     });
+    setIsStillLearningCardsId([]);
+    setIKnowCardsId([]);
     setIsFetching(false);
+    setEnded(false);
   };
   // Card Reset Functions
 
@@ -147,63 +153,46 @@ const CardSetExamPage: React.FC = () => {
   }
 
   return (
-    <Container
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        pt: 3,
-        overflow: "hidden",
-      }}
-    >
-      <Typography
-        sx={{
-          fontWeight: 600,
-          color: "primary.main",
-          borderRadius: 1,
-          textAlign: "center",
-          mb: 2,
-        }}
-      >{`${config.activeCardId} / ${cardSet.length}`}</Typography>
-      {cardSet.map((card) => {
-        return <Card cardData={card} config={config} />;
-      })}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-around",
-          alignItems: "center",
-          width: isMobile ? "100%" : "60%",
-          mt: 2,
-        }}
-      >
-        <ButtonGroup disableElevation variant="contained">
-          <Button
-            sx={{ py: 2, borderRadius: 8 }}
-            onClick={() => showPreviousCard()}
-          >
-            <KeyboardArrowLeftIcon sx={{ mr: isMobile ? 0 : 0.5 }} />
-            {!isMobile && "Back"}
-          </Button>
-        </ButtonGroup>
-        <ButtonGroup disableElevation variant="contained">
-          <Button
-            sx={{ py: 2, borderRadius: 10 }}
-            onClick={() => showNextCard("StillLearning")}
-          >
-            Still Learning
-          </Button>
-          <Button
-            sx={{ py: 2, borderRadius: 10 }}
-            onClick={() => showNextCard("Know")}
-          >
-            I know <KeyboardArrowRightIcon />
-          </Button>
-        </ButtonGroup>
-      </Box>
+    <Container sx={containerStyles}>
+      {ended ? (
+        <QuizResult
+          iKnowCardsId={iKnowCardsId}
+          isStillLearningCardsId={isStillLearningCardsId}
+          onResetCards={handleResetCards}
+          shuffled={shuffled}
+        />
+      ) : (
+        <>
+          <Typography
+            sx={quizCountStyles}
+          >{`${config.activeCardId} / ${cardSet.length}`}</Typography>
+          {cardSet.map((card) => {
+            return <Card cardData={card} config={config} />;
+          })}
+          <QuizControls
+            showNextCard={showNextCard}
+            showPreviousCard={showPreviousCard}
+          />
+        </>
+      )}
     </Container>
   );
 };
 
 export default CardSetExamPage;
+
+const containerStyles = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  flexDirection: "column",
+  pt: 3,
+  overflow: "hidden",
+};
+const quizCountStyles = {
+  fontWeight: 600,
+  color: "primary.main",
+  borderRadius: 1,
+  textAlign: "center",
+  mb: 2,
+};

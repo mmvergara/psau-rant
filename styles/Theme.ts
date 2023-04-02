@@ -21,5 +21,10 @@ export const psauTheme = createTheme({
         root: { textTransform: "none" },
       },
     },
+    MuiFab: {
+      styleOverrides: {
+        root: { textTransform: "none" },
+      },
+    },
   },
 });

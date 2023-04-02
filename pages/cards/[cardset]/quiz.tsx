@@ -149,7 +149,7 @@ const CardSetExamPage: React.FC = () => {
   if (isFetching) return <CenterCircularProgress />;
   if (!isFetching && cardSet.length === 0) {
     toast.error("Card set not found");
-    router.push("/");
+    router.push("/cards");
   }
 
   return (

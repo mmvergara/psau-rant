@@ -21,6 +21,11 @@
 
 
 ### Fix
-1. undo unlike/like when request failed
 2. flash cards
-3. add keyboard controls on flash cards
+
+### features
+
+Flash cards
+- Options for Shuffled/TermFirst/DefinitionFirst
+- Clicking "I know" or "Still learning" will seperate the cards so in the end you can choose to replay cards with options to only replay "I know" or "Still Learning" cards ( All cards also is available)
+- Dipa final Back and Next flash cards control UI but needs your currrent opinion about the design

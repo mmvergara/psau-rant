@@ -9,13 +9,15 @@ import Button from "@mui/material/Button";
 import AppBar from "@mui/material/AppBar";
 import Menu from "@mui/material/Menu";
 import Box from "@mui/material/Box";
-import {  useState } from "react";
+import { useState } from "react";
 import AddUsernameModal from "./AddUsernameModal";
-import { signOut, UserMetadata } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
 import { toast } from "react-toastify";
-import { userData, useUserData } from "@/context/AuthContext";
+import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
+import { alertTitleClasses } from "@mui/material";
+
 type Props = {
   authIsLoading: boolean;
   needToSetUsername: boolean;
@@ -52,7 +54,7 @@ const Navbar = ({ authIsLoading, needToSetUsername }: Props) => {
       toast.error("Sign Out Failed");
     }
   };
-
+  alert("DIPA TAPOS WAIT LANG KASE");
   return (
     <Box sx={{ flexGrow: 1 }}>
       {openAddUsernameModal && <AddUsernameModal />}

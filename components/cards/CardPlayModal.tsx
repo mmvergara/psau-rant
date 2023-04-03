@@ -4,6 +4,7 @@ import { Modal, Box, Typography, Button, Stack, Divider } from "@mui/material";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import CardExportModal from "./CardExportModal";
 
 type Props = {
   activeCardSet: CardSet | null;
@@ -54,9 +55,25 @@ const CardPlayModal = ({
     if (error) return toast.error(error);
     toast.success("Card Set Deleted");
   };
+
+  const [CardExportModalOpen, setCardExportModalOpen] =
+    useState<boolean>(false);
+
+  const cardsText = activeCardSet.card_set_cards
+    .map((card) => {
+      return `${card.card_term}\n${card.card_definition}\n\n`;
+    })
+    .join("\n");
+
   return (
     <Modal open={true} onClose={() => handleActiveCardSet(null)}>
       <Box sx={style}>
+        <CardExportModal
+          TextValue={cardsText}
+          open={CardExportModalOpen}
+          onClose={() => setCardExportModalOpen(false)}
+          children={<></>}
+        />
         <Typography mb={2} fontSize={20}>
           Card Set : {card_set_name}
         </Typography>
@@ -97,13 +114,20 @@ const CardPlayModal = ({
           </Button>
           <Divider />
           <Button
-            variant="outlined"
-            color="primary"
+            variant="contained"
+            color="success"
             onClick={() => {
               handleCardPlay({ shuffled: true, termFirst: true });
             }}
           >
             Edit Card Set
+          </Button>{" "}
+          <Button
+            variant="contained"
+            color="info"
+            onClick={() => setCardExportModalOpen(true)}
+          >
+            Export Cards
           </Button>
           <Button
             variant="outlined"

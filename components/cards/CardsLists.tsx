@@ -3,13 +3,11 @@ import { getAllCardsByUserId } from "@/firebase/services/cards_services";
 import { CardSet } from "@/types/models/card_types";
 import { truncateString } from "@/utilities/StringFormatter";
 import { Box, Paper, Typography } from "@mui/material";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import CenterCircularProgress from "../Layout/CenterCircularProgress";
 import CardPlayModal from "./CardPlayModal";
-
 const CardsList = () => {
   const router = useRouter();
   const { activeCard } = router.query;

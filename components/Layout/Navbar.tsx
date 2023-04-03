@@ -16,7 +16,6 @@ import { FirebaseAuth } from "@/firebase/Firebase-Client";
 import { toast } from "react-toastify";
 import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
-import { alertTitleClasses } from "@mui/material";
 
 type Props = {
   authIsLoading: boolean;
@@ -54,7 +53,7 @@ const Navbar = ({ authIsLoading, needToSetUsername }: Props) => {
       toast.error("Sign Out Failed");
     }
   };
-  alert("DIPA TAPOS WAIT LANG KASE");
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       {openAddUsernameModal && <AddUsernameModal />}

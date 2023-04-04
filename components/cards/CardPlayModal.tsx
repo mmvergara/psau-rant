@@ -40,7 +40,7 @@ const CardPlayModal = ({
     shuffled: boolean;
     termFirst: boolean;
   }) => {
-    const path = `/cards/${card_set_id}/quiz?${
+    const path = `/cards/${card_set_id}/flashcards?${
       shuffled ? "shuffled=true" : ""
     }${termFirst ? "&termFirst=true" : ""}`;
     router.push(path);

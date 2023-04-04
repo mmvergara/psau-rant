@@ -9,7 +9,7 @@ type Props = {
   showNextCard: (quiz: "StillLearning" | "Know") => void;
   showPreviousCard: () => void;
 };
-const QuizControls = ({ showNextCard, showPreviousCard }: Props) => {
+const FlashCardsControls = ({ showNextCard, showPreviousCard }: Props) => {
   const isMobile = useMediaQuery("(max-width: 600px");
 
   return (
@@ -49,4 +49,4 @@ const QuizControls = ({ showNextCard, showPreviousCard }: Props) => {
   );
 };
 
-export default QuizControls;
+export default FlashCardsControls;

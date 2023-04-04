@@ -1,20 +1,20 @@
 import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
-import QuizControls from "@/components/Cards/QuizControls";
+import FlashCardsControls from "@/components/Cards/FlashCards/FlashCardsControls";
 import useKeyPress from "@/utilities/hooks/useKeyPress";
-import QuizResult from "@/components/Cards/QuizResult";
+import QuizResult from "@/components/Cards/FlashCards/FlashCardsResults";
 import Container from "@mui/material/Container";
-import Card from "@/components/Cards/Card";
+import FlashCard from "@/components/Cards/FlashCards/FlashCard";
 import { useEffect, useState } from "react";
-import { CardExamConfig } from "@/types/models/card_types";
+import { Card, CardExamConfig } from "@/types/models/card_types";
 import { getCardSetById } from "@/firebase/services/cards_services";
 import { Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
-const CardSetExamPage: React.FC = () => {
+const CardSetFlashCards = () => {
   const router = useRouter();
 
-  const cardsetid = router.query.cardset as string;
+  const cardsetid = router.query.cardsetid as string;
   const termFirst = !!router.query.termFirst;
   const shuffled = !!router.query.shuffled;
 
@@ -45,10 +45,7 @@ const CardSetExamPage: React.FC = () => {
     setLastCardId(config.activeCardId);
 
     // if it's the last card, show the result
-    if (nextCardId + 1 >= cardSet.length) {
-      setEnded(true);
-      return;
-    }
+    if (nextCardId + 1 >= cardSet.length) return setEnded(true);
 
     // show the next card
     setConfig({
@@ -166,9 +163,9 @@ const CardSetExamPage: React.FC = () => {
             sx={quizCountStyles}
           >{`${config.activeCardId} / ${cardSet.length}`}</Typography>
           {cardSet.map((card) => {
-            return <Card cardData={card} config={config} />;
+            return <FlashCard cardData={card} config={config} />;
           })}
-          <QuizControls
+          <FlashCardsControls
             showNextCard={showNextCard}
             showPreviousCard={showPreviousCard}
           />
@@ -178,7 +175,7 @@ const CardSetExamPage: React.FC = () => {
   );
 };
 
-export default CardSetExamPage;
+export default CardSetFlashCards;
 
 const containerStyles = {
   display: "flex",

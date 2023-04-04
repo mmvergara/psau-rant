@@ -1,7 +1,3 @@
-import CardSetCreate from "@/components/Cards/CardSetCreate";
-
-const CreateCardSetPage = () => {
-  return <CardSetCreate />;
-};
-
+import CardSetCreate from "@/components/Cards/Create/CardSetCreate";
+const CreateCardSetPage = () => <CardSetCreate />;
 export default CreateCardSetPage;

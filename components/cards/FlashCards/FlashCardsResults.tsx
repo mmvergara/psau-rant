@@ -17,7 +17,7 @@ type Props = {
   onResetCards: (id: string[] | null, shuffle: boolean) => void;
 };
 
-const QuizResult = ({
+const FlashCardsResults = ({
   onResetCards,
   iKnowCardsId,
   isStillLearningCardsId,
@@ -88,4 +88,4 @@ const QuizResult = ({
   );
 };
 
-export default QuizResult;
+export default FlashCardsResults;

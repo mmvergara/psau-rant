@@ -162,7 +162,7 @@ const CardSetCreate = () => {
           border: "1px solid #0B4619",
         }}
       >
-        {isLoading ? (
+        {!isLoading ? (
           <>
             <AddCircleOutlineIcon sx={{ mr: 1 }} /> Create Card Set
           </>

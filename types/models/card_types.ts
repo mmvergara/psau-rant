@@ -11,7 +11,6 @@ export type CardSet = {
   card_set_cards: Card[];
 };
 
-
 export type CardExamConfig = {
   termFirst: boolean;
   activeCardId: string;

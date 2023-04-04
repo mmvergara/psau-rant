@@ -11,15 +11,13 @@ import { Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
-const CardSetFlashCards = () => {
+const FlashCardsSet = () => {
   const router = useRouter();
-
   const cardsetid = router.query.cardsetid as string;
   const termFirst = !!router.query.termFirst;
   const shuffled = !!router.query.shuffled;
 
   const [isFetching, setIsFetching] = useState<boolean>(true);
-
   const [cardSet, setCardSet] = useState<Card[]>([]);
   const [config, setConfig] = useState<CardExamConfig>({
     termFirst,
@@ -54,7 +52,6 @@ const CardSetFlashCards = () => {
       actionDirection: "next",
     });
   };
-
   const showPreviousCard = () => {
     const nextCardId = cardSet.findIndex(
       (card) => card.card_id === config.activeCardId
@@ -70,7 +67,6 @@ const CardSetFlashCards = () => {
       actionDirection: "previous",
     });
   };
-
   const getCardSet = async () => {
     const { data, error } = await getCardSetById(cardsetid as string);
     setIsFetching(false);
@@ -96,6 +92,7 @@ const CardSetFlashCards = () => {
   const [isStillLearningCardsId, setIsStillLearningCardsId] = useState<
     string[]
   >([]);
+
   const handleResetCards = (
     filterdCards: string[] | null,
     shuffled: boolean
@@ -149,19 +146,37 @@ const CardSetFlashCards = () => {
   }
 
   return (
-    <Container sx={containerStyles}>
-      {ended ? (
+    <Container
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        pt: 3,
+        overflow: "hidden",
+      }}
+    >
+      {ended && (
         <QuizResult
           iKnowCardsId={iKnowCardsId}
           isStillLearningCardsId={isStillLearningCardsId}
           onResetCards={handleResetCards}
           shuffled={shuffled}
         />
-      ) : (
+      )}
+      {!ended && (
         <>
           <Typography
-            sx={quizCountStyles}
-          >{`${config.activeCardId} / ${cardSet.length}`}</Typography>
+            sx={{
+              fontWeight: 600,
+              color: "primary.main",
+              borderRadius: 1,
+              textAlign: "center",
+              mb: 2,
+            }}
+          >
+            {`${config.activeCardId} / ${cardSet.length}`}
+          </Typography>
           {cardSet.map((card) => {
             return <FlashCard cardData={card} config={config} />;
           })}
@@ -175,20 +190,4 @@ const CardSetFlashCards = () => {
   );
 };
 
-export default CardSetFlashCards;
-
-const containerStyles = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  flexDirection: "column",
-  pt: 3,
-  overflow: "hidden",
-};
-const quizCountStyles = {
-  fontWeight: 600,
-  color: "primary.main",
-  borderRadius: 1,
-  textAlign: "center",
-  mb: 2,
-};
+export default FlashCardsSet;

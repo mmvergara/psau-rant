@@ -40,26 +40,20 @@ const CardSetCreate = () => {
       card_set_cards: cards,
     });
     setIsLoading(false);
-    if (error) {
-      toast.error(error);
-    }
+    if (error) toast.error(error);
     if (data) {
       toast.success("Card set created");
       router.push(`/cards?activeCard=${data.id}`);
     }
   };
-
   const handleCardChange = (
     card_id: string,
     { fieldType, value }: { fieldType: "Term" | "Definition"; value: string }
   ) => {
     const newCards = cards.map((card) => {
       if (card.card_id === card_id) {
-        if (fieldType === "Term") {
-          card.card_term = value;
-        } else if (fieldType === "Definition") {
-          card.card_definition = value;
-        }
+        if (fieldType === "Term") card.card_term = value;
+        if (fieldType === "Definition") card.card_definition = value;
       }
       return card;
     });

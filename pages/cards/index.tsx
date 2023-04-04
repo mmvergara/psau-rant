@@ -1,4 +1,4 @@
-import CardsList from "@/components/cards/CardsLists";
+import CardsList from "@/components/Cards/CardsLists";
 import { truncateString } from "@/utilities/StringFormatter";
 import {
   Box,

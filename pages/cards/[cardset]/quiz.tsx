@@ -1,9 +1,9 @@
 import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
-import QuizControls from "@/components/cards/QuizControls";
+import QuizControls from "@/components/Cards/QuizControls";
 import useKeyPress from "@/utilities/hooks/useKeyPress";
-import QuizResult from "@/components/cards/QuizResult";
+import QuizResult from "@/components/Cards/QuizResult";
 import Container from "@mui/material/Container";
-import Card from "@/components/cards/Card";
+import Card from "@/components/Cards/Card";
 import { useEffect, useState } from "react";
 import { CardExamConfig } from "@/types/models/card_types";
 import { getCardSetById } from "@/firebase/services/cards_services";

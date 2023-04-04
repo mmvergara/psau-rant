@@ -15,8 +15,18 @@ type createCardSetInfo = {
   card_set_author_id: string;
   card_set_cards: Card[];
 };
+
 export const createCardSet = async (card_set: createCardSetInfo) => {
   try {
+    if (!card_set.card_set_name) throw new Error("Card set name is required");
+    for (let i = 0; i < card_set.card_set_cards.length; i++) {
+      const card = card_set.card_set_cards[i];
+      if (!card.card_term)
+        throw new Error(`Card #${card.card_id} - Card Term is required`);
+      if (!card.card_definition)
+        throw new Error(`Card #${card.card_id} - Card Definition is required`);
+    }
+
     const card_set_ref = collection(FirebaseFirestore, "card_sets");
     const addCardSet = await addDoc(card_set_ref, card_set);
     return { error: null, data: addCardSet };

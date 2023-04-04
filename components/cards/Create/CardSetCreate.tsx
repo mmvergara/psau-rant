@@ -14,8 +14,9 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
 const CardSetCreate = () => {
-  const { user } = useUserData();
   const router = useRouter();
+  const { user } = useUserData();
+  const [isLoading, setIsLoading] = useState(false);
   const [cardSetName, setCardSetName] = useState("");
   const [cards, setCards] = useState<Card[]>([
     {
@@ -29,8 +30,6 @@ const CardSetCreate = () => {
       card_definition: "",
     },
   ]);
-
-  const [isLoading, setIsLoading] = useState(false);
   const handleSubmitCardSet = async () => {
     if (!user) return;
     setIsLoading(true);

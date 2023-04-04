@@ -99,19 +99,22 @@ const FlashCardsSet = () => {
   ) => {
     setIsFetching(true);
     let newCardSet = cardSet;
+
+    // filter the cards
     if (filterdCards) {
       newCardSet = newCardSet.filter((card) =>
         filterdCards.includes(card.card_id)
       );
     }
-    if (shuffled) {
-      newCardSet.sort(() => Math.random() - 0.5);
-      newCardSet = newCardSet.map((card, index) => ({
-        ...card,
-        card_id: String(index + 1),
-      }));
-      newCardSet.sort((a, b) => +a.card_id - +b.card_id);
-    }
+
+    // shuffle the cards
+    if (shuffled) newCardSet.sort(() => Math.random() - 0.5);
+
+    // set the card ids
+    newCardSet = newCardSet.map((card, index) => ({
+      ...card,
+      card_id: String(index + 1),
+    }));
 
     setCardSet(newCardSet);
     setConfig({
@@ -144,7 +147,7 @@ const FlashCardsSet = () => {
     toast.error("Card set not found");
     router.push("/cards");
   }
-
+  console.log(cardSet);
   return (
     <Container
       sx={{

@@ -1,15 +1,15 @@
 import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
-import FlashCardsControls from "@/components/Cards/FlashCards/FlashCardsControls";
 import useKeyPress from "@/utilities/hooks/useKeyPress";
-import QuizResult from "@/components/Cards/FlashCards/FlashCardsResults";
 import Container from "@mui/material/Container";
-import FlashCard from "@/components/Cards/FlashCards/FlashCard";
 import { useEffect, useState } from "react";
 import { Card, CardExamConfig } from "@/types/models/card_types";
 import { getCardSetById } from "@/firebase/services/cards_services";
 import { Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import FlashCard from "./FlashCard";
+import FlashCardsControls from "./FlashCardsControls";
+import FlashCardsResults from "./FlashCardsResults";
 
 const FlashCardsSet = () => {
   const router = useRouter();
@@ -160,7 +160,7 @@ const FlashCardsSet = () => {
       }}
     >
       {ended && (
-        <QuizResult
+        <FlashCardsResults
           iKnowCardsId={iKnowCardsId}
           isStillLearningCardsId={isStillLearningCardsId}
           onResetCards={handleResetCards}

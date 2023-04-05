@@ -11,18 +11,13 @@ type Props = {
 function FlashCard({ cardData, config }: Props) {
   const { card_term, card_definition } = cardData;
   const [flipped, setFlipped] = useState(false);
+  
   useEffect(() => {
     setFlipped(false);
   }, [config.activeCardId]);
-  const handleClick = () => {
-    setFlipped(!flipped);
-  };
 
   const isCurrentCard = config.activeCardId === cardData.card_id;
-
-  if (!isCurrentCard) {
-    return null;
-  }
+  if (!isCurrentCard) return null;
 
   const frontContent = config.termFirst ? card_term : card_definition;
   const backContent = !config.termFirst ? card_term : card_definition;
@@ -35,7 +30,7 @@ function FlashCard({ cardData, config }: Props) {
           : "animateCardOnMountFromLeft"
       } ${flipped ? "flipped" : ""}`}
       sx={{ cursor: "pointer" }}
-      onClick={handleClick}
+      onClick={() => setFlipped(!flipped)}
     >
       <Box className="front">
         <Typography sx={{ fontSize: { sm: 16, md: 24 } }}>

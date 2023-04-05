@@ -1,3 +1,4 @@
+import AddUsernameModal from "./AddUsernameModal";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -8,9 +9,9 @@ import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import AppBar from "@mui/material/AppBar";
 import Menu from "@mui/material/Menu";
+import Link from "next/link";
 import Box from "@mui/material/Box";
 import { useState } from "react";
-import AddUsernameModal from "./AddUsernameModal";
 import { signOut } from "firebase/auth";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
 import { toast } from "react-toastify";
@@ -70,8 +71,17 @@ const Navbar = ({ authIsLoading, needToSetUsername }: Props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            PSAU Rant
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+            <Link
+              href="/"
+              style={{
+                flexGrow: 1,
+                textDecoration: "none",
+                color: "white",
+              }}
+            >
+              PSAU Rant
+            </Link>
           </Typography>
           {!authIsLoading && (
             <>

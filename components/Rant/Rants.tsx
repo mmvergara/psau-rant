@@ -4,7 +4,7 @@ import { RantWithId } from "@/types/models/rant_types";
 import Container from "@mui/material/Container";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Rant from "./Rant";
+import Rant from "./RantPiece";
 import RantControls from "./RantControls";
 
 const Rants = () => {
@@ -12,10 +12,7 @@ const Rants = () => {
 
   const fetchRants = async () => {
     const { error, data } = await getAllRant();
-    if (error || !data) {
-      toast.error(error);
-      return;
-    }
+    if (error || !data) return toast.error(error);
     setRants(data);
   };
 

@@ -1,3 +1,3 @@
-import CardsDashboard from "@/components/Cards/CardsDashboard";
+import CardsDashboard from "@/components/cards/CardsDashboard";
 const CardsPage = () => <CardsDashboard />;
 export default CardsPage;

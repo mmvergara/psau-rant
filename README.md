@@ -10,6 +10,8 @@
 
 - users can only write on user's collection on document that they own
 
+### Flashcards
+
 ### Rant
 
 - user's can only delete posts that they own
@@ -18,10 +20,6 @@
 - user's can only unlike if they already like and that they own the like
 
 ### Fix
-
-1. I know and still learning cards bug
-
-- Dark mode on quiz page on flip cards
 
 ### features
 
@@ -34,11 +32,8 @@ Flash cards
 ### features to add
 
 Warning that all flashcards are public,
-
 - view profile with their posts
 - view profile with their flashcards
--
-
 show tutorial when user first enter quiz
 
 question: definition

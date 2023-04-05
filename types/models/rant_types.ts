@@ -5,7 +5,7 @@ export type RantNoId = {
   rant_content: string;
   rant_author_username: string;
   rant_author_id: string;
-  rant_likes: string[];
+  rant_likes: { [key: string]: boolean };
   rant_date: Timestamp;
 };
 
@@ -15,7 +15,7 @@ export type RantWithId = {
   rant_content: string;
   rant_author_username: string;
   rant_author_id: string;
-  rant_likes: string[];
+  rant_likes: { [key: string]: boolean };
   rant_date: Timestamp;
 };
 

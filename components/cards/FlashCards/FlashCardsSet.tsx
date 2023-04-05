@@ -81,8 +81,9 @@ const FlashCardsSet = () => {
         }));
         cardSet.sort((a, b) => +a.card_id - +b.card_id);
       }
-      setCardSet(cardSet);
+      return setCardSet(cardSet);
     }
+    router.push("/cards");
   };
 
   // Card Reset Functions

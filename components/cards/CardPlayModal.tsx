@@ -1,6 +1,17 @@
 import { deleteCardSetById } from "@/firebase/services/cards_services";
 import { CardSet } from "@/types/models/card_types";
-import { Modal, Box, Typography, Button, Stack, Divider } from "@mui/material";
+import {
+  Modal,
+  Box,
+  Typography,
+  Button,
+  ButtonGroup,
+  Stack,
+  Divider,
+  Switch,
+  FormGroup,
+  FormControlLabel,
+} from "@mui/material";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -10,18 +21,6 @@ type Props = {
   activeCardSet: CardSet | null;
   handleActiveCardSet: (cardSet: CardSet | null) => void;
   onCardDelete: () => void;
-};
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "100%",
-  maxWidth: "400px",
-  bgcolor: "secondary.main",
-  boxShadow: 24,
-  p: 4,
-  outline: "none",
 };
 
 const CardPlayModal = ({
@@ -33,20 +32,15 @@ const CardPlayModal = ({
   const router = useRouter();
   const { card_set_id, card_set_name } = activeCardSet;
 
-  const handleCardPlay = ({
-    shuffled,
-    termFirst,
-  }: {
-    shuffled: boolean;
-    termFirst: boolean;
-  }) => {
+  const [shuffled, setShuffled] = useState(true);
+  const handleCardPlay = (termFirst: boolean) => {
     const path = `/cards/${card_set_id}/flashcards?${
       shuffled ? "shuffled=true" : ""
     }${termFirst ? "&termFirst=true" : ""}`;
     router.push(path);
   };
 
-  const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const handleDeleteCardSet = async () => {
     setIsDeleting(true);
     const { error } = await deleteCardSetById(card_set_id);
@@ -56,8 +50,7 @@ const CardPlayModal = ({
     toast.success("Card Set Deleted");
   };
 
-  const [CardExportModalOpen, setCardExportModalOpen] =
-    useState<boolean>(false);
+  const [CardExportModalOpen, setCardExportModalOpen] = useState(false);
 
   const cardsText = activeCardSet.card_set_cards
     .map((card) => {
@@ -67,58 +60,63 @@ const CardPlayModal = ({
 
   return (
     <Modal open={true} onClose={() => handleActiveCardSet(null)}>
-      <Box sx={style}>
+      <Box sx={modalContainerStyle}>
         <CardExportModal
           TextValue={cardsText}
           open={CardExportModalOpen}
           onClose={() => setCardExportModalOpen(false)}
           children={<></>}
         />
-        <Typography mb={2} fontSize={20}>
-          Card Set : {card_set_name}
-        </Typography>
+        <Typography fontSize={20}>Card Set : {card_set_name}</Typography>
+        <FormGroup
+          sx={{
+            width: "fit-content",
+            pl: 1,
+            my: 1,
+            bgcolor: "background.paper",
+            boxShadow: 1,
+          }}
+        >
+          <FormControlLabel
+            control={
+              <Switch
+                defaultChecked={shuffled}
+                onChange={(e) => setShuffled(e.target.checked)}
+              />
+            }
+            label="Shuffled"
+          />
+        </FormGroup>
         <Stack spacing={2}>
           <Divider />
-          <Button
-            variant="contained"
-            onClick={() => {
-              handleCardPlay({ shuffled: false, termFirst: false });
-            }}
-          >
-            Definition First
-          </Button>
-          <Button
-            variant="contained"
-            onClick={() => {
-              handleCardPlay({ shuffled: false, termFirst: true });
-            }}
-          >
-            Term First{" "}
-          </Button>
+          <Typography align="center" mb={2} fontSize={20}>
+            Flash Cards
+          </Typography>
+          <ButtonGroup orientation="vertical">
+            <Button variant="contained" onClick={() => handleCardPlay(true)}>
+              Term First
+            </Button>
+            <Button variant="contained" onClick={() => handleCardPlay(false)}>
+              Definition First
+            </Button>
+          </ButtonGroup>
           <Divider />
-          <Button
-            variant="contained"
-            onClick={() => {
-              handleCardPlay({ shuffled: true, termFirst: false });
-            }}
-          >
-            Definition First + Shuffled
-          </Button>
-          <Button
-            variant="contained"
-            onClick={() => {
-              handleCardPlay({ shuffled: true, termFirst: true });
-            }}
-          >
-            Term First + Shuffled
-          </Button>
+          <Typography align="center" mb={2} fontSize={20}>
+            Take a Quiz
+          </Typography>
+          <ButtonGroup orientation="vertical">
+            <Button variant="contained" onClick={() => handleCardPlay(true)}>
+              Terms as choices
+            </Button>
+            <Button variant="contained" onClick={() => handleCardPlay(true)}>
+              Definitions as choices
+            </Button>
+          </ButtonGroup>
           <Divider />
           <Button
             variant="contained"
             color="success"
-            onClick={() => {
-              handleCardPlay({ shuffled: true, termFirst: true });
-            }}
+            onClick={() => handleCardPlay(true)}
           >
             Edit Card Set
           </Button>{" "}
@@ -143,3 +141,16 @@ const CardPlayModal = ({
 };
 
 export default CardPlayModal;
+
+const modalContainerStyle = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "100%",
+  maxWidth: "400px",
+  bgcolor: "secondary.main",
+  boxShadow: 24,
+  p: 4,
+  outline: "none",
+};

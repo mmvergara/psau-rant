@@ -7,7 +7,12 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { CircularProgress } from "@mui/material";
+import {
+  CircularProgress,
+  FormControlLabel,
+  FormGroup,
+  Switch,
+} from "@mui/material";
 import { createCardSet } from "@/firebase/services/cards_services";
 import { useUserData } from "@/context/AuthContext";
 import { toast } from "react-toastify";
@@ -17,23 +22,15 @@ const CardSetCreate = () => {
   const router = useRouter();
   const { user } = useUserData();
   const [isLoading, setIsLoading] = useState(false);
+
   const [cardSetName, setCardSetName] = useState("");
-  const [cards, setCards] = useState<Card[]>([
-    {
-      card_id: "1",
-      card_term: "",
-      card_definition: "",
-    },
-    {
-      card_id: "2",
-      card_term: "",
-      card_definition: "",
-    },
-  ]);
+  const [cardSetIsPublic, setCardSetIsPublic] = useState(true);
+  const [cards, setCards] = useState<Card[]>(initialCards);
   const handleSubmitCardSet = async () => {
     if (!user) return;
     setIsLoading(true);
     const { data, error } = await createCardSet({
+      card_set_isPublic: cardSetIsPublic,
       card_set_name: cardSetName,
       card_set_author_id: user.uid,
       card_set_cards: cards,
@@ -58,7 +55,6 @@ const CardSetCreate = () => {
     });
     setCards(newCards);
   };
-
   const handleAddCard = () => {
     const newCards = [
       ...cards,
@@ -71,16 +67,14 @@ const CardSetCreate = () => {
     setCards(newCards);
     setTimeout(() => scrollToBottom(), 100);
   };
-
   const handleDeleteCard = (card_id: string) => {
     const newCards = cards.filter((card) => card.card_id !== card_id);
     newCards.forEach((card, index) => {
       card.card_id = index + 1 + "";
     });
-
     setCards(newCards);
   };
-
+  console.log({ cardSetIsPublic });
   const addCardRef = useRef<HTMLButtonElement | null>(null);
   const scrollToBottom = () =>
     addCardRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -104,13 +98,39 @@ const CardSetCreate = () => {
           label="Card set name"
           variant="filled"
           sx={{
-            my: 1,
+            mt: 1,
             width: "100%",
             maxWidth: "250px",
           }}
           value={cardSetName}
           onChange={(e) => setCardSetName(e.target.value)}
-        />{" "}
+        />
+        <FormGroup
+          sx={{
+            width: "100%",
+            maxWidth: "250px",
+            bgcolor: "secondary.main",
+            p: 0.5,
+            pl: 2,
+            boxShadow: 2,
+            my: 1,
+          }}
+        >
+          <FormControlLabel
+            control={
+              <Switch
+                defaultChecked
+                value={cardSetIsPublic}
+                onChange={(e) => setCardSetIsPublic(e.target.checked)}
+              />
+            }
+            label={
+              <Typography>
+                Privacy - <b>{cardSetIsPublic ? "Public 🔓" : "Private 🔐"}</b>
+              </Typography>
+            }
+          />
+        </FormGroup>
         <Button
           type="button"
           onClick={() => scrollToBottom()}
@@ -128,6 +148,7 @@ const CardSetCreate = () => {
       {cards.map((card) => {
         return (
           <CardCreateBox
+            key={card.card_id}
             CardData={card}
             onCardChange={handleCardChange}
             onCardDelete={handleDeleteCard}
@@ -168,3 +189,16 @@ const CardSetCreate = () => {
 };
 
 export default CardSetCreate;
+
+const initialCards = [
+  {
+    card_id: "1",
+    card_term: "",
+    card_definition: "",
+  },
+  {
+    card_id: "2",
+    card_term: "",
+    card_definition: "",
+  },
+];

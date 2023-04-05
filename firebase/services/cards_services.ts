@@ -7,12 +7,15 @@ import {
   doc,
   getDoc,
   getDocs,
+  query,
+  where,
 } from "firebase/firestore";
 import { FirebaseFirestore } from "../Firebase-Client";
 
 type createCardSetInfo = {
   card_set_name: string;
   card_set_author_id: string;
+  card_set_isPublic: boolean;
   card_set_cards: Card[];
 };
 
@@ -26,7 +29,7 @@ export const createCardSet = async (card_set: createCardSetInfo) => {
       if (!card.card_definition)
         throw new Error(`Card #${card.card_id} - Card Definition is required`);
     }
-
+    console.log("card_set", card_set);
     const card_set_ref = collection(FirebaseFirestore, "card_sets");
     const addCardSet = await addDoc(card_set_ref, card_set);
     return { error: null, data: addCardSet };
@@ -39,7 +42,11 @@ export const createCardSet = async (card_set: createCardSetInfo) => {
 export const getAllCardsByUserId = async (user_id: string) => {
   try {
     const card_sets_ref = collection(FirebaseFirestore, "card_sets");
-    const card_sets = await getDocs(card_sets_ref);
+    const card_query = query(
+      card_sets_ref,
+      where("card_set_author_id", "==", user_id)
+    );
+    const card_sets = await getDocs(card_query);
     const card_sets_data = card_sets.docs.map((doc) => {
       return {
         card_set_id: doc.id,

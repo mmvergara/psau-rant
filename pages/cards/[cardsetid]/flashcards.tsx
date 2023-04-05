@@ -1,3 +1,2 @@
-import CardSetFlashCards from "@/components/Cards/FlashCards/FlashCardsSet";
-const CardSetFlashCardsPage = () => <CardSetFlashCards />;
+const CardSetFlashCardsPage = () => <CardSetFlashCardsPage />;
 export default CardSetFlashCardsPage;

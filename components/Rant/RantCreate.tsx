@@ -23,10 +23,11 @@ const RantCreate = () => {
     if (!user) return;
     setIsLoading(true);
     const { error } = await addRant({
+      rant_author_username: username,
+      rant_author_id: user.uid,
       rant_title,
       rant_content,
-      rant_author: username,
-      rant_likes: [],
+      rant_likes: { [user.uid]: true },
     });
     setIsLoading(false);
     if (error) {

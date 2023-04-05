@@ -1,11 +1,11 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-
 import { getTimeElapsedString } from "@/utilities/Date";
 import Divider from "@mui/material/Divider";
 import { RantWithId } from "@/types/models/rant_types";
 import RantLikeButton from "./RantLikeButton";
 import { useUserData } from "@/context/AuthContext";
+
 type Props = {
   rantWithId: RantWithId;
 };
@@ -14,13 +14,13 @@ const Rant = ({ rantWithId }: Props) => {
   const {
     rant_title,
     rant_content,
-    rant_author,
+    rant_author_username,
     rant_date,
     rant_id,
     rant_likes,
   } = rantWithId;
-  const isLiked = rant_likes.some((like) => like === user?.uid);
-  const totalLikes = rant_likes.length;
+  const isLiked = user?.uid ? rant_likes[user.uid] : false;
+  const totalLikes = Object.values(rant_likes).filter((like) => like).length;
   const timeElapsed = getTimeElapsedString(new Date(rant_date.toDate()));
   return (
     <Box
@@ -66,7 +66,9 @@ const Rant = ({ rantWithId }: Props) => {
             color="dimgray"
             sx={{ display: "flex", flexDirection: "column" }}
           >
-            <Typography sx={{ fontSize: "13px" }}>{rant_author}</Typography>
+            <Typography sx={{ fontSize: "13px" }}>
+              {rant_author_username}
+            </Typography>
             <Typography sx={{ display: "inline", fontSize: 10 }}>
               <Divider />
               {timeElapsed}

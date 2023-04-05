@@ -1,4 +1,3 @@
-import CardsList from "@/components/Cards/CardsLists";
 import {
   Box,
   Button,
@@ -9,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import Link from "next/link";
+import CardsList from "./CardsLists";
 
 const CardsDashboard = () => {
   return (

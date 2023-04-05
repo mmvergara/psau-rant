@@ -16,18 +16,21 @@ import { FirebaseFirestore } from "../Firebase-Client";
 
 // Add a new document with a generated id.
 type rantData = {
-  rant_author: string;
+  rant_author_username: string;
+  rant_author_id: string;
   rant_title: string;
   rant_content: string;
   rant_likes: string[];
 };
 
 export const addRant = async (rant_data: rantData) => {
-  const { rant_author, rant_content, rant_title } = rant_data;
+  const { rant_author_username, rant_content, rant_title, rant_author_id } =
+    rant_data;
   try {
     const rant: RantNoId = {
       rant_likes: [],
-      rant_author,
+      rant_author_username,
+      rant_author_id,
       rant_title,
       rant_content,
       rant_date: Timestamp.now(),
@@ -52,16 +55,7 @@ export const deleteRant = async (rant_id: string) => {
 
 export const getAllRant = async () => {
   try {
-    const querySnapshot = await getDocs(
-      collectionGroup(FirebaseFirestore, "rants")
-    );
-    const likesSnapshot = await getDocs(
-      collectionGroup(FirebaseFirestore, "likes")
-    );
-    const likes = likesSnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+    const querySnapshot = await getDocs(collection(FirebaseFirestore, "rants"));
 
     const rants: RantWithId[] = [];
 
@@ -72,9 +66,10 @@ export const getAllRant = async () => {
       };
       rants.push(rant);
     });
-
+    console.log(rants);
     return { error: null, data: rants };
   } catch (e) {
+    console.log(e);
     const error = e as FirebaseError;
     return { error: error.message, data: null };
   }

@@ -14,7 +14,7 @@ const Rant = ({ rantWithId }: Props) => {
   const {
     rant_title,
     rant_content,
-    rant_author,
+    rant_author_username,
     rant_date,
     rant_id,
     rant_likes,
@@ -66,7 +66,9 @@ const Rant = ({ rantWithId }: Props) => {
             color="dimgray"
             sx={{ display: "flex", flexDirection: "column" }}
           >
-            <Typography sx={{ fontSize: "13px" }}>{rant_author}</Typography>
+            <Typography sx={{ fontSize: "13px" }}>
+              {rant_author_username}
+            </Typography>
             <Typography sx={{ display: "inline", fontSize: 10 }}>
               <Divider />
               {timeElapsed}

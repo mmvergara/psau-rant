@@ -3,7 +3,8 @@ import { Timestamp } from "firebase/firestore";
 export type RantNoId = {
   rant_title: string;
   rant_content: string;
-  rant_author: string;
+  rant_author_username: string;
+  rant_author_id: string;
   rant_likes: string[];
   rant_date: Timestamp;
 };
@@ -12,7 +13,8 @@ export type RantWithId = {
   rant_id: string;
   rant_title: string;
   rant_content: string;
-  rant_author: string;
+  rant_author_username: string;
+  rant_author_id: string;
   rant_likes: string[];
   rant_date: Timestamp;
 };

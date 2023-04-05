@@ -45,8 +45,8 @@ const CardPlayModal = ({
     setIsDeleting(true);
     const { error } = await deleteCardSetById(card_set_id);
     setIsDeleting(false);
-    onCardDelete();
     if (error) return toast.error(error);
+    onCardDelete();
     toast.success("Card Set Deleted");
   };
 

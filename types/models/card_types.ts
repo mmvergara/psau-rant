@@ -16,3 +16,17 @@ export type CardExamConfig = {
   activeCardId: string;
   actionDirection: "previous" | "next";
 };
+
+export type choiceLetters = "a" | "b" | "c" | "d";
+
+export type CardQuiz = {
+  card_choices: {
+    a: string;
+    b: string;
+    c: string;
+    d: string;
+  };
+  card_selected_choice: choiceLetters | null;
+  card_correct_choice: choiceLetters;
+  card_quiz_result: "correct" | "incorrect" | "unanswered";
+} & Card;

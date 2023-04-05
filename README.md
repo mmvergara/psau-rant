@@ -32,9 +32,10 @@ Flash cards
 ### features to add
 
 Warning that all flashcards are public,
+
 - view profile with their posts
 - view profile with their flashcards
-show tutorial when user first enter quiz
+  show tutorial when user first enter quiz
 
 question: definition
 
@@ -42,8 +43,6 @@ a. term1
 b. term2
 c. term3
 d. term4
-
-
 
 ### Questions:
 

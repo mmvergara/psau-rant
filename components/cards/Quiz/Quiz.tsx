@@ -5,11 +5,13 @@ import { generateCardQuiz } from "@/utilities/Parsers";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-type ChoicesType = "terms" | "definitions";
+import Question from "./Question";
+import { Container, Stack } from "@mui/material";
+type ChoicesType = "term" | "definition";
 const Quiz = () => {
   const router = useRouter();
   const cardsetid = router.query.cardsetid as string;
-  const choices = router.query.choices as ChoicesType;
+  const choiceType = router.query.choices as ChoicesType;
   const shuffled = !!router.query.shuffled;
 
   const [isFetching, setIsFetching] = useState<boolean>(true);
@@ -30,11 +32,10 @@ const Quiz = () => {
         }));
         cardSet.sort((a, b) => +a.card_id - +b.card_id);
       }
-      return setCardSet(generateCardQuiz(cardSet, choices));
+      return setCardSet(generateCardQuiz(cardSet, choiceType));
     }
     router.push("/cards");
   };
-  console.log(cardSet);
   useEffect(() => {
     fetchCardSet();
   }, []);
@@ -45,7 +46,15 @@ const Quiz = () => {
     router.push("/cards");
   }
 
-  return <></>;
+  return (
+    <Container>
+      <Stack spacing={5} mt={5}>
+        {cardSet.map((card, index) => (
+          <Question cardQuiz={card} choicesType={choiceType} index={index}/>
+        ))}
+      </Stack>
+    </Container>
+  );
 };
 
 export default Quiz;

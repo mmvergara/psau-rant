@@ -19,8 +19,8 @@ const Rant = ({ rantWithId }: Props) => {
     rant_id,
     rant_likes,
   } = rantWithId;
-  const isLiked = user?.uid ? rant_likes[user.uid] : false;
-  const totalLikes = Object.values(rant_likes).filter((like) => like).length;
+  const isLiked = user?.uid ? !!rant_likes[user.uid] : false;
+  const totalLikes = Object.values(rant_likes).length;
   const timeElapsed = getTimeElapsedString(new Date(rant_date.toDate()));
   return (
     <Box

@@ -105,7 +105,10 @@ const CardPlayModal = ({
             Take a Quiz
           </Typography>
           <ButtonGroup orientation="vertical">
-            <Button variant="contained" onClick={() => handleCardPlay(true)}>
+            <Button
+              variant="contained"
+              onClick={() => router.push(`/cards/${card_set_id}/quiz`)}
+            >
               Terms as choices
             </Button>
             <Button variant="contained" onClick={() => handleCardPlay(true)}>

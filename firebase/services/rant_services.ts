@@ -18,7 +18,7 @@ type rantData = {
   rant_author_id: string;
   rant_title: string;
   rant_content: string;
-  rant_likes: { [key: string]: boolean };
+  rant_likes: { [key: string]: string };
 };
 
 export const addRant = async (rant_data: rantData) => {
@@ -84,33 +84,18 @@ export const handleLikeRant = async (
   user_id: string | undefined
 ) => {
   if (!user_id) return { error: "User not logged in", data: null };
-  if (isLiked) {
-    return await deleteLikeRant(rant_id, user_id);
-  }
-  return await addLikeRant(rant_id, user_id);
-};
-
-export const addLikeRant = async (rant_id: string, user_id: string) => {
   try {
     const rantRef = doc(FirebaseFirestore, "rants", rant_id);
-    const docRef = await updateDoc(rantRef, {
-      [`rant_likes.${user_id}`]: true,
-    });
-    return { error: null, data: docRef };
-  } catch (e) {
-    const error = e as FirebaseError;
-    return { error: error.message, data: null };
-  }
-};
+    const rantLikeRef = `rant_likes.${user_id}`;
+    if (!isLiked) {
+      // Add Like
+      await updateDoc(rantRef, { [rantLikeRef]: user_id });
+    } else {
+      // Delete Like
+      await updateDoc(rantRef, { [rantLikeRef]: deleteField() });
+    }
 
-export const deleteLikeRant = async (rant_id: string, user_id: string) => {
-  try {
-    const rantRef = doc(FirebaseFirestore, "rants", rant_id);
-    const docRef = await updateDoc(rantRef, {
-      [`rant_likes.${user_id}`]: deleteField(),
-    });
-
-    return { error: null, data: docRef };
+    return { error: null, data: null };
   } catch (e) {
     const error = e as FirebaseError;
     return { error: error.message, data: null };

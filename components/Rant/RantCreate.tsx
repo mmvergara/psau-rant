@@ -27,13 +27,10 @@ const RantCreate = () => {
       rant_author_id: user.uid,
       rant_title,
       rant_content,
-      rant_likes: { [user.uid]: true },
+      rant_likes: { [user.uid]: user.uid },
     });
     setIsLoading(false);
-    if (error) {
-      toast.error(error);
-      return;
-    }
+    if (error) return toast.error(error);
     toast.success("Rant Created");
     formik.resetForm();
   };

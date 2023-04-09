@@ -2,12 +2,22 @@ import { Card, CardQuiz } from "@/types/models/card_types";
 
 const findTheCorrectChoice = (
   choices: CardQuiz["card_choices"],
+  choiceType: "card_term" | "card_definition",
   card: Card
 ) => {
   const choiceLetters: ["a", "b", "c", "d"] = ["a", "b", "c", "d"];
-  const correctChoice = choiceLetters.find(
-    (choiceLetter) => choices[choiceLetter] === card.card_definition
-  );
+  let correctChoice: "a" | "b" | "c" | "d" | undefined = undefined;
+  console.log(choiceLetters, choices, choiceType, card);
+  if (choiceType === "card_term") {
+    correctChoice = choiceLetters.find(
+      (letter) => choices[letter] === card.card_term
+    );
+  } else {
+    correctChoice = choiceLetters.find(
+      (letter) => choices[letter] === card.card_definition
+    );
+  }
+
   if (!correctChoice) throw new Error("Could not find the correct choice");
   return correctChoice;
 };
@@ -53,14 +63,17 @@ export const generateCardQuiz = (
 
     // Create a new choices object with the shuffled choices
     const newCardChoices = {
-      a: card_choices[shuffledChoices[0]],
-      b: card_choices[shuffledChoices[1]],
-      c: card_choices[shuffledChoices[2]],
-      d: card_choices[shuffledChoices[3]],
+      a: card_choices[shuffledChoices[0]] || "None",
+      b: card_choices[shuffledChoices[1]] || "None",
+      c: card_choices[shuffledChoices[2]] || "None",
+      d: card_choices[shuffledChoices[3]] || "None",
     };
-
     // Find the correct choice letter
-    const correctChoice = findTheCorrectChoice(newCardChoices, card);
+    const correctChoice = findTheCorrectChoice(
+      newCardChoices,
+      choicetype,
+      card
+    );
 
     // Create the CardQuiz object
     const cardQuiz: CardQuiz = {

@@ -18,7 +18,7 @@ export type CardExamConfig = {
 };
 
 export type choiceLetters = "a" | "b" | "c" | "d";
-
+export type ChoicesType = "term" | "definition";
 export type CardQuiz = {
   card_choices: {
     a: string;
@@ -30,3 +30,10 @@ export type CardQuiz = {
   card_correct_choice: choiceLetters;
   card_quiz_result: "correct" | "incorrect" | "unanswered";
 } & Card;
+
+export type AnsweredResults = {
+  card_id: string;
+  isCorrect: boolean;
+  correct_answer: string;
+  answer: string;
+};

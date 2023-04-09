@@ -1,13 +1,12 @@
 import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
 import { getCardSetById } from "@/firebase/services/cards_services";
-import { Card, CardQuiz } from "@/types/models/card_types";
+import { CardQuiz, ChoicesType } from "@/types/models/card_types";
 import { generateCardQuiz } from "@/utilities/Parsers";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Question from "./Question";
-import { Container, Stack } from "@mui/material";
-type ChoicesType = "term" | "definition";
+import { Container } from "@mui/material";
+import QuizControl from "./QuizControl";
 const Quiz = () => {
   const router = useRouter();
   const cardsetid = router.query.cardsetid as string;
@@ -48,11 +47,7 @@ const Quiz = () => {
 
   return (
     <Container>
-      <Stack spacing={5} mt={5}>
-        {cardSet.map((card, index) => (
-          <Question cardQuiz={card} choicesType={choiceType} index={index}/>
-        ))}
-      </Stack>
+      <QuizControl cardsSet={cardSet} choiceType={choiceType} />
     </Container>
   );
 };

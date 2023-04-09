@@ -8,10 +8,10 @@ type Props = {
   config: CardExamConfig;
 };
 
-function FlashCard({ cardData, config }: Props) {
+const FlashCard = ({ cardData, config }: Props) => {
   const { card_term, card_definition } = cardData;
   const [flipped, setFlipped] = useState(false);
-  
+
   useEffect(() => {
     setFlipped(false);
   }, [config.activeCardId]);
@@ -44,6 +44,6 @@ function FlashCard({ cardData, config }: Props) {
       </Box>
     </Box>
   );
-}
+};
 
 export default FlashCard;

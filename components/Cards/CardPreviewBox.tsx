@@ -56,7 +56,7 @@ const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
   };
 
   const handleShareCards = () => {
-    const url = `${window.location.origin}/cards/${card_set_id}/preview`;
+    const url = `https://psaurant.vercel.app/cards/${card_set_id}/preview`;
     navigator.clipboard.writeText(url);
     toast.success("Link Copied to clipboard!");
   };

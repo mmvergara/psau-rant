@@ -148,7 +148,6 @@ const FlashCardsSet = () => {
     toast.error("Card set not found");
     router.push("/cards");
   }
-  console.log(cardSet);
   return (
     <Container
       sx={{

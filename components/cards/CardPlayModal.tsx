@@ -20,7 +20,6 @@ import StyleIcon from "@mui/icons-material/Style";
 import QuizIcon from "@mui/icons-material/Quiz";
 import TuneIcon from "@mui/icons-material/Tune";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import EditIcon from "@mui/icons-material/Edit";
 
 type Props = {
   activeCardSet: CardSet | null;
@@ -191,7 +190,7 @@ const CardPlayModal = ({
               startIcon={<FileDownloadIcon />}
             >
               Export Cards
-          </Button>{" "}
+            </Button>{" "}
             <Button
               variant="contained"
               color="error"

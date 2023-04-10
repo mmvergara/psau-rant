@@ -3,6 +3,7 @@ import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
 import { getCardSetById } from "@/firebase/services/cards_services";
 import { CardSet } from "@/types/models/card_types";
 import { Container } from "@mui/material";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -27,6 +28,9 @@ const CardPreviewPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Card Preview</title>
+      </Head>
       {cardSet ? (
         <Container maxWidth="sm" sx={{ mt: 4 }}>
           <CardPreviewContent

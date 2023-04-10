@@ -26,9 +26,6 @@ export type CardQuiz = {
     c: string;
     d: string;
   };
-  card_selected_choice: choiceLetters | null;
-  card_correct_choice: choiceLetters;
-  card_quiz_result: "correct" | "incorrect" | "unanswered";
 } & Card;
 
 export type AnsweredResults = {

@@ -19,7 +19,7 @@ import StyleIcon from "@mui/icons-material/Style";
 import QuizIcon from "@mui/icons-material/Quiz";
 import TuneIcon from "@mui/icons-material/Tune";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import CardExportModal from "./CardExportModal";
+import CardExportModal from "@/components/Cards/CardExportModal";
 
 type Props = {
   activeCardSet: CardSet | null;

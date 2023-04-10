@@ -19,6 +19,7 @@ const CardPreviewPage = () => {
       toast.error(error);
       router.push("/cards");
     }
+    console.log(data)
     if (data) return setCardSet(data);
     router.push("/cards");
   };

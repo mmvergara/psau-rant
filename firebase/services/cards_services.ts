@@ -70,9 +70,11 @@ export const getCardSetById = async (card_set_id: string) => {
   try {
     const card_set_ref = doc(FirebaseFirestore, "card_sets", card_set_id);
     const card_set = await getDoc(card_set_ref);
+    const fetchedCardData = card_set.data();
+    if (!fetchedCardData) throw new Error("Card set not found");
     const data = {
-      card_set_id: card_set.id,
-      ...card_set.data(),
+      card_set_id,
+      ...fetchedCardData,
     } as CardSet;
     return { error: null, data };
   } catch (e) {

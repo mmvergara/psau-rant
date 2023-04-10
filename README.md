@@ -17,6 +17,10 @@
 - Add Rant Preview
 - Add Rant List
 - Add Rant Share Link
+- Change Go Back to my  cards btn on flashcards to color='info'
+- add back btn on flashcards
+- add back btn on quiz
+
 
 - view profile with their posts
 - view profile with their flashcards

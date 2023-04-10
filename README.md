@@ -13,6 +13,11 @@
 
 ### features to add
 
+- Add Page Titles
+- Add Rant Preview
+- Add Rant List
+- Add Rant Share Link
+
 - view profile with their posts
 - view profile with their flashcards
 - show tutorial when user first enter quiz

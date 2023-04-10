@@ -19,7 +19,7 @@ const generateChoices = (
   Cards: Card[],
   choicesType: ChoicesType
 ): CardQuiz["card_choices"] => {
-  // Create a new object with the correct answer on a
+  // Create a new object with the correct answer on aa
   const finalChoices = {
     a: Card[`card_${choicesType}`],
     b: "",
@@ -31,28 +31,10 @@ const generateChoices = (
   const letterChoicesNoA: ["b", "c", "d"] = ["b", "c", "d"];
   const filteredCards = Cards.filter((card) => card.card_id !== Card.card_id);
   const cardChoices = filteredCards.map((card) => card[`card_${choicesType}`]);
-  const addedChoices: string[] = [];
+  const shuffledCardChoices = cardChoices.sort(() => Math.random() - 0.5);
 
-  let currentNoneAdded = 1;
-  letterChoicesNoA.forEach((letter) => {
-    let Added = false;
-    let totalTries = 0;
-
-    // Add Random Choices
-    while (!Added) {
-      const randomCardIndex = Math.floor(Math.random() * cardChoices.length);
-      if (!addedChoices.includes(cardChoices[randomCardIndex])) {
-        finalChoices[letter] = cardChoices[randomCardIndex];
-        addedChoices.push(cardChoices[randomCardIndex]);
-        Added = true;
-      }
-      if (totalTries > Cards.length) {
-        finalChoices[letter] = `None of the above ${currentNoneAdded}`;
-        currentNoneAdded++;
-        Added = true;
-      }
-      totalTries++;
-    }
+  letterChoicesNoA.forEach((letter, i) => {
+    finalChoices[letter] = shuffledCardChoices[i];
   });
 
   // shuffle values in finalChoices

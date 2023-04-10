@@ -1,16 +1,16 @@
 import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
 import { getCardSetById } from "@/firebase/services/cards_services";
 import { CardQuiz, ChoicesType } from "@/types/models/card_types";
-import { generateCardQuiz } from "@/utilities/Parsers";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Container } from "@mui/material";
 import QuizControl from "./QuizControl";
+import { generateCardQuiz } from "@/utilities/QuizGenerators";
 const Quiz = () => {
   const router = useRouter();
   const cardsetid = router.query.cardsetid as string;
-  const choiceType = router.query.choices as ChoicesType;
+  const choiceType = (router.query.choiceType || "definition") as ChoicesType;
   const shuffled = !!router.query.shuffled;
 
   const [isFetching, setIsFetching] = useState<boolean>(true);
@@ -47,7 +47,9 @@ const Quiz = () => {
 
   return (
     <Container>
-      <QuizControl cardsSet={cardSet} choiceType={choiceType} />
+      {!isFetching && cardSet.length !== 0 && (
+        <QuizControl cardsSet={cardSet} choiceType={choiceType} />
+      )}
     </Container>
   );
 };

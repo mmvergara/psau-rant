@@ -22,32 +22,33 @@ const Question = ({
 }: Props) => {
   const question =
     cardQuiz[`card_${choicesType === "term" ? "definition" : "term"}`];
-  const answer = cardQuiz.card_choices[cardQuiz.card_correct_choice];
+  const answer = cardQuiz[`card_${choicesType}`];
   const AnsweredResults: AnsweredResults | null =
     answeredQuestions.find((v) => v.card_id === cardQuiz.card_id) || null;
 
   const choices = Object.entries(cardQuiz.card_choices);
 
   const isCorrect = isSubmitted && AnsweredResults && AnsweredResults.isCorrect;
-  console.log({ isSubmitted });
   const borderColor = !isSubmitted
-    ? "gray"
+    ? "green"
     : isSubmitted && !AnsweredResults
     ? "teal"
     : isCorrect
     ? "green"
     : "red";
-
   const correctAnswer =
     (isSubmitted && AnsweredResults && AnsweredResults.correct_answer) || null;
-  console.log("rerender");
+
+  const border = !isSubmitted
+    ? { borderTop: `3px solid green` }
+    : { border: `2px solid ${borderColor}` };
   return (
     <Paper
       sx={{
         bgcolor: "white",
         p: 2,
-        boxShadow: 4,
-        border: `4px solid ${borderColor}`,
+        boxShadow: 2,
+        ...border,
       }}
     >
       <Typography>
@@ -55,6 +56,11 @@ const Question = ({
       </Typography>
       <Divider sx={{ width: "100%", my: 2 }} />
       <RadioGroup
+        defaultValue={
+          answeredQuestions.find((v) => {
+            return v.card_id === cardQuiz.card_id;
+          })?.answer || null
+        }
         onChange={(e) => {
           onAnswer({
             card_id: cardQuiz.card_id,
@@ -70,6 +76,7 @@ const Question = ({
               value={choice}
               control={<Radio />}
               label={choice}
+              disabled={isSubmitted}
             />
           );
         })}

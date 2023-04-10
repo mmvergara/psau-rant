@@ -5,7 +5,7 @@ function Home() {
   return (
     <>
       <Head>
-        <title>Home</title>
+        <title>PSAU Rant</title>
       </Head>
       <Rants />
     </>

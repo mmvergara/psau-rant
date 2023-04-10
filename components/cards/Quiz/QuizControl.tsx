@@ -46,7 +46,7 @@ const QuizControl = ({ cardsSet, choiceType }: Props) => {
       result,
     ]);
   };
-  
+
   const totalQuestions = questions.length;
   const handleSubmit = () => {
     if (answeredQuestions.length !== totalQuestions) {
@@ -72,7 +72,7 @@ const QuizControl = ({ cardsSet, choiceType }: Props) => {
   const noWrongAnswers =
     answeredQuestions.filter((v) => !v.isCorrect).length === 0;
   return (
-    <Stack spacing={5} mt={5}>
+    <Stack spacing={5} mt={5} mb={10}>
       {questions.map((card, index) => (
         <Question
           key={Math.random().toString()}
@@ -85,7 +85,12 @@ const QuizControl = ({ cardsSet, choiceType }: Props) => {
         />
       ))}
       {!didSubmit && (
-        <Button variant="contained" color="info" onClick={handleSubmit}>
+        <Button
+          variant="contained"
+          color="info"
+          onClick={handleSubmit}
+          sx={{ p: 2 }}
+        >
           Submit
         </Button>
       )}

@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import CardExportModal from "./CardExportModal";
+import { useUserData } from "@/context/AuthContext";
 
 type Props = {
   activeCardSet: CardSet | null;
@@ -37,6 +38,15 @@ const CardPlayModal = ({
     const path = `/cards/${card_set_id}/flashcards?${
       shuffled ? "shuffled=true" : ""
     }${termFirst ? "&termFirst=true" : ""}`;
+    router.push(path);
+  };
+  // const choiceType = (router.query.choices || "definition") as ChoicesType;
+  // const shuffled = !!router.query.shuffled;
+
+  const handleTakeQuiz = (choiceType: "term" | "definition") => {
+    const path = `/cards/${card_set_id}/quiz?choiceType=${choiceType}${
+      shuffled ? "&shuffled=true" : ""
+    }`;
     router.push(path);
   };
 
@@ -105,13 +115,13 @@ const CardPlayModal = ({
             Take a Quiz
           </Typography>
           <ButtonGroup orientation="vertical">
-            <Button
-              variant="contained"
-              onClick={() => router.push(`/cards/${card_set_id}/quiz`)}
-            >
+            <Button variant="contained" onClick={() => handleTakeQuiz("term")}>
               Terms as choices
             </Button>
-            <Button variant="contained" onClick={() => handleCardPlay(true)}>
+            <Button
+              variant="contained"
+              onClick={() => handleTakeQuiz("definition")}
+            >
               Definitions as choices
             </Button>
           </ButtonGroup>

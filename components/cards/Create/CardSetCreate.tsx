@@ -74,7 +74,6 @@ const CardSetCreate = () => {
     });
     setCards(newCards);
   };
-  console.log({ cardSetIsPublic });
   const addCardRef = useRef<HTMLButtonElement | null>(null);
   const scrollToBottom = () =>
     addCardRef.current?.scrollIntoView({ behavior: "smooth" });

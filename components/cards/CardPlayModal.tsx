@@ -16,6 +16,11 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import CardExportModal from "./CardExportModal";
+import StyleIcon from "@mui/icons-material/Style";
+import QuizIcon from "@mui/icons-material/Quiz";
+import TuneIcon from "@mui/icons-material/Tune";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import EditIcon from "@mui/icons-material/Edit";
 
 type Props = {
   activeCardSet: CardSet | null;
@@ -37,6 +42,15 @@ const CardPlayModal = ({
     const path = `/cards/${card_set_id}/flashcards?${
       shuffled ? "shuffled=true" : ""
     }${termFirst ? "&termFirst=true" : ""}`;
+    router.push(path);
+  };
+  // const choiceType = (router.query.choices || "definition") as ChoicesType;
+  // const shuffled = !!router.query.shuffled;
+
+  const handleTakeQuiz = (choiceType: "term" | "definition") => {
+    const path = `/cards/${card_set_id}/quiz?choiceType=${choiceType}${
+      shuffled ? "&shuffled=true" : ""
+    }`;
     router.push(path);
   };
 
@@ -73,7 +87,7 @@ const CardPlayModal = ({
             width: "fit-content",
             pl: 1,
             my: 1,
-            bgcolor: "background.paper",
+            bgcolor: "ivory",
             boxShadow: 1,
           }}
         >
@@ -87,56 +101,105 @@ const CardPlayModal = ({
             label="Shuffled"
           />
         </FormGroup>
-        <Stack spacing={2}>
-          <Divider />
-          <Typography align="center" mb={2} fontSize={20}>
-            Flash Cards
+        <Divider sx={{ marginY: 2 }} />
+        <Stack>
+          <Typography
+            align="center"
+            fontSize={20}
+            sx={{
+              bgcolor: "ivory",
+              boxShadow: 1,
+              borderTopLeftRadius: 4,
+              borderTopRightRadius: 4,
+              p: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 1,
+            }}
+          >
+            <StyleIcon htmlColor="green" /> Flash Cards
           </Typography>
           <ButtonGroup orientation="vertical">
-            <Button variant="contained" onClick={() => handleCardPlay(true)}>
+            <Button
+              variant="contained"
+              onClick={() => handleCardPlay(true)}
+              sx={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
+            >
               Term First
             </Button>
             <Button variant="contained" onClick={() => handleCardPlay(false)}>
               Definition First
             </Button>
           </ButtonGroup>
-          <Divider />
-          <Typography align="center" mb={2} fontSize={20}>
-            Take a Quiz
+          <Typography
+            align="center"
+            fontSize={20}
+            sx={{
+              bgcolor: "ivory",
+              boxShadow: 1,
+              borderTopLeftRadius: 4,
+              borderTopRightRadius: 4,
+              p: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 1,
+              mt: 2,
+            }}
+          >
+            <QuizIcon htmlColor="green" /> Take a Quiz
           </Typography>
           <ButtonGroup orientation="vertical">
             <Button
+              sx={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
               variant="contained"
-              onClick={() => router.push(`/cards/${card_set_id}/quiz`)}
+              onClick={() => handleTakeQuiz("term")}
             >
               Terms as choices
             </Button>
-            <Button variant="contained" onClick={() => handleCardPlay(true)}>
+            <Button
+              variant="contained"
+              onClick={() => handleTakeQuiz("definition")}
+            >
               Definitions as choices
             </Button>
           </ButtonGroup>
-          <Divider />
-          <Button
-            variant="contained"
-            color="success"
-            onClick={() => handleCardPlay(true)}
+          <Divider sx={{ marginY: 2 }} />
+          <Typography
+            align="center"
+            fontSize={20}
+            sx={{
+              bgcolor: "ivory",
+              boxShadow: 1,
+              borderTopLeftRadius: 4,
+              borderTopRightRadius: 4,
+              p: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 1,
+            }}
           >
-            Edit Card Set
+            <TuneIcon htmlColor="green" /> More Options
+          </Typography>
+          <ButtonGroup orientation="vertical">
+            <Button
+              sx={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
+              variant="contained"
+              onClick={() => setCardExportModalOpen(true)}
+              startIcon={<FileDownloadIcon />}
+            >
+              Export Cards
           </Button>{" "}
-          <Button
-            variant="contained"
-            color="info"
-            onClick={() => setCardExportModalOpen(true)}
-          >
-            Export Cards
-          </Button>
-          <Button
-            variant="outlined"
-            color="error"
-            onClick={handleDeleteCardSet}
-          >
-            {isDeleting ? "Deleting..." : "Delete Card Set"}
-          </Button>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleDeleteCardSet}
+            >
+              {isDeleting ? "Deleting..." : "Delete Card Set"}
+            </Button>
+          </ButtonGroup>
         </Stack>
       </Box>
     </Modal>

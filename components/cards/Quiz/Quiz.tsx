@@ -1,17 +1,16 @@
 import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
 import { getCardSetById } from "@/firebase/services/cards_services";
-import { Card, CardQuiz } from "@/types/models/card_types";
-import { generateCardQuiz } from "@/utilities/Parsers";
+import { CardQuiz, ChoicesType } from "@/types/models/card_types";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Question from "./Question";
-import { Container, Stack } from "@mui/material";
-type ChoicesType = "term" | "definition";
+import { Container } from "@mui/material";
+import QuizControl from "./QuizControl";
+import { generateCardQuiz } from "@/utilities/QuizGenerators";
 const Quiz = () => {
   const router = useRouter();
   const cardsetid = router.query.cardsetid as string;
-  const choiceType = router.query.choices as ChoicesType;
+  const choiceType = (router.query.choiceType || "definition") as ChoicesType;
   const shuffled = !!router.query.shuffled;
 
   const [isFetching, setIsFetching] = useState<boolean>(true);
@@ -48,11 +47,9 @@ const Quiz = () => {
 
   return (
     <Container>
-      <Stack spacing={5} mt={5}>
-        {cardSet.map((card, index) => (
-          <Question cardQuiz={card} choicesType={choiceType} index={index}/>
-        ))}
-      </Stack>
+      {!isFetching && cardSet.length !== 0 && (
+        <QuizControl cardsSet={cardSet} choiceType={choiceType} />
+      )}
     </Container>
   );
 };

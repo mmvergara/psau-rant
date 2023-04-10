@@ -59,7 +59,6 @@ export const deleteRant = async (rant_id: string) => {
 export const getAllRant = async () => {
   try {
     const querySnapshot = await getDocs(collection(FirebaseFirestore, "rants"));
-
     const rants: RantWithId[] = [];
 
     querySnapshot.forEach((doc) => {
@@ -69,10 +68,8 @@ export const getAllRant = async () => {
       };
       rants.push(rant);
     });
-    console.log(rants);
     return { error: null, data: rants };
   } catch (e) {
-    console.log(e);
     const error = e as FirebaseError;
     return { error: error.message, data: null };
   }

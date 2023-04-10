@@ -25,7 +25,6 @@ const FlashCardsResults = ({
 }: Props) => {
   const router = useRouter();
   const [isShuffled, setIsShuffled] = useState<boolean>(shuffled);
-  console.log("isShuffled", isShuffled);
   return (
     <Box
       sx={{

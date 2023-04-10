@@ -29,7 +29,6 @@ export const createCardSet = async (card_set: createCardSetInfo) => {
       if (!card.card_definition)
         throw new Error(`Card #${card.card_id} - Card Definition is required`);
     }
-    console.log("card_set", card_set);
     const card_set_ref = collection(FirebaseFirestore, "card_sets");
     const addCardSet = await addDoc(card_set_ref, card_set);
     return { error: null, data: addCardSet };

@@ -18,6 +18,7 @@ import Box from "@mui/material/Box";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useUserData } from "@/context/AuthContext";
+import Head from "next/head";
 
 const SignInPage = () => {
   const router = useRouter();
@@ -60,88 +61,98 @@ const SignInPage = () => {
     return <></>;
   }
   return (
-    <Container maxWidth="md" sx={{ marginTop: "5vh" }}>
-      <Box
-        onSubmit={formik.handleSubmit}
-        component="form"
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          backgroundColor: "#f0e2bf",
-          borderRadius: "2px",
-          padding: "1em",
-          paddingY: "2em",
-          gap: "1em",
-        }}
-      >
-        <Typography
-          variant="h2"
-          fontWeight={500}
-          color="primary"
-          textAlign="center"
-          fontSize={{ xs: "1.5rem", sm: "2rem", md: "3.5rem" }}
-        >
-          Sign In
-        </Typography>
-        <TextField
-          name="email"
-          label="Email"
-          variant="filled"
-          sx={{ width: "100%", maxWidth: "400px" }}
-          error={!!emailErrors}
-          helperText={emailErrors}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        <TextField
-          name="password"
-          label="Password"
-          variant="filled"
-          type="password"
-          sx={{ width: "100%", maxWidth: "400px" }}
-          error={!!passwordErrors}
-          helperText={passwordErrors}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        <Button
-          type="submit"
-          variant="contained"
+    <>
+      <Head>
+        <title>Sign In</title>
+      </Head>
+      <Container maxWidth="md" sx={{ marginTop: "5vh" }}>
+        <Box
+          onSubmit={formik.handleSubmit}
+          component="form"
           sx={{
-            width: "100%",
-            maxWidth: "400px",
-            fontSize: "15px",
-            color: "white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            backgroundColor: "#f0e2bf",
+            borderRadius: "2px",
+            padding: "1em",
+            paddingY: "2em",
+            gap: "1em",
           }}
         >
-          {isLoading ? (
-            <CircularProgress size={26.5} color="inherit" />
-          ) : (
-            "Login"
-          )}
-        </Button>
-        <Button
-          variant="contained"
-          sx={{
-            backgroundColor: "white",
-            ":hover": { backgroundColor: "white" },
-            width: "100%",
-            maxWidth: "400px",
-          }}
-          onClick={handleGoogleSignIn}
-        >
-          <Image src={googleIcon} alt="Google Sign In" height={25} width={25} />
-          <Typography fontWeight={600} color="dimgray" ml={1}>
-            Sign In with Google
+          <Typography
+            variant="h2"
+            fontWeight={500}
+            color="primary"
+            textAlign="center"
+            fontSize={{ xs: "1.5rem", sm: "2rem", md: "3.5rem" }}
+          >
+            Sign In
           </Typography>
-        </Button>
-        <Button type="button" onClick={() => router.push("/auth/signup")}>
-          Create New Account
-        </Button>
-      </Box>
-    </Container>
+          <TextField
+            name="email"
+            label="Email"
+            variant="filled"
+            sx={{ width: "100%", maxWidth: "400px" }}
+            error={!!emailErrors}
+            helperText={emailErrors}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          <TextField
+            name="password"
+            label="Password"
+            variant="filled"
+            type="password"
+            sx={{ width: "100%", maxWidth: "400px" }}
+            error={!!passwordErrors}
+            helperText={passwordErrors}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              width: "100%",
+              maxWidth: "400px",
+              fontSize: "15px",
+              color: "white",
+            }}
+          >
+            {isLoading ? (
+              <CircularProgress size={26.5} color="inherit" />
+            ) : (
+              "Login"
+            )}
+          </Button>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: "white",
+              ":hover": { backgroundColor: "white" },
+              width: "100%",
+              maxWidth: "400px",
+            }}
+            onClick={handleGoogleSignIn}
+          >
+            <Image
+              src={googleIcon}
+              alt="Google Sign In"
+              height={25}
+              width={25}
+            />
+            <Typography fontWeight={600} color="dimgray" ml={1}>
+              Sign In with Google
+            </Typography>
+          </Button>
+          <Button type="button" onClick={() => router.push("/auth/signup")}>
+            Create New Account
+          </Button>
+        </Box>
+      </Container>
+    </>
   );
 };
 

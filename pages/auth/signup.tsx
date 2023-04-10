@@ -12,6 +12,7 @@ import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
 import { signUpFirebaseWithEmailAndPassword } from "@/firebase/services/auth_service";
 import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const SignInPage = () => {
   const { user } = useUserData();
@@ -47,83 +48,88 @@ const SignInPage = () => {
   }
 
   return (
-    <Container maxWidth="md" sx={{ marginTop: "5vh" }}>
-      <Box
-        onSubmit={formik.handleSubmit}
-        component="form"
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          backgroundColor: "#f0e2bf",
-          borderRadius: "2px",
-          padding: "1em",
-          paddingY: "2em",
-          gap: "1em",
-        }}
-      >
-        <Typography
-          variant="h2"
-          fontWeight={500}
-          color="primary"
-          textAlign="center"
-          fontSize={{ xs: "1.5rem", sm: "2rem", md: "3.5rem" }}
-        >
-          Sign Up
-        </Typography>
-        <TextField
-          name="username"
-          label="Username"
-          variant="filled"
-          sx={{ width: "100%", maxWidth: "400px" }}
-          error={!!usernameErrors}
-          helperText={usernameErrors}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        <TextField
-          name="email"
-          label="Email"
-          variant="filled"
-          sx={{ width: "100%", maxWidth: "400px" }}
-          error={!!emailErrors}
-          helperText={emailErrors}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        <TextField
-          name="password"
-          label="Password"
-          variant="filled"
-          type="password"
-          sx={{ width: "100%", maxWidth: "400px" }}
-          error={!!passwordErrors}
-          helperText={passwordErrors}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        <Button
-          type="submit"
-          variant="contained"
+    <>
+      <Head>
+        <title>Sign In</title>
+      </Head>
+      <Container maxWidth="md" sx={{ marginTop: "5vh" }}>
+        <Box
+          onSubmit={formik.handleSubmit}
+          component="form"
           sx={{
-            width: "100%",
-            maxWidth: "400px",
-            fontSize: "15px",
-            color: "white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            backgroundColor: "#f0e2bf",
+            borderRadius: "2px",
+            padding: "1em",
+            paddingY: "2em",
+            gap: "1em",
           }}
         >
-          {isLoading ? (
-            <CircularProgress size={26.5} color="inherit" />
-          ) : (
-            "Create New Account"
-          )}
-        </Button>
-        <Button onClick={() => router.push("/auth/signin")}>
-          Already have an account? Sign In
-        </Button>
-      </Box>
-    </Container>
+          <Typography
+            variant="h2"
+            fontWeight={500}
+            color="primary"
+            textAlign="center"
+            fontSize={{ xs: "1.5rem", sm: "2rem", md: "3.5rem" }}
+          >
+            Sign Up
+          </Typography>
+          <TextField
+            name="username"
+            label="Username"
+            variant="filled"
+            sx={{ width: "100%", maxWidth: "400px" }}
+            error={!!usernameErrors}
+            helperText={usernameErrors}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          <TextField
+            name="email"
+            label="Email"
+            variant="filled"
+            sx={{ width: "100%", maxWidth: "400px" }}
+            error={!!emailErrors}
+            helperText={emailErrors}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          <TextField
+            name="password"
+            label="Password"
+            variant="filled"
+            type="password"
+            sx={{ width: "100%", maxWidth: "400px" }}
+            error={!!passwordErrors}
+            helperText={passwordErrors}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              width: "100%",
+              maxWidth: "400px",
+              fontSize: "15px",
+              color: "white",
+            }}
+          >
+            {isLoading ? (
+              <CircularProgress size={26.5} color="inherit" />
+            ) : (
+              "Create New Account"
+            )}
+          </Button>
+          <Button onClick={() => router.push("/auth/signin")}>
+            Already have an account? Sign In
+          </Button>
+        </Box>
+      </Container>
+    </>
   );
 };
 

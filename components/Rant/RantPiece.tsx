@@ -5,11 +5,18 @@ import Divider from "@mui/material/Divider";
 import { RantWithId } from "@/types/models/rant_types";
 import RantLikeButton from "./RantLikeButton";
 import { useUserData } from "@/context/AuthContext";
+import IconButton from "@mui/material/IconButton";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { deleteRant } from "@/firebase/services/rant_services";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
 type Props = {
   rantWithId: RantWithId;
+  onRantDelete: (rant_id: string) => void;
 };
-const Rant = ({ rantWithId }: Props) => {
+const Rant = ({ rantWithId, onRantDelete }: Props) => {
   const { user } = useUserData();
   const {
     rant_title,
@@ -19,9 +26,18 @@ const Rant = ({ rantWithId }: Props) => {
     rant_id,
     rant_likes,
   } = rantWithId;
+  const isOwner = user?.uid === rantWithId.rant_author_id;
   const isLiked = user?.uid ? !!rant_likes[user.uid] : false;
   const totalLikes = Object.values(rant_likes).length;
   const timeElapsed = getTimeElapsedString(new Date(rant_date.toDate()));
+  const [isDeleting, setIsDeleting] = useState(false);
+  const handleDeleteRant = async () => {
+    setIsDeleting(true);
+    const { error } = await deleteRant(rant_id);
+    if (error) return toast.error(error);
+    toast.success("Rant deleted");
+    onRantDelete(rant_id);
+  };
   return (
     <Box
       component="article"
@@ -39,9 +55,16 @@ const Rant = ({ rantWithId }: Props) => {
           bgcolor: "#0b4619e1",
           color: "white",
           borderRadius: "5px 5px 0px 0px",
+          display: "flex",
+          justifyContent: "space-between",
         }}
       >
         <Typography variant="h5">{rant_title}</Typography>
+        {isOwner && (
+          <IconButton onClick={handleDeleteRant} color="error" sx={{ p: 0 }}>
+            {isDeleting ? <MoreHorizIcon /> : <RemoveCircleIcon />}
+          </IconButton>
+        )}
       </Box>
       <Box
         sx={{

@@ -33,6 +33,7 @@ const RantCreate = () => {
     if (error) return toast.error(error);
     toast.success("Rant Created");
     formik.resetForm();
+    router.push("/");
   };
 
   const formik = useFormik({

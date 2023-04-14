@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import StyleIcon from "@mui/icons-material/Style";
 
 type Props = {
   shuffled: boolean;
@@ -42,8 +43,14 @@ const FlashCardsResults = ({
         {isStillLearningCardsId.length} "Still Learning" Cards.
       </Typography>
       <Typography>{iKnowCardsId.length} "I Know" Cards</Typography>
-      <Button variant="outlined" onClick={() => router.push("/cards")}>
-        Go Back to My Cards
+      <Button
+        onClick={() => router.push("/cards")}
+        variant="outlined"
+        color="info"
+        sx={{ mt: 2, width: "fit-content" }}
+        startIcon={<StyleIcon />} 
+      >
+        Go Back to my cards
       </Button>
       <Divider sx={{ my: 2 }} />
       <Typography>Take a quiz again!</Typography>

@@ -6,12 +6,14 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Rant from "./RantPiece";
 import RantControls from "./RantControls";
+import CenterCircularProgress from "../Layout/CenterCircularProgress";
 
 const Rants = () => {
   const [rants, setRants] = useState<RantWithId[]>([]);
-
+  const [isFetching, setIsFetching] = useState(true);
   const fetchRants = async () => {
     const { error, data } = await getAllRant();
+    setIsFetching(false);
     if (error || !data) return toast.error(error);
     setRants(data);
   };
@@ -32,6 +34,7 @@ const Rants = () => {
           rantWithId={rant}
         />
       ))}
+      {isFetching && <CenterCircularProgress />}
     </Container>
   );
 };

@@ -20,6 +20,7 @@ import QuizIcon from "@mui/icons-material/Quiz";
 import TuneIcon from "@mui/icons-material/Tune";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import CardExportModal from "@/components/Cards/CardExportModal";
+import { useUserData } from "@/context/AuthContext";
 
 type Props = {
   cardSet: CardSet;
@@ -28,6 +29,7 @@ type Props = {
 
 const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
   const router = useRouter();
+  const { user } = useUserData();
   const { card_set_id, card_set_name } = cardSet;
 
   const [shuffled, setShuffled] = useState(true);
@@ -68,7 +70,9 @@ const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
       return `${card.card_term}\n${card.card_definition}\n\n`;
     })
     .join("\n");
-
+    
+  const isOwner = cardSet.card_set_author_id === user?.uid;
+  const isPublic = cardSet.card_set_isPublic;
   return (
     <>
       <CardExportModal
@@ -102,6 +106,7 @@ const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
           color="info"
           startIcon={<StyleIcon />}
           onClick={handleShareCards}
+          disabled={!isPublic}
         >
           Share Cards
         </Button>
@@ -197,13 +202,15 @@ const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
           >
             Export Cards
           </Button>{" "}
-          <Button
-            variant="contained"
-            color="error"
-            onClick={handleDeleteCardSet}
-          >
-            {isDeleting ? "Deleting..." : "Delete Card Set"}
-          </Button>
+          {isOwner && (
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleDeleteCardSet}
+            >
+              {isDeleting ? "Deleting..." : "Delete Card Set"}
+            </Button>
+          )}
         </ButtonGroup>
       </Stack>
     </>

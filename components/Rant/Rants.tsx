@@ -15,7 +15,10 @@ const Rants = () => {
     if (error || !data) return toast.error(error);
     setRants(data);
   };
-
+  const handleDeleteRant = (rant_id: string) => {
+    const newRants = rants.filter((rant) => rant.rant_id !== rant_id);
+    setRants(newRants);
+  };
   useEffect(() => {
     fetchRants();
   }, []);
@@ -23,7 +26,11 @@ const Rants = () => {
     <Container maxWidth="md">
       <RantControls />
       {rants.map((rant) => (
-        <Rant key={rant.rant_id} rantWithId={rant} />
+        <Rant
+          onRantDelete={handleDeleteRant}
+          key={rant.rant_id}
+          rantWithId={rant}
+        />
       ))}
     </Container>
   );

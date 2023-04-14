@@ -13,11 +13,10 @@
 
 ### features to add
 
-- Add Page Titles
 - Add Rant Preview
 - Add Rant List
 - Add Rant Share Link
-- Change Go Back to my  cards btn on flashcards to color='info'
+
 - add back btn on flashcards
 - add back btn on quiz
 

@@ -37,8 +37,8 @@ const QuizResultBox = ({ answeredQuestions, questions }: Props) => {
         variant="outlined"
         color="info"
         sx={{ mt: 2 }}
+        startIcon={<StyleIcon />}
       >
-        <StyleIcon />
         Go Back to my cards
       </Button>
     </Box>

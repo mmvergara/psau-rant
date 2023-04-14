@@ -195,7 +195,7 @@ const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
         </Typography>
         <ButtonGroup orientation="vertical">
           <Button
-            sx={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
+            sx={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 ,py:4}}
             variant="contained"
             onClick={() => setCardExportModalOpen(true)}
             startIcon={<FileDownloadIcon />}

@@ -1,13 +1,16 @@
-import { useUserData } from "@/context/AuthContext";
-import { getAllCardsByUserId } from "@/firebase/services/cards_services";
-import { CardSet } from "@/types/models/card_types";
-import { truncateString } from "@/utilities/StringFormatter";
-import { Box, Paper, Typography } from "@mui/material";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import CenterCircularProgress from "../Layout/CenterCircularProgress";
 import CardPlayModal from "./CardPlayModal";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import { getAllCardsByUserId } from "@/firebase/services/cards_services";
+import { useEffect, useState } from "react";
+import { truncateString } from "@/utilities/StringFormatter";
+import { useUserData } from "@/context/AuthContext";
+import { useRouter } from "next/router";
+import { CardSet } from "@/types/models/card_types";
+import { toast } from "react-toastify";
+
 const CardsList = () => {
   const router = useRouter();
   const { activeCard } = router.query;

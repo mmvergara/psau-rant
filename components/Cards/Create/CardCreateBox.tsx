@@ -1,8 +1,8 @@
-import { Card } from "@/types/models/card_types";
+import Typography from "@mui/material/Typography";
+import CloseIcon from "@mui/icons-material/Close";import { Card } from "@/types/models/card_types";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import CloseIcon from "@mui/icons-material/Close";
+
 
 type Props = {
   CardData: Card;

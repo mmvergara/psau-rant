@@ -1,12 +1,10 @@
-import {
-  AnsweredResults,
-  CardQuiz,
-  ChoicesType,
-} from "@/types/models/card_types";
-import { useState } from "react";
+import Typography from "@mui/material/Typography";
 import StyleIcon from "@mui/icons-material/Style";
-import { Stack, Button, Paper, Box, Typography } from "@mui/material";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import { AnsweredResults, CardQuiz } from "@/types/models/card_types";
 import { useRouter } from "next/router";
+
 type Props = {
   questions: CardQuiz[];
   answeredQuestions: AnsweredResults[];

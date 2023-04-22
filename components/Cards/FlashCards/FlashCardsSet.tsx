@@ -1,15 +1,15 @@
 import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
+import FlashCardsControls from "./FlashCardsControls";
+import FlashCardsResults from "./FlashCardsResults";
 import useKeyPress from "@/utilities/hooks/useKeyPress";
+import FlashCard from "./FlashCard";
 import Container from "@mui/material/Container";
-import { useEffect, useState } from "react";
 import { Card, CardExamConfig } from "@/types/models/card_types";
+import { useEffect, useState } from "react";
 import { getCardSetById } from "@/firebase/services/cards_services";
 import { Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import FlashCard from "./FlashCard";
-import FlashCardsControls from "./FlashCardsControls";
-import FlashCardsResults from "./FlashCardsResults";
 
 const FlashCardsSet = () => {
   const router = useRouter();

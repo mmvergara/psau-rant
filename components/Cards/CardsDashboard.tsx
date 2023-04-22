@@ -1,14 +1,12 @@
-import {
-  Box,
-  Button,
-  Container,
-  Divider,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
-import Link from "next/link";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Container from "@mui/material/Container";
 import CardsList from "./CardsLists";
+import Divider from "@mui/material/Divider";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Link from "next/link";
+import Box from "@mui/material/Box";
 
 const CardsDashboard = () => {
   return (

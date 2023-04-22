@@ -1,14 +1,17 @@
+import QuizResultBox from "./QuizResultBox";
+import Question from "./Question";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
 import {
   AnsweredResults,
   CardQuiz,
   ChoicesType,
 } from "@/types/models/card_types";
 import { useState } from "react";
-import StyleIcon from "@mui/icons-material/Style";
-import { Stack, Button, Paper, Box, Typography } from "@mui/material";
-import Question from "./Question";
 import { toast } from "react-toastify";
-import QuizResultBox from "./QuizResultBox";
+
 type Props = {
   cardsSet: CardQuiz[];
   choiceType: ChoicesType;

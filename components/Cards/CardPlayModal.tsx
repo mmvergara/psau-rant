@@ -1,25 +1,7 @@
-import { deleteCardSetById } from "@/firebase/services/cards_services";
-import { CardSet } from "@/types/models/card_types";
-import {
-  Modal,
-  Box,
-  Typography,
-  Button,
-  ButtonGroup,
-  Stack,
-  Divider,
-  Switch,
-  FormGroup,
-  FormControlLabel,
-} from "@mui/material";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { toast } from "react-toastify";
-import StyleIcon from "@mui/icons-material/Style";
-import QuizIcon from "@mui/icons-material/Quiz";
-import TuneIcon from "@mui/icons-material/Tune";
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import CardPreviewContent from "./CardPreviewBox";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import { CardSet } from "@/types/models/card_types";
 
 type Props = {
   activeCardSet: CardSet | null;

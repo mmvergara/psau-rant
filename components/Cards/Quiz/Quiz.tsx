@@ -1,12 +1,13 @@
 import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
-import { getCardSetById } from "@/firebase/services/cards_services";
-import { CardQuiz, ChoicesType } from "@/types/models/card_types";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { Container } from "@mui/material";
 import QuizControl from "./QuizControl";
+import { CardQuiz, ChoicesType } from "@/types/models/card_types";
+import { useEffect, useState } from "react";
 import { generateCardQuiz } from "@/utilities/QuizGenerators";
+import { getCardSetById } from "@/firebase/services/cards_services";
+import { useRouter } from "next/router";
+import { Container } from "@mui/material";
+import { toast } from "react-toastify";
+
 const Quiz = () => {
   const router = useRouter();
   const cardsetid = router.query.cardsetid as string;

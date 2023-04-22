@@ -1,12 +1,11 @@
+import CenterCircularProgress from "../Layout/CenterCircularProgress";
+import RantControls from "./RantControls";
+import Container from "@mui/material/Container";
+import Rant from "./RantPiece";
+import { useEffect, useState } from "react";
 import { getAllRant } from "@/firebase/services/rant_services";
 import { RantWithId } from "@/types/models/rant_types";
-
-import Container from "@mui/material/Container";
-import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Rant from "./RantPiece";
-import RantControls from "./RantControls";
-import CenterCircularProgress from "../Layout/CenterCircularProgress";
 
 const Rants = () => {
   const [rants, setRants] = useState<RantWithId[]>([]);

@@ -1,7 +1,7 @@
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import type { Card, CardExamConfig } from "@/types/models/card_types";
 import { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 
 type Props = {
   cardData: Card;

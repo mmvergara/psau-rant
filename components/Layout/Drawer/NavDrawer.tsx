@@ -1,19 +1,19 @@
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import SettingsIcon from "@mui/icons-material/Settings";
-import HomeIcon from "@mui/icons-material/Home";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import Paper from "@mui/material/Paper";
-import Drawer from "@mui/material/Drawer";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import SettingsIcon from "@mui/icons-material/Settings";
+import Typography from "@mui/material/Typography";
 import StyleIcon from "@mui/icons-material/Style";
-import { signOut } from "firebase/auth";
+import HomeIcon from "@mui/icons-material/Home";
+import ListItem from "@mui/material/ListItem";
+import Button from "@mui/material/Button";
+import Drawer from "@mui/material/Drawer";
+import Paper from "@mui/material/Paper";
+import List from "@mui/material/List";
+import Box from "@mui/material/Box";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
-import { toast } from "react-toastify";
 import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
+import { signOut } from "firebase/auth";
+import { toast } from "react-toastify";
 
 type Props = {
   drawerOpen: boolean;

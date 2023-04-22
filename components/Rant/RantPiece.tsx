@@ -1,16 +1,16 @@
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import RantLikeButton from "./RantLikeButton";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import { getTimeElapsedString } from "@/utilities/Date";
-import Divider from "@mui/material/Divider";
-import { RantWithId } from "@/types/models/rant_types";
-import RantLikeButton from "./RantLikeButton";
 import { useUserData } from "@/context/AuthContext";
-import IconButton from "@mui/material/IconButton";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { RantWithId } from "@/types/models/rant_types";
 import { deleteRant } from "@/firebase/services/rant_services";
-import { toast } from "react-toastify";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 type Props = {
   rantWithId: RantWithId;

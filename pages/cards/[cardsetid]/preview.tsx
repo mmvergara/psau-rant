@@ -1,11 +1,11 @@
 import CardPreviewContent from "@/components/Cards/CardPreviewBox";
 import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
-import { getCardSetById } from "@/firebase/services/cards_services";
-import { CardSet } from "@/types/models/card_types";
-import { Container } from "@mui/material";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { getCardSetById } from "@/firebase/services/cards_services";
+import { Container } from "@mui/material";
+import { useRouter } from "next/router";
+import { CardSet } from "@/types/models/card_types";
 import { toast } from "react-toastify";
 
 const CardPreviewPage = () => {
@@ -19,7 +19,7 @@ const CardPreviewPage = () => {
       toast.error(error);
       router.push("/cards");
     }
-    console.log(data)
+    console.log(data);
     if (data) return setCardSet(data);
     router.push("/cards");
   };

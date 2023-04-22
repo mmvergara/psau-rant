@@ -11,12 +11,12 @@ import AppBar from "@mui/material/AppBar";
 import Menu from "@mui/material/Menu";
 import Link from "next/link";
 import Box from "@mui/material/Box";
-import { useState } from "react";
-import { signOut } from "firebase/auth";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
-import { toast } from "react-toastify";
 import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import { signOut } from "firebase/auth";
+import { toast } from "react-toastify";
 
 type Props = {
   authIsLoading: boolean;

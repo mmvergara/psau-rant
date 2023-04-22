@@ -1,15 +1,13 @@
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Typography from "@mui/material/Typography";
+import StyleIcon from "@mui/icons-material/Style";
+import FormGroup from "@mui/material/FormGroup";
+import Divider from "@mui/material/Divider";
+import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import {
-  Divider,
-  FormControlLabel,
-  FormGroup,
-  Switch,
-  Typography,
-} from "@mui/material";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import StyleIcon from "@mui/icons-material/Style";
 
 type Props = {
   shuffled: boolean;
@@ -48,7 +46,7 @@ const FlashCardsResults = ({
         variant="outlined"
         color="info"
         sx={{ mt: 2, width: "fit-content" }}
-        startIcon={<StyleIcon />} 
+        startIcon={<StyleIcon />}
       >
         Go Back to my cards
       </Button>

@@ -1,16 +1,17 @@
-import { updateUsernameSchema } from "@/utilities/ValidationSchemas";
-import { useFormik } from "formik";
-import { useState } from "react";
-import { toast } from "react-toastify";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import { updateUsernameSchema } from "@/utilities/ValidationSchemas";
 import { addUserUsername } from "@/firebase/services/auth_service";
 import { useUserData } from "@/context/AuthContext";
+import { useFormik } from "formik";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import { toast } from "react-toastify";
+
 const style = {
   position: "absolute" as "absolute",
   top: "50%",

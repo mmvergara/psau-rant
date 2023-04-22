@@ -1,8 +1,11 @@
-import { AnsweredResults, CardQuiz } from "@/types/models/card_types";
-import { Divider, Paper, Typography, Alert } from "@mui/material";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import RadioGroup from "@mui/material/RadioGroup";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import Paper from "@mui/material/Paper";
+import Alert from "@mui/material/Alert";
+import Radio from "@mui/material/Radio";
+import { AnsweredResults, CardQuiz } from "@/types/models/card_types";
 
 type Props = {
   index: number;

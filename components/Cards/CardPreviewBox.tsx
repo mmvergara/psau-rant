@@ -1,26 +1,22 @@
-import { deleteCardSetById } from "@/firebase/services/cards_services";
-import { CardSet } from "@/types/models/card_types";
-import {
-  Modal,
-  Box,
-  Typography,
-  Button,
-  ButtonGroup,
-  Stack,
-  Divider,
-  Switch,
-  FormGroup,
-  FormControlLabel,
-} from "@mui/material";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { toast } from "react-toastify";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import CardExportModal from "@/components/Cards/CardExportModal";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Typography from "@mui/material/Typography";
+import FormGroup from "@mui/material/FormGroup";
 import StyleIcon from "@mui/icons-material/Style";
 import QuizIcon from "@mui/icons-material/Quiz";
 import TuneIcon from "@mui/icons-material/Tune";
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import CardExportModal from "@/components/Cards/CardExportModal";
+import Divider from "@mui/material/Divider";
+import Switch from "@mui/material/Switch";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import { deleteCardSetById } from "@/firebase/services/cards_services";
 import { useUserData } from "@/context/AuthContext";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { CardSet } from "@/types/models/card_types";
+import { toast } from "react-toastify";
 
 type Props = {
   cardSet: CardSet;
@@ -70,7 +66,7 @@ const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
       return `${card.card_term}\n${card.card_definition}\n\n`;
     })
     .join("\n");
-    
+
   const isOwner = cardSet.card_set_author_id === user?.uid;
   const isPublic = cardSet.card_set_isPublic;
   return (
@@ -195,7 +191,7 @@ const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
         </Typography>
         <ButtonGroup orientation="vertical">
           <Button
-            sx={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 ,py:4}}
+            sx={{ borderTopLeftRadius: 0, borderTopRightRadius: 0, py: 4 }}
             variant="contained"
             onClick={() => setCardExportModalOpen(true)}
             startIcon={<FileDownloadIcon />}

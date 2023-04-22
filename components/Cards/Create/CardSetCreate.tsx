@@ -1,22 +1,20 @@
-import { useRef, useState } from "react";
-import { Card } from "@/types/models/card_types";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import CardCreateBox from "./CardCreateBox";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import {
-  CircularProgress,
-  FormControlLabel,
-  FormGroup,
-  Switch,
-} from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import CardCreateBox from "./CardCreateBox";
+import Typography from "@mui/material/Typography";
+import FormGroup from "@mui/material/FormGroup";
+import Container from "@mui/material/Container";
+import TextField from "@mui/material/TextField";
+import Switch from "@mui/material/Switch";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import { useRef, useState } from "react";
 import { createCardSet } from "@/firebase/services/cards_services";
 import { useUserData } from "@/context/AuthContext";
-import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import { Card } from "@/types/models/card_types";
 
 const CardSetCreate = () => {
   const router = useRouter();

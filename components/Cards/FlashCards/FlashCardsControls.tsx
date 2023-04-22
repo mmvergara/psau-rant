@@ -1,9 +1,9 @@
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import Box from "@mui/material/Box";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import Button from "@mui/material/Button";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 type Props = {
   showNextCard: (quiz: "StillLearning" | "Know") => void;

@@ -1,4 +1,7 @@
-import { ModalProps, Modal, TextField, Box, Button } from "@mui/material";
+import Modal, { ModalProps } from "@mui/material/Modal";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import { toast } from "react-toastify";
 type Props = ModalProps & { TextValue: string };
 const style = {

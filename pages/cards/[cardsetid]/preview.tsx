@@ -30,7 +30,7 @@ const CardPreviewPage = () => {
   return (
     <>
       <Head>
-        <title>Card Preview</title>
+        <title>{cardSet?.card_set_name || "Card Preview"}</title>
       </Head>
       {cardSet ? (
         <Container maxWidth="sm" sx={{ mt: 4 }}>

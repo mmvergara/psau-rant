@@ -1,15 +1,6 @@
-# Premise Socio Academic  United
-
-## Todo:
-- User can register login and logout
-- users can only write on user's collection on document that they own
+# Premise Socio Academic United
 
 ### Rant
-
-- user's can only delete posts that they own
-- user's can only like if they havent liked yet
-- user's can only like once
-- user's can only unlike if they already like and that they own the like
 
 ### features to add
 
@@ -20,8 +11,14 @@
 - add back btn on flashcards
 - add back btn on quiz
 
-
 - view profile with their posts
 - view profile with their flashcards
 - show tutorial when user first enter quiz
 - add privacy advise when creating flash card
+
+
+- add show email on settings page
+- add card 5 button
+- add made by vergara mark matthew on navbar
+- use dynamic form for 
+- make the term part a textfield

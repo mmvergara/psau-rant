@@ -34,22 +34,18 @@ const CardPreviewPage = ({
   return (
     <>
       <Head>
-        <title>Flash Cards | {cardSet?.card_set_name || "Card Preview"}</title>
+        <title>{cardSet?.card_set_name || "Card Preview"}</title>
         <meta
           property="og:title"
-          content={`Flash Cards ${cardSet?.card_set_name}` || "Card Preview"}
+          content={cardSet?.card_set_name || "Card Preview"}
         />
         <meta
           property="og:description"
-          content={`Flash Cards ${cardSet?.card_set_name}` || "Card Preview"}
+          content="Description of the card set being previewed"
         />
         <meta
-          name="description"
-          content={`Flash Cards ${cardSet?.card_set_name}` || "Card Preview"}
-        />
-        <meta
-          name="title"
-          content={`Flash Cards ${cardSet?.card_set_name}` || "Card Preview"}
+          property="og:url"
+          content={`https://psaurant.vercel.app/cards/${cardSet?.card_set_id}`}
         />
       </Head>
       {cardSet ? (

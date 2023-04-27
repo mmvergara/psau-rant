@@ -130,9 +130,17 @@ const NavDrawer = ({ drawerOpen, toggleDrawer }: Props) => {
         </List>
         {user && (
           <Box>
-            <Typography sx={{ mb: 2, bgcolor: "beige", p: 1, borderRadius: 2 }}>
+            <Typography
+              sx={{
+                mb: 2,
+                bgcolor: "beige",
+                p: 1,
+                borderRadius: 2,
+                fontSize: 14,
+              }}
+            >
               Made with 💘 by: <br />
-              Mark Matthew Vergara
+              Mark Matthew Vergara <br /> BSIT2-A PSAU
             </Typography>
             <Button
               sx={{

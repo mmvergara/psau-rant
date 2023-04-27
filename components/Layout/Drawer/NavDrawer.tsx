@@ -129,33 +129,39 @@ const NavDrawer = ({ drawerOpen, toggleDrawer }: Props) => {
           })}
         </List>
         {user && (
-          <Button
-            sx={{
-              opacity: 0.8,
-              fontSize: "1.2em",
-              gap: "2px",
-              borderRadius: "8px",
-              marginBottom: "20px",
-              width: "100%",
-              padding: "10px 0px",
-            }}
-            color="error"
-            variant="contained"
-            onClick={handleLogout}
-          >
-            <Box
+          <Box>
+            <Typography sx={{ mb: 2, bgcolor: "beige", p: 1, borderRadius: 2 }}>
+              Made with 💘 by: <br />
+              Mark Matthew Vergara
+            </Typography>
+            <Button
               sx={{
-                letterSpacing: "2px",
-                display: "flex",
-                gap: "1em",
+                opacity: 0.8,
+                fontSize: "1.2em",
+                gap: "2px",
+                borderRadius: "8px",
+                marginBottom: "20px",
                 width: "100%",
-                px: "22px",
+                padding: "10px 0px",
               }}
+              color="error"
+              variant="contained"
+              onClick={handleLogout}
             >
-              <ExitToAppIcon />
-              <Typography mt="1px">Sign Out</Typography>
-            </Box>
-          </Button>
+              <Box
+                sx={{
+                  letterSpacing: "2px",
+                  display: "flex",
+                  gap: "1em",
+                  width: "100%",
+                  px: "22px",
+                }}
+              >
+                <ExitToAppIcon />
+                <Typography mt="1px">Sign Out</Typography>
+              </Box>
+            </Button>
+          </Box>
         )}
       </Paper>
     </Drawer>

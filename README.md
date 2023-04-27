@@ -20,5 +20,3 @@
 - add show email on settings page
 - add card 5 button
 - add made by vergara mark matthew on navbar
-- use dynamic form for 
-- make the term part a textfield

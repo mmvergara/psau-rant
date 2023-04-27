@@ -1,36 +1,40 @@
 import CardPreviewContent from "@/components/Cards/CardPreviewBox";
 import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
 import Head from "next/head";
-import { useEffect, useState } from "react";
 import { getCardSetById } from "@/firebase/services/cards_services";
 import { Container } from "@mui/material";
 import { useRouter } from "next/router";
-import { CardSet } from "@/types/models/card_types";
 import { toast } from "react-toastify";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 
-const CardPreviewPage = () => {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const cardsetid = context.query.cardsetid as string;
+  const { data, error } = await getCardSetById(cardsetid);
+  if (error) {
+    toast.error(error);
+    return {
+      redirect: {
+        destination: "/cards",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {
+      cardSet: data,
+    },
+  };
+}
+
+const CardPreviewPage = ({
+  cardSet,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
   const handleDeleteCard = () => router.push("/cards");
-  const cardsetid = router.query.cardsetid as string;
-  const [cardSet, setCardSet] = useState<CardSet | null>(null);
-  const fetchCardSet = async () => {
-    const { data, error } = await getCardSetById(cardsetid);
-    if (error) {
-      toast.error(error);
-      router.push("/cards");
-    }
-    console.log(data);
-    if (data) return setCardSet(data);
-    router.push("/cards");
-  };
-  useEffect(() => {
-    fetchCardSet();
-  }, []);
-
   return (
     <>
       <Head>
-        <title>{cardSet?.card_set_name || "Card Preview"}</title>
+        <title>Flash Cards | {cardSet?.card_set_name || "Card Preview"}</title>
       </Head>
       {cardSet ? (
         <Container maxWidth="sm" sx={{ mt: 4 }}>

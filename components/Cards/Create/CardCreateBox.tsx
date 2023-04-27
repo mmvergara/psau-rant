@@ -62,6 +62,7 @@ const CardCreateBox = ({ CardData, onCardChange, onCardDelete }: Props) => {
       </Box>
       <TextField
         label="Term"
+        multiline
         onChange={(e) =>
           onCardChange(card_id, {
             fieldType: "Term",

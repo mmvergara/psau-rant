@@ -35,6 +35,14 @@ const CardPreviewPage = ({
     <>
       <Head>
         <title>Flash Cards | {cardSet?.card_set_name || "Card Preview"}</title>
+        <meta
+          property="og:title"
+          content={`Flash Cards ${cardSet?.card_set_name}` || "Card Preview"}
+        />
+        <meta
+          property="og:description"
+          content={`Flash Cards ${cardSet?.card_set_name}` || "Card Preview"}
+        />
       </Head>
       {cardSet ? (
         <Container maxWidth="sm" sx={{ mt: 4 }}>

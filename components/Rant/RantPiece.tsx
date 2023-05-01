@@ -43,7 +43,7 @@ const Rant = ({ rantWithId, onRantDelete }: Props) => {
       component="article"
       sx={{
         bgcolor: "transparent",
-        mt: 5,
+        mt: 3,
         width: "100%",
         maxWidth: "1000px",
         boxShadow: 4,

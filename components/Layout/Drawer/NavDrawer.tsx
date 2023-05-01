@@ -1,3 +1,4 @@
+import InstallMobileIcon from "@mui/icons-material/InstallMobile";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Typography from "@mui/material/Typography";
@@ -39,6 +40,11 @@ const NavDrawer = ({ drawerOpen, toggleDrawer }: Props) => {
       name: "Settings",
       icon: <SettingsIcon htmlColor="#ffffff" />,
       url: "/settings",
+    },
+    {
+      name: "Download APP",
+      icon: <InstallMobileIcon htmlColor="#ffffff" />,
+      url: "/mobile/download",
     },
   ];
 

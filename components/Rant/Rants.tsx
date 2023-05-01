@@ -9,6 +9,7 @@ import { useUserData } from "@/context/AuthContext";
 import { toast } from "react-toastify";
 
 const Rants = () => {
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const { user } = useUserData();
   const [rants, setRants] = useState<RantWithId[]>([]);
   const [isFetching, setIsFetching] = useState(true);
@@ -27,14 +28,7 @@ const Rants = () => {
   }, []);
   return (
     <Container maxWidth="md">
-      {navigator.platform.toUpperCase() === "ANDROID" && (
-        <div className="text-center">
-          <h1 className="text-2xl font-bold">Rants</h1>
-          <p className="text-sm text-gray-500">
-            You can swipe left or right to navigate
-          </p>
-        </div>
-      )}
+      {isMobile && <h1>Mobile</h1>}
       {user && <RantControls />}
       {rants.map((rant) => (
         <Rant

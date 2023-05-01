@@ -1,5 +1,6 @@
 import CenterCircularProgress from "../Layout/CenterCircularProgress";
 import RantControls from "./RantControls";
+import DownloadApp from "../DownloadApp/DownloadApp";
 import Container from "@mui/material/Container";
 import Rant from "./RantPiece";
 import { useEffect, useState } from "react";
@@ -28,7 +29,7 @@ const Rants = () => {
   }, []);
   return (
     <Container maxWidth="md">
-      {isMobile && <h1>Mobile</h1>}
+      {isMobile && <DownloadApp />}
       {user && <RantControls />}
       {rants.map((rant) => (
         <Rant

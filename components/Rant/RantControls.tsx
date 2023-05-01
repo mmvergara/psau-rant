@@ -13,7 +13,7 @@ const RantControls = () => {
         bgcolor: "white",
         borderTop: "12px solid green",
         borderRadius: 1,
-        mt: 4,
+        mt: 3,
         p: "20px",
       }}
     >

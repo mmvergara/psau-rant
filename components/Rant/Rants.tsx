@@ -5,8 +5,8 @@ import Rant from "./RantPiece";
 import { useEffect, useState } from "react";
 import { getAllRant } from "@/firebase/services/rant_services";
 import { RantWithId } from "@/types/models/rant_types";
-import { toast } from "react-toastify";
 import { useUserData } from "@/context/AuthContext";
+import { toast } from "react-toastify";
 
 const Rants = () => {
   const { user } = useUserData();
@@ -27,6 +27,14 @@ const Rants = () => {
   }, []);
   return (
     <Container maxWidth="md">
+      {navigator.platform.toUpperCase() === "ANDROID" && (
+        <div className="text-center">
+          <h1 className="text-2xl font-bold">Rants</h1>
+          <p className="text-sm text-gray-500">
+            You can swipe left or right to navigate
+          </p>
+        </div>
+      )}
       {user && <RantControls />}
       {rants.map((rant) => (
         <Rant

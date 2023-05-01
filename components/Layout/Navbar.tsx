@@ -59,18 +59,22 @@ const Navbar = ({ authIsLoading, needToSetUsername }: Props) => {
     <Box sx={{ flexGrow: 1 }}>
       {openAddUsernameModal && <AddUsernameModal />}
       <AppBar position="static" color="primary">
-        <NavDrawer drawerOpen={drawerOpen} toggleDrawer={toggleDrawer} />
+        {user && (
+          <NavDrawer drawerOpen={drawerOpen} toggleDrawer={toggleDrawer} />
+        )}
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={toggleDrawer}
-          >
-            <MenuIcon />
-          </IconButton>
+          {user && (
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+              onClick={toggleDrawer}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             <Link
               href="/"

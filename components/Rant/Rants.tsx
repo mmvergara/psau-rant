@@ -6,8 +6,10 @@ import { useEffect, useState } from "react";
 import { getAllRant } from "@/firebase/services/rant_services";
 import { RantWithId } from "@/types/models/rant_types";
 import { toast } from "react-toastify";
+import { useUserData } from "@/context/AuthContext";
 
 const Rants = () => {
+  const { user } = useUserData();
   const [rants, setRants] = useState<RantWithId[]>([]);
   const [isFetching, setIsFetching] = useState(true);
   const fetchRants = async () => {
@@ -25,7 +27,7 @@ const Rants = () => {
   }, []);
   return (
     <Container maxWidth="md">
-      <RantControls />
+      {user && <RantControls />}
       {rants.map((rant) => (
         <Rant
           onRantDelete={handleDeleteRant}

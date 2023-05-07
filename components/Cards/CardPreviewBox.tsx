@@ -1,6 +1,7 @@
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import CardExportModal from "@/components/Cards/CardExportModal";
+import InsertLinkIcon from "@mui/icons-material/InsertLink";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Typography from "@mui/material/Typography";
 import FormGroup from "@mui/material/FormGroup";
@@ -17,6 +18,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { CardSet } from "@/types/models/card_types";
 import { toast } from "react-toastify";
+import { Box } from "@mui/material";
 
 type Props = {
   cardSet: CardSet;
@@ -53,10 +55,15 @@ const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
     toast.success("Card Set Deleted");
   };
 
-  const handleShareCards = () => {
+  const handleCopyLink = () => {
     const url = `https://psaurant.vercel.app/cards/${card_set_id}/preview`;
     navigator.clipboard.writeText(url);
     toast.success("Link Copied to clipboard!");
+  };
+
+  const handleCopyId = () => {
+    navigator.clipboard.writeText(card_set_id);
+    toast.success("ID Copied to clipboard!");
   };
 
   const [CardExportModalOpen, setCardExportModalOpen] = useState(false);
@@ -97,15 +104,24 @@ const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
             label="Shuffled"
           />
         </FormGroup>
-        <Button
-          variant="contained"
-          color="info"
-          startIcon={<StyleIcon />}
-          onClick={handleShareCards}
-          disabled={!isPublic}
-        >
-          Share Cards
-        </Button>
+        <ButtonGroup variant="contained" color="inherit">
+          <Button
+            color="info"
+            startIcon={<InsertLinkIcon />}
+            onClick={handleCopyLink}
+            disabled={!isPublic}
+          >
+            Link
+          </Button>
+          <Button
+            color="info"
+            startIcon={<InsertLinkIcon />}
+            onClick={handleCopyId}
+            disabled={!isPublic}
+          >
+            ID
+          </Button>
+        </ButtonGroup>
       </Stack>
       <Divider sx={{ marginY: 2 }} />
       <Stack>

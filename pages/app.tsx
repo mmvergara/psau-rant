@@ -4,6 +4,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Head from "next/head";
+import Link from "next/link";
 
 const SignInPage = () => {
   return (
@@ -36,6 +37,9 @@ const SignInPage = () => {
           </Typography>
 
           <Button
+            LinkComponent={Link}
+            href="https://www.mediafire.com/file/l04w138t0wm0sly/psau-rant-v1.0.1.apk/file"
+            target="_blank"
             type="submit"
             variant="contained"
             sx={{
@@ -45,7 +49,7 @@ const SignInPage = () => {
               color: "white",
             }}
           >
-            <span style={{ marginRight: "3px" }}>Download Android App</span>
+            <span style={{ marginRight: "3px" }}>Download Android App v1.0.1</span>
             <AndroidIcon htmlColor="#ffffff" />
           </Button>
         </Box>

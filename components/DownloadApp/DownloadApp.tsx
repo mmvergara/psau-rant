@@ -2,10 +2,13 @@ import InstallMobileIcon from "@mui/icons-material/InstallMobile";
 import AndroidIcon from "@mui/icons-material/Android";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Link from "next/link";
 
 const DownloadApp = () => {
   return (
     <Box
+      component={Link}
+      href="/app"
       sx={{
         padding: 1.5,
         bgcolor: "#eef5ef",

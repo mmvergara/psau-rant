@@ -44,7 +44,7 @@ const NavDrawer = ({ drawerOpen, toggleDrawer }: Props) => {
     {
       name: "Download APP",
       icon: <InstallMobileIcon htmlColor="#ffffff" />,
-      url: "/app/download-android",
+      url: "/app",
     },
   ];
 

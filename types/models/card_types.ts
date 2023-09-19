@@ -1,7 +1,7 @@
 export type Card = {
   card_id: string;
-  card_term: string;
-  card_definition: string;
+  card_question: string;
+  card_answer: string;
 };
 
 export type CardSet = {
@@ -13,13 +13,13 @@ export type CardSet = {
 };
 
 export type CardExamConfig = {
-  termFirst: boolean;
+  questionFirst: boolean;
   activeCardId: string;
   actionDirection: "previous" | "next";
 };
 
 export type choiceLetters = "a" | "b" | "c" | "d";
-export type ChoicesType = "term" | "definition";
+export type ChoicesType = "question" | "answer";
 export type CardQuiz = {
   card_choices: {
     a: string;
@@ -33,5 +33,5 @@ export type AnsweredResults = {
   card_id: string;
   isCorrect: boolean;
   correct_answer: string;
-  answer: string;
+  Answer: string;
 };

@@ -16,9 +16,8 @@ import { deleteCardSetById } from "@/firebase/services/cards_services";
 import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { CardSet } from "@/types/models/card_types";
+import { CardSet, ChoicesType } from "@/types/models/card_types";
 import { toast } from "react-toastify";
-import { Box } from "@mui/material";
 
 type Props = {
   cardSet: CardSet;
@@ -31,14 +30,14 @@ const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
   const { card_set_id, card_set_name } = cardSet;
 
   const [shuffled, setShuffled] = useState(true);
-  const handleCardPlay = (termFirst: boolean) => {
+  const handleCardPlay = (questionFirst: boolean) => {
     const path = `/cards/${card_set_id}/flashcards?${
       shuffled ? "shuffled=true" : ""
-    }${termFirst ? "&termFirst=true" : ""}`;
+    }${questionFirst ? "&questionFirst=true" : ""}`;
     router.push(path);
   };
 
-  const handleTakeQuiz = (choiceType: "term" | "definition") => {
+  const handleTakeQuiz = (choiceType: ChoicesType) => {
     const path = `/cards/${card_set_id}/quiz?choiceType=${choiceType}${
       shuffled ? "&shuffled=true" : ""
     }`;
@@ -70,7 +69,7 @@ const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
 
   const cardsText = cardSet.card_set_cards
     .map((card) => {
-      return `${card.card_term}\n${card.card_definition}\n\n`;
+      return `${card.card_question}\n${card.card_answer}\n\n`;
     })
     .join("\n");
 
@@ -148,10 +147,10 @@ const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
             onClick={() => handleCardPlay(true)}
             sx={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
           >
-            Term First
+            Question First
           </Button>
           <Button variant="contained" onClick={() => handleCardPlay(false)}>
-            Definition First
+            Answer First
           </Button>
         </ButtonGroup>
         <Typography
@@ -176,14 +175,11 @@ const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
           <Button
             sx={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
             variant="contained"
-            onClick={() => handleTakeQuiz("term")}
+            onClick={() => handleTakeQuiz("question")}
           >
             Terms as choices
           </Button>
-          <Button
-            variant="contained"
-            onClick={() => handleTakeQuiz("definition")}
-          >
+          <Button variant="contained" onClick={() => handleTakeQuiz("answer")}>
             Definitions as choices
           </Button>
         </ButtonGroup>

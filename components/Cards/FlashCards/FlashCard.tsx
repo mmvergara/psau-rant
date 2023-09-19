@@ -9,7 +9,7 @@ type Props = {
 };
 
 const FlashCard = ({ cardData, config }: Props) => {
-  const { card_term, card_definition } = cardData;
+  const { card_question, card_answer } = cardData;
   const [flipped, setFlipped] = useState(false);
 
   useEffect(() => {
@@ -19,8 +19,8 @@ const FlashCard = ({ cardData, config }: Props) => {
   const isCurrentCard = config.activeCardId === cardData.card_id;
   if (!isCurrentCard) return null;
 
-  const frontContent = config.termFirst ? card_term : card_definition;
-  const backContent = !config.termFirst ? card_term : card_definition;
+  const frontContent = config.questionFirst ? card_question : card_answer;
+  const backContent = !config.questionFirst ? card_question : card_answer;
 
   return (
     <Box

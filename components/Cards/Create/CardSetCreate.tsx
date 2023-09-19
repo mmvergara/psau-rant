@@ -42,12 +42,12 @@ const CardSetCreate = () => {
   };
   const handleCardChange = (
     card_id: string,
-    { fieldType, value }: { fieldType: "Term" | "Definition"; value: string }
+    { fieldType, value }: { fieldType: "Question" | "Answer"; value: string }
   ) => {
     const newCards = cards.map((card) => {
       if (card.card_id === card_id) {
-        if (fieldType === "Term") card.card_term = value;
-        if (fieldType === "Definition") card.card_definition = value;
+        if (fieldType === "Question") card.card_question = value;
+        if (fieldType === "Answer") card.card_answer = value;
       }
       return card;
     });
@@ -58,8 +58,8 @@ const CardSetCreate = () => {
       ...cards,
       {
         card_id: cards.length + 1 + "",
-        card_term: "",
-        card_definition: "",
+        card_question: "",
+        card_answer: "",
       },
     ];
     setCards(newCards);
@@ -190,12 +190,12 @@ export default CardSetCreate;
 const initialCards = [
   {
     card_id: "1",
-    card_term: "",
-    card_definition: "",
+    card_question: "",
+    card_answer: "",
   },
   {
     card_id: "2",
-    card_term: "",
-    card_definition: "",
+    card_question: "",
+    card_answer: "",
   },
 ];

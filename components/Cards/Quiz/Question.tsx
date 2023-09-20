@@ -5,14 +5,18 @@ import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
 import Alert from "@mui/material/Alert";
 import Radio from "@mui/material/Radio";
-import { AnsweredResults, CardQuiz } from "@/types/models/card_types";
+import {
+  AnsweredResults,
+  CardQuiz,
+  ChoicesType,
+} from "@/types/models/card_types";
 
 type Props = {
   index: number;
   isSubmitted: boolean;
   onAnswer: (result: AnsweredResults) => void;
   cardQuiz: CardQuiz;
-  choicesType: "Question" | "Answer";
+  choicesType: ChoicesType;
   answeredQuestions: AnsweredResults[];
 };
 const Question = ({
@@ -24,7 +28,7 @@ const Question = ({
   answeredQuestions,
 }: Props) => {
   const question =
-    cardQuiz[`card_${choicesType === "Question" ? "Answer" : "Question"}`];
+    cardQuiz[`card_${choicesType === "question" ? "answer" : "question"}`];
   const Answer = cardQuiz[`card_${choicesType}`];
   const AnsweredResults: AnsweredResults | null =
     answeredQuestions.find((v) => v.card_id === cardQuiz.card_id) || null;

@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import { Card } from "@/types/models/card_types";
+import { Card, ChoicesType } from "@/types/models/card_types";
 
 type Props = {
   CardData: Card;
@@ -13,7 +13,7 @@ type Props = {
       fieldType,
       value,
     }: {
-      fieldType: "Question" | "Answer";
+      fieldType: ChoicesType;
       value: string;
     }
   ) => void;
@@ -65,7 +65,7 @@ const CardCreateBox = ({ CardData, onCardChange, onCardDelete }: Props) => {
         multiline
         onChange={(e) =>
           onCardChange(card_id, {
-            fieldType: "Question",
+            fieldType: "question",
             value: e.target.value || "",
           })
         }
@@ -78,7 +78,7 @@ const CardCreateBox = ({ CardData, onCardChange, onCardDelete }: Props) => {
         multiline
         onChange={(e) =>
           onCardChange(card_id, {
-            fieldType: "Answer",
+            fieldType: "answer",
             value: e.target.value || "",
           })
         }

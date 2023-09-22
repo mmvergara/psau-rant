@@ -21,8 +21,8 @@ const CardSetCreate = () => {
   const { user } = useUserData();
   const [isLoading, setIsLoading] = useState(false);
 
-  const [cardSetName, setCardSetName] = useState("");
   const [cardSetIsPublic, setCardSetIsPublic] = useState(true);
+  const [cardSetName, setCardSetName] = useState("");
   const [cards, setCards] = useState<Card[]>(initialCards);
   const handleSubmitCardSet = async () => {
     if (!user) return;
@@ -42,12 +42,12 @@ const CardSetCreate = () => {
   };
   const handleCardChange = (
     card_id: string,
-    { fieldType, value }: { fieldType: "Term" | "Definition"; value: string }
+    { fieldType, value }: { fieldType: "question" | "answer"; value: string }
   ) => {
     const newCards = cards.map((card) => {
       if (card.card_id === card_id) {
-        if (fieldType === "Term") card.card_term = value;
-        if (fieldType === "Definition") card.card_definition = value;
+        if (fieldType === "question") card.card_question = value;
+        if (fieldType === "answer") card.card_answer = value;
       }
       return card;
     });
@@ -58,8 +58,40 @@ const CardSetCreate = () => {
       ...cards,
       {
         card_id: cards.length + 1 + "",
-        card_term: "",
-        card_definition: "",
+        card_question: "",
+        card_answer: "",
+      },
+    ];
+    setCards(newCards);
+    setTimeout(() => scrollToBottom(), 100);
+  };
+  const handleAdd5Card = () => {
+    const newCards = [
+      ...cards,
+      {
+        card_id: cards.length + 1 + "",
+        card_question: "",
+        card_answer: "",
+      },
+      {
+        card_id: cards.length + 2 + "",
+        card_question: "",
+        card_answer: "",
+      },
+      {
+        card_id: cards.length + 3 + "",
+        card_question: "",
+        card_answer: "",
+      },
+      {
+        card_id: cards.length + 4 + "",
+        card_question: "",
+        card_answer: "",
+      },
+      {
+        card_id: cards.length + 5 + "",
+        card_question: "",
+        card_answer: "",
       },
     ];
     setCards(newCards);
@@ -161,6 +193,14 @@ const CardSetCreate = () => {
         Add Card
       </Button>{" "}
       <Button
+        type="button"
+        onClick={handleAdd5Card}
+        variant="contained"
+        sx={{ py: 4, fontSize: 20, border: "12px solid #0B4619" }}
+      >
+        Add 5 Cards
+      </Button>{" "}
+      <Button
         ref={addCardRef}
         type="button"
         onClick={handleSubmitCardSet}
@@ -190,12 +230,12 @@ export default CardSetCreate;
 const initialCards = [
   {
     card_id: "1",
-    card_term: "",
-    card_definition: "",
+    card_question: "",
+    card_answer: "",
   },
   {
     card_id: "2",
-    card_term: "",
-    card_definition: "",
+    card_question: "",
+    card_answer: "",
   },
 ];

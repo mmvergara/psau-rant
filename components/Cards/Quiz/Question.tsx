@@ -5,14 +5,18 @@ import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
 import Alert from "@mui/material/Alert";
 import Radio from "@mui/material/Radio";
-import { AnsweredResults, CardQuiz } from "@/types/models/card_types";
+import {
+  AnsweredResults,
+  CardQuiz,
+  ChoicesType,
+} from "@/types/models/card_types";
 
 type Props = {
   index: number;
   isSubmitted: boolean;
   onAnswer: (result: AnsweredResults) => void;
   cardQuiz: CardQuiz;
-  choicesType: "term" | "definition";
+  choicesType: ChoicesType;
   answeredQuestions: AnsweredResults[];
 };
 const Question = ({
@@ -24,8 +28,8 @@ const Question = ({
   answeredQuestions,
 }: Props) => {
   const question =
-    cardQuiz[`card_${choicesType === "term" ? "definition" : "term"}`];
-  const answer = cardQuiz[`card_${choicesType}`];
+    cardQuiz[`card_${choicesType === "question" ? "answer" : "question"}`];
+  const Answer = cardQuiz[`card_${choicesType}`];
   const AnsweredResults: AnsweredResults | null =
     answeredQuestions.find((v) => v.card_id === cardQuiz.card_id) || null;
 
@@ -62,14 +66,14 @@ const Question = ({
         defaultValue={
           answeredQuestions.find((v) => {
             return v.card_id === cardQuiz.card_id;
-          })?.answer || null
+          })?.Answer || null
         }
         onChange={(e) => {
           onAnswer({
             card_id: cardQuiz.card_id,
-            isCorrect: e.target.value === answer,
-            answer: e.target.value,
-            correct_answer: answer,
+            isCorrect: e.target.value === Answer,
+            Answer: e.target.value,
+            correct_answer: Answer,
           });
         }}
       >
@@ -88,7 +92,7 @@ const Question = ({
         <Alert severity={AnsweredResults.isCorrect ? "success" : "error"}>
           {AnsweredResults.isCorrect
             ? "Correct!"
-            : `Correct answer is: ${correctAnswer}`}
+            : `Correct Answer is: ${correctAnswer}`}
         </Alert>
       )}
     </Paper>

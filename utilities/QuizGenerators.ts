@@ -19,7 +19,7 @@ const generateChoices = (
   Cards: Card[],
   choicesType: ChoicesType
 ): CardQuiz["card_choices"] => {
-  // Create a new object with the correct answer on aa
+  // Create a new object with the correct Answer on aa
   const finalChoices = {
     a: Card[`card_${choicesType}`],
     b: "",

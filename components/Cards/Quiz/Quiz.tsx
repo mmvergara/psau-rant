@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 const Quiz = () => {
   const router = useRouter();
   const cardsetid = router.query.cardsetid as string;
-  const choiceType = (router.query.choiceType || "definition") as ChoicesType;
+  const choiceType = (router.query.choiceType || "Answer") as ChoicesType;
   const shuffled = !!router.query.shuffled;
 
   const [isFetching, setIsFetching] = useState<boolean>(true);

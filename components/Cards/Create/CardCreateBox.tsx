@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import { Card } from "@/types/models/card_types";
+import { Card, ChoicesType } from "@/types/models/card_types";
 
 type Props = {
   CardData: Card;
@@ -13,14 +13,14 @@ type Props = {
       fieldType,
       value,
     }: {
-      fieldType: "Term" | "Definition";
+      fieldType: ChoicesType;
       value: string;
     }
   ) => void;
 };
 
 const CardCreateBox = ({ CardData, onCardChange, onCardDelete }: Props) => {
-  const { card_id, card_definition, card_term } = CardData;
+  const { card_id, card_answer, card_question } = CardData;
   return (
     <Box
       sx={{
@@ -61,28 +61,28 @@ const CardCreateBox = ({ CardData, onCardChange, onCardDelete }: Props) => {
         </Box>
       </Box>
       <TextField
-        label="Term"
+        label="Question"
         multiline
         onChange={(e) =>
           onCardChange(card_id, {
-            fieldType: "Term",
+            fieldType: "question",
             value: e.target.value || "",
           })
         }
-        value={card_term}
+        value={card_question}
         sx={{ width: "100%", my: 1 }}
       />{" "}
       <br />
       <TextField
-        label="Definition"
+        label="Answer"
         multiline
         onChange={(e) =>
           onCardChange(card_id, {
-            fieldType: "Definition",
+            fieldType: "answer",
             value: e.target.value || "",
           })
         }
-        value={card_definition}
+        value={card_answer}
         sx={{ width: "100%", my: 1 }}
       />
     </Box>

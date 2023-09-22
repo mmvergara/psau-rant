@@ -14,13 +14,13 @@ import { toast } from "react-toastify";
 const FlashCardsSet = () => {
   const router = useRouter();
   const cardsetid = router.query.cardsetid as string;
-  const termFirst = !!router.query.termFirst;
+  const questionFirst = !!router.query.questionFirst;
   const shuffled = !!router.query.shuffled;
 
   const [isFetching, setIsFetching] = useState<boolean>(true);
   const [cardSet, setCardSet] = useState<Card[]>([]);
   const [config, setConfig] = useState<CardExamConfig>({
-    termFirst,
+    questionFirst,
     activeCardId: "1",
     actionDirection: "previous",
   });

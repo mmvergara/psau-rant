@@ -38,7 +38,7 @@ const SignInPage = () => {
 
           <Button
             LinkComponent={Link}
-            href="https://www.mediafire.com/file/l04w138t0wm0sly/psau-rant-v1.0.1.apk/file"
+            href="https://www.mediafire.com/file/y6w3qr4ikdhths5/psau-rant-v1.2.0.apk/file"
             target="_blank"
             type="submit"
             variant="contained"
@@ -49,7 +49,9 @@ const SignInPage = () => {
               color: "white",
             }}
           >
-            <span style={{ marginRight: "3px" }}>Download Android App v1.0.1</span>
+            <span style={{ marginRight: "3px" }}>
+              Download Android App v1.2.0
+            </span>
             <AndroidIcon htmlColor="#ffffff" />
           </Button>
         </Box>

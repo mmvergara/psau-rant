@@ -155,8 +155,9 @@ const FlashCardsSet = () => {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
-        pt: 3,
         overflow: "hidden",
+        pt: 3,
+        pb: 2,
       }}
     >
       {ended && (

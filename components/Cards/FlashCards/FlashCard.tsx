@@ -9,6 +9,7 @@ type Props = {
 };
 
 const FlashCard = ({ cardData, config }: Props) => {
+
   const { card_question, card_answer } = cardData;
   const [flipped, setFlipped] = useState(false);
 

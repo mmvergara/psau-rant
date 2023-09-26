@@ -9,7 +9,6 @@ type Props = {
 };
 
 const FlashCard = ({ cardData, config }: Props) => {
-
   const { card_question, card_answer } = cardData;
   const [flipped, setFlipped] = useState(false);
 
@@ -34,12 +33,16 @@ const FlashCard = ({ cardData, config }: Props) => {
       onClick={() => setFlipped(!flipped)}
     >
       <Box className="front">
-        <Typography sx={{ fontSize: { sm: 16, md: 24 } }}>
+        <Typography
+          sx={{ fontSize: { sm: 16, md: 24 }, whiteSpace: "pre-line" }}
+        >
           {frontContent}
         </Typography>
       </Box>
       <Box className="back">
-        <Typography sx={{ fontSize: { sm: 16, md: 24 } }}>
+        <Typography
+          sx={{ fontSize: { sm: 16, md: 24 }, whiteSpace: "pre-line" }}
+        >
           {backContent}
         </Typography>
       </Box>

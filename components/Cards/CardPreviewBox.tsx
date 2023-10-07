@@ -203,7 +203,11 @@ const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
         </Typography>
         <ButtonGroup orientation="vertical">
           {isOwner && (
-            <Button variant="contained" color="info">
+            <Button
+              variant="contained"
+              color="info"
+              onClick={() => router.push(`/cards/${card_set_id}/add`)}
+            >
               Add Cards
             </Button>
           )}

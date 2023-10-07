@@ -72,15 +72,32 @@ const AddCardToCardSet = () => {
           value={card.card_answer}
           sx={{ width: "100%", my: 1 }}
         />
-      </Box>
-      <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
-        <Button
-          variant="contained"
-          onClick={addCard}
-          sx={{ width: "fit-content" }}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            mt: 3,
+            gap: 2,
+          }}
         >
-          Add Card
-        </Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              router.push(`/cards/${cardsetid}/preview`);
+            }}
+            sx={{ width: "fit-content" }}
+          >
+            Back To Preview
+          </Button>
+          <Button
+            variant="contained"
+            onClick={addCard}
+            sx={{ width: "fit-content" }}
+            color="info"
+          >
+            Add Card
+          </Button>{" "}
+        </Box>
       </Box>
     </>
   );

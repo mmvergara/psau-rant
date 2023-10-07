@@ -177,10 +177,10 @@ const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
             variant="contained"
             onClick={() => handleTakeQuiz("question")}
           >
-            Terms as choices
+            Question as choices
           </Button>
           <Button variant="contained" onClick={() => handleTakeQuiz("answer")}>
-            Definitions as choices
+            Answer as choices
           </Button>
         </ButtonGroup>
         <Divider sx={{ marginY: 2 }} />

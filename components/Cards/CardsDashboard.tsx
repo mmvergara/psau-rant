@@ -1,3 +1,4 @@
+import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
@@ -30,6 +31,7 @@ const CardsDashboard = () => {
               href={"/cards/create"}
               variant="contained"
               sx={{ width: "fit-content" }}
+              endIcon={<CreateNewFolderIcon />}
             >
               Create New Card Set
             </Button>

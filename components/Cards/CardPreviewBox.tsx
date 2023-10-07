@@ -202,6 +202,11 @@ const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
           <TuneIcon htmlColor="green" /> More Options
         </Typography>
         <ButtonGroup orientation="vertical">
+          {isOwner && (
+            <Button variant="contained" color="info">
+              Add Cards
+            </Button>
+          )}
           <Button
             sx={{ borderTopLeftRadius: 0, borderTopRightRadius: 0, py: 4 }}
             variant="contained"
@@ -211,13 +216,15 @@ const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
             Export Cards
           </Button>{" "}
           {isOwner && (
-            <Button
-              variant="contained"
-              color="error"
-              onClick={handleDeleteCardSet}
-            >
-              {isDeleting ? "Deleting..." : "Delete Card Set"}
-            </Button>
+            <>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={handleDeleteCardSet}
+              >
+                {isDeleting ? "Deleting..." : "Delete Card Set"}
+              </Button>
+            </>
           )}
         </ButtonGroup>
       </Stack>

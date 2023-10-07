@@ -1,5 +1,5 @@
-import TextField from "@mui/material/TextField";
-import Divider from "@mui/material/Divider";
+import StyleIcon from "@mui/icons-material/Style";
+import CampaignIcon from "@mui/icons-material/Campaign";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { useRouter } from "next/router";
@@ -17,13 +17,14 @@ const RantControls = () => {
         p: "20px",
       }}
     >
-      <TextField sx={{ borderRadius: 10 }} label="Search Rants" />
-      <Divider sx={{ my: 2 }} />
+      {/* <TextField sx={{ borderRadius: 10 }} label="Search Rants" /> */}
+      {/* <Divider sx={{ my: 2 }} /> */}
       <Box sx={{ display: "flex", gap: 4 }}>
         <Button
           sx={{ flexGrow: 1 }}
           variant="contained"
           onClick={() => router.push("/rant/create")}
+          startIcon={<CampaignIcon />}
         >
           Create Rant
         </Button>
@@ -31,6 +32,7 @@ const RantControls = () => {
           sx={{ flexGrow: 1 }}
           variant="contained"
           onClick={() => router.push("/cards/")}
+          startIcon={<StyleIcon />}
         >
           Flip Cards
         </Button>

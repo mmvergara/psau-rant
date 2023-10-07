@@ -8,6 +8,7 @@ import {
   getDoc,
   getDocs,
   query,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { FirebaseFirestore } from "../Firebase-Client";
@@ -32,6 +33,24 @@ export const createCardSet = async (card_set: createCardSetInfo) => {
     const card_set_ref = collection(FirebaseFirestore, "card_sets");
     const addCardSet = await addDoc(card_set_ref, card_set);
     return { error: null, data: addCardSet };
+  } catch (e) {
+    const error = e as FirebaseError;
+    return { error: error.message, data: null };
+  }
+};
+
+export const addCardToCardSet = async (card_set_id: string, card: Card) => {
+  try {
+    if (!card.card_question) throw new Error("Card Question is required");
+    if (!card.card_answer) throw new Error("Card Answer is required");
+    const card_set_ref = doc(FirebaseFirestore, "card_sets", card_set_id);
+    const card_set = await getDoc(card_set_ref);
+    const fetchedCardData = card_set.data();
+    if (!fetchedCardData) throw new Error("Card set not found");
+    const card_set_cards = fetchedCardData.card_set_cards;
+    card_set_cards.push(card);
+    await updateDoc(card_set_ref, { card_set_cards });
+    return { error: null, data: "success" };
   } catch (e) {
     const error = e as FirebaseError;
     return { error: error.message, data: null };

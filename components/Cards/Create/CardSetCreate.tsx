@@ -23,7 +23,8 @@ const CardSetCreate = () => {
 
   const [cardSetIsPublic, setCardSetIsPublic] = useState(true);
   const [cardSetName, setCardSetName] = useState("");
-  const [cards, setCards] = useState<Card[]>(initialCards);
+  const [cards, setCards] = useState<Card[]>([]);
+
   const handleSubmitCardSet = async () => {
     if (!user) return;
     setIsLoading(true);
@@ -40,6 +41,7 @@ const CardSetCreate = () => {
       router.push(`/cards?activeCard=${data.id}`);
     }
   };
+
   const handleCardChange = (
     card_id: string,
     { fieldType, value }: { fieldType: "question" | "answer"; value: string }
@@ -63,50 +65,10 @@ const CardSetCreate = () => {
       },
     ];
     setCards(newCards);
-    setTimeout(() => scrollToBottom(), 100);
   };
-  const handleAdd5Card = () => {
-    const newCards = [
-      ...cards,
-      {
-        card_id: cards.length + 1 + "",
-        card_question: "",
-        card_answer: "",
-      },
-      {
-        card_id: cards.length + 2 + "",
-        card_question: "",
-        card_answer: "",
-      },
-      {
-        card_id: cards.length + 3 + "",
-        card_question: "",
-        card_answer: "",
-      },
-      {
-        card_id: cards.length + 4 + "",
-        card_question: "",
-        card_answer: "",
-      },
-      {
-        card_id: cards.length + 5 + "",
-        card_question: "",
-        card_answer: "",
-      },
-    ];
-    setCards(newCards);
-    setTimeout(() => scrollToBottom(), 100);
-  };
-  const handleDeleteCard = (card_id: string) => {
-    const newCards = cards.filter((card) => card.card_id !== card_id);
-    newCards.forEach((card, index) => {
-      card.card_id = index + 1 + "";
-    });
-    setCards(newCards);
-  };
+
   const addCardRef = useRef<HTMLButtonElement | null>(null);
-  const scrollToBottom = () =>
-    addCardRef.current?.scrollIntoView({ behavior: "smooth" });
+
   return (
     <Container
       sx={{ display: "flex", flexDirection: "column", gap: 2, pt: 2, pb: 12 }}
@@ -162,7 +124,6 @@ const CardSetCreate = () => {
         </FormGroup>
         <Button
           type="button"
-          onClick={() => scrollToBottom()}
           variant="contained"
           sx={{
             display: "flex",
@@ -174,68 +135,9 @@ const CardSetCreate = () => {
           <AddCircleOutlineIcon sx={{ mr: 1 }} /> Create Card Set
         </Button>
       </Box>
-      {cards.map((card) => {
-        return (
-          <CardCreateBox
-            key={card.card_id}
-            CardData={card}
-            onCardChange={handleCardChange}
-            onCardDelete={handleDeleteCard}
-          />
-        );
-      })}
-      <Button
-        type="button"
-        onClick={handleAddCard}
-        variant="contained"
-        sx={{ py: 4, fontSize: 20, border: "12px solid #0B4619" }}
-      >
-        Add Card
-      </Button>{" "}
-      <Button
-        type="button"
-        onClick={handleAdd5Card}
-        variant="contained"
-        sx={{ py: 4, fontSize: 20, border: "12px solid #0B4619" }}
-      >
-        Add 5 Cards
-      </Button>{" "}
-      <Button
-        ref={addCardRef}
-        type="button"
-        onClick={handleSubmitCardSet}
-        variant="contained"
-        sx={{
-          width: "200px",
-          py: 2,
-          ml: "auto",
-          bgcolor: "#e2b41d",
-          border: "1px solid #0B4619",
-        }}
-      >
-        {!isLoading ? (
-          <>
-            <AddCircleOutlineIcon sx={{ mr: 1 }} /> Create Card Set
-          </>
-        ) : (
-          <CircularProgress size={24} color="inherit" />
-        )}
-      </Button>
+      <CardCreateBox onCardAdd={handleAddCard} />
     </Container>
   );
 };
 
 export default CardSetCreate;
-
-const initialCards = [
-  {
-    card_id: "1",
-    card_question: "",
-    card_answer: "",
-  },
-  {
-    card_id: "2",
-    card_question: "",
-    card_answer: "",
-  },
-];

@@ -1,4 +1,5 @@
 import TextField from "@mui/material/TextField";
+import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import { CardField } from "@/types/models/card_types";
 import { useState } from "react";
@@ -20,18 +21,7 @@ const CardCreateBox = ({ onCardAdd }: Props) => {
     setCardContent(emptyCard);
   };
   return (
-    <Box
-      sx={{
-        padding: 1,
-        my: 1,
-        p: 4,
-        pt: 3,
-        bgcolor: "white",
-        boxShadow: 3,
-        borderTop: "10px solid #0f5f22",
-        borderRadius: 1,
-      }}
-    >
+    <>
       <TextField
         label="Question"
         name="question"
@@ -59,8 +49,18 @@ const CardCreateBox = ({ onCardAdd }: Props) => {
         value={cardContent.card_answer}
         sx={{ width: "100%", my: 1 }}
       />
-      <Button onClick={handleAddCard}>Add Card</Button>
-    </Box>
+      <Button
+        onClick={handleAddCard}
+        variant="contained"
+        sx={{
+          width: "100%",
+          mt: 1,
+          height: "50px",
+        }}
+      >
+        Add Card
+      </Button>
+    </>
   );
 };
 

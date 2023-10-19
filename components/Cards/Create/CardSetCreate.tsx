@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import FormGroup from "@mui/material/FormGroup";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
+import Divider from "@mui/material/Divider";
 import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -14,7 +15,7 @@ import { createCardSet } from "@/firebase/services/cards_services";
 import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import { Card } from "@/types/models/card_types";
+import { Card, CardField } from "@/types/models/card_types";
 
 const CardSetCreate = () => {
   const router = useRouter();
@@ -42,32 +43,17 @@ const CardSetCreate = () => {
     }
   };
 
-  const handleCardChange = (
-    card_id: string,
-    { fieldType, value }: { fieldType: "question" | "answer"; value: string }
-  ) => {
-    const newCards = cards.map((card) => {
-      if (card.card_id === card_id) {
-        if (fieldType === "question") card.card_question = value;
-        if (fieldType === "answer") card.card_answer = value;
-      }
-      return card;
-    });
-    setCards(newCards);
-  };
-  const handleAddCard = () => {
-    const newCards = [
+  const handleAddCard = (cardField: CardField) => {
+    const newCards: Card[] = [
       ...cards,
       {
         card_id: cards.length + 1 + "",
-        card_question: "",
-        card_answer: "",
+        ...cardField,
       },
     ];
     setCards(newCards);
+    console.log(newCards);
   };
-
-  const addCardRef = useRef<HTMLButtonElement | null>(null);
 
   return (
     <Container
@@ -135,7 +121,26 @@ const CardSetCreate = () => {
           <AddCircleOutlineIcon sx={{ mr: 1 }} /> Create Card Set
         </Button>
       </Box>
-      <CardCreateBox onCardAdd={handleAddCard} />
+      <Box
+        sx={{
+          padding: 1,
+          my: 1,
+          p: 4,
+          pt: 3,
+          bgcolor: "white",
+          boxShadow: 3,
+          borderTop: "10px solid #0f5f22",
+          borderRadius: 1,
+        }}
+      >
+        <CardCreateBox onCardAdd={handleAddCard} />
+        <Divider
+          sx={{
+            my: 2,
+            width: "100%",
+          }}
+        />
+      </Box>
     </Container>
   );
 };

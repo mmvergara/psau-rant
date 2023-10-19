@@ -55,6 +55,19 @@ const CardSetCreate = () => {
     console.log(newCards);
   };
 
+  const handleDeleteCard = (card_id: string) => {
+    let newCards = cards.filter((card) => card.card_id !== card_id);
+    // fix card_id
+    newCards = newCards.map((card, index) => {
+      return {
+        ...card,
+        card_id: index + 1 + "",
+      };
+    });
+
+    setCards(newCards);
+  };
+
   return (
     <Container
       sx={{ display: "flex", flexDirection: "column", gap: 2, pt: 2, pb: 12 }}
@@ -140,6 +153,43 @@ const CardSetCreate = () => {
             width: "100%",
           }}
         />
+        {cards.length > 0 && (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 1,
+              mt: 1,
+            }}
+          >
+            {cards.toReversed().map((card) => (
+              <Box
+                key={card.card_id}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 1,
+                  p: 1,
+                  borderRadius: 1,
+                  border: "1px solid #0f5f22",
+                }}
+              >
+                <Button
+                  variant="text"
+                  color="error"
+                  onClick={() => handleDeleteCard(card.card_id)}
+                >
+                  Delete #{card.card_id}
+                </Button>
+                <Divider />
+
+                <Typography>{card.card_question}</Typography>
+                <Divider />
+                <Typography>{card.card_answer}</Typography>
+              </Box>
+            ))}
+          </Box>
+        )}
       </Box>
     </Container>
   );

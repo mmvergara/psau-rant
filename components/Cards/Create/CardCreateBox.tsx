@@ -1,8 +1,6 @@
-import Typography from "@mui/material/Typography";
-import CloseIcon from "@mui/icons-material/Close";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import { Card, CardField, ChoicesType } from "@/types/models/card_types";
+import { CardField } from "@/types/models/card_types";
 import { useState } from "react";
 import { Button } from "@mui/material";
 
@@ -46,7 +44,7 @@ const CardCreateBox = ({ onCardAdd }: Props) => {
         }}
         value={cardContent.card_question}
         sx={{ width: "100%", my: 1 }}
-      />{" "}
+      />
       <br />
       <TextField
         label="Answer"

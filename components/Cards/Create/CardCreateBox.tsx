@@ -2,25 +2,25 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import { Card, ChoicesType } from "@/types/models/card_types";
+import { Card, CardField, ChoicesType } from "@/types/models/card_types";
+import { useState } from "react";
+import { Button } from "@mui/material";
 
 type Props = {
-  CardData: Card;
-  onCardDelete: (card_id: string) => void;
-  onCardChange: (
-    card_id: string,
-    {
-      fieldType,
-      value,
-    }: {
-      fieldType: ChoicesType;
-      value: string;
-    }
-  ) => void;
+  onCardAdd: (cardData: CardField) => void;
+};
+const emptyCard = {
+  card_answer: "",
+  card_question: "",
 };
 
-const CardCreateBox = ({ CardData, onCardChange, onCardDelete }: Props) => {
-  const { card_id, card_answer, card_question } = CardData;
+const CardCreateBox = ({ onCardAdd }: Props) => {
+  const [cardContent, setCardContent] = useState<CardField>(emptyCard);
+
+  const handleAddCard = () => {
+    onCardAdd(cardContent);
+    setCardContent(emptyCard);
+  };
   return (
     <Box
       sx={{
@@ -34,57 +34,34 @@ const CardCreateBox = ({ CardData, onCardChange, onCardDelete }: Props) => {
         borderRadius: 1,
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          pb: 1,
-        }}
-      >
-        <Typography>Card #{card_id}</Typography>
-        <Box
-          sx={{
-            cursor: "pointer",
-            color: "rgb(244, 67, 54)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            borderRadius: 0.5,
-            "&:hover": {
-              backgroundColor: "rgba(0, 0, 0, 0.04)",
-            },
-          }}
-          onClick={() => onCardDelete(card_id)}
-        >
-          <CloseIcon />
-        </Box>
-      </Box>
       <TextField
         label="Question"
+        name="question"
         multiline
-        onChange={(e) =>
-          onCardChange(card_id, {
-            fieldType: "question",
-            value: e.target.value || "",
-          })
-        }
-        value={card_question}
+        onChange={(e) => {
+          setCardContent({
+            ...cardContent,
+            card_question: e.target.value || "",
+          });
+        }}
+        value={cardContent.card_question}
         sx={{ width: "100%", my: 1 }}
       />{" "}
       <br />
       <TextField
         label="Answer"
+        name="answer"
         multiline
-        onChange={(e) =>
-          onCardChange(card_id, {
-            fieldType: "answer",
-            value: e.target.value || "",
-          })
-        }
-        value={card_answer}
+        onChange={(e) => {
+          setCardContent({
+            ...cardContent,
+            card_answer: e.target.value || "",
+          });
+        }}
+        value={cardContent.card_answer}
         sx={{ width: "100%", my: 1 }}
       />
+      <Button onClick={handleAddCard}>Add Card</Button>
     </Box>
   );
 };

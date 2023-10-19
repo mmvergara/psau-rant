@@ -4,6 +4,11 @@ export type Card = {
   card_answer: string;
 };
 
+export type CardField = {
+  card_question: string;
+  card_answer: string;
+};
+
 export type CardSet = {
   card_set_id: string;
   card_set_name: string;

@@ -1,21 +1,30 @@
 import Rants from "@/components/Rant/Rants";
 import Head from "next/head";
 
-function Home() {
+type Props = {
+  title: string;
+  description: string;
+};
+
+function Home({ title, description }: Props) {
   return (
     <>
       <Head>
-        <title>PSAU Rant</title>
-        <meta name="description" content="PSAU Rant" />
+        <title>{title}</title>
+        <meta name="description" content={description} />
       </Head>
       <Rants />
     </>
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
+  console.log("getStaticProps");
   return {
-    props: {},
+    props: {
+      title: "PSAU Rant",
+      description: "PSAU Rant",
+    },
   };
 }
 

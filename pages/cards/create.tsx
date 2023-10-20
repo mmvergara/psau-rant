@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { Card, CardField } from "@/types/models/card_types";
-import CardCreateBox from "@/components/Cards/Create/CardCreateBox";
+import CardCreateBox from "@/components/Cards/CardCreateBox";
 import Head from "next/head";
 
 const CreateCardSetPage = () => {

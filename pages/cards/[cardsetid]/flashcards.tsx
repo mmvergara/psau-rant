@@ -9,8 +9,8 @@ const CardSetFlashCards = () => {
     <>
       <Head>
         <title>PSAU Rant | Flash Cards</title>
+        <meta name="description" content="Flash Cards" />
       </Head>
-
       <FlashCardsSet />
       {isMobile && (
         <Typography

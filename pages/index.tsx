@@ -6,6 +6,7 @@ function Home() {
     <>
       <Head>
         <title>PSAU Rant</title>
+        <meta name="description" content="PSAU Rant" />
       </Head>
       <Rants />
     </>

@@ -37,7 +37,8 @@ const AddCardToCardSet = () => {
   return (
     <>
       <Head>
-        <title>Edit </title>
+        <title>Add Cards</title>
+        <meta name="description" content="Add Cards" />
       </Head>
       <Box
         sx={{

@@ -6,11 +6,12 @@ import Box from "@mui/material/Box";
 import Head from "next/head";
 import Link from "next/link";
 
-const SignInPage = () => {
+const DownloadAppPage = () => {
   return (
     <>
       <Head>
-        <title>Sign In</title>
+        <title>PSAU Rant | App</title>
+        <meta name="description" content="PSAU Rant App" />
       </Head>
       <Container maxWidth="md" sx={{ marginTop: "5vh" }}>
         <Box
@@ -60,4 +61,4 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default DownloadAppPage;

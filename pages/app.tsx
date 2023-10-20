@@ -61,11 +61,4 @@ const DownloadAppPage = () => {
   );
 };
 
-export async function getServerSideProps() {
-  console.log("getServerSideProps");
-  return {
-    props: {},
-  };
-}
-
 export default DownloadAppPage;

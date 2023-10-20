@@ -5,6 +5,7 @@ const CardsPage = () => {
     <>
       <Head>
         <title>Cards</title>
+        <meta name="description" content="My Cards" />
       </Head>
       <CardsDashboard />
     </>

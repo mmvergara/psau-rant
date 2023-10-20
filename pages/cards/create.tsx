@@ -176,32 +176,35 @@ const CreateCardSetPage = () => {
                 mt: 1,
               }}
             >
-              {cards.toReversed().map((card) => (
-                <Box
-                  key={card.card_id}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 1,
-                    p: 1,
-                    borderRadius: 1,
-                    border: "1px solid #0f5f22",
-                  }}
-                >
-                  <Button
-                    variant="text"
-                    color="error"
-                    onClick={() => handleDeleteCard(card.card_id)}
+              {cards
+                .slice()
+                .reverse()
+                .map((card) => (
+                  <Box
+                    key={card.card_id}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 1,
+                      p: 1,
+                      borderRadius: 1,
+                      border: "1px solid #0f5f22",
+                    }}
                   >
-                    Delete #{card.card_id}
-                  </Button>
-                  <Divider />
+                    <Button
+                      variant="text"
+                      color="error"
+                      onClick={() => handleDeleteCard(card.card_id)}
+                    >
+                      Delete #{card.card_id}
+                    </Button>
+                    <Divider />
 
-                  <Typography>{card.card_question}</Typography>
-                  <Divider />
-                  <Typography>{card.card_answer}</Typography>
-                </Box>
-              ))}
+                    <Typography>{card.card_question}</Typography>
+                    <Divider />
+                    <Typography>{card.card_answer}</Typography>
+                  </Box>
+                ))}
             </Box>
           )}
         </Box>

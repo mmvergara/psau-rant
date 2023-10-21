@@ -8,7 +8,7 @@ import Box from "@mui/material/Box";
 import { getTimeElapsedString } from "@/utilities/Date";
 import { useUserData } from "@/context/AuthContext";
 import { RantWithId } from "@/types/models/RantTypes";
-import { deleteRant } from "@/firebase/services/rant_services";
+import { deleteRant } from "@/firebase/services/RantService";
 import { useState } from "react";
 import { toast } from "react-toastify";
 

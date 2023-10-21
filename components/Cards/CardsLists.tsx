@@ -3,7 +3,7 @@ import CardPlayModal from "./CardPlayModal";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-import { getAllCardsByUserId } from "@/firebase/services/cards_services";
+import { getAllCardsByUserId } from "@/firebase/services/CardsService";
 import { useEffect, useState } from "react";
 import { truncateString } from "@/utilities/StringFormatter";
 import { useUserData } from "@/context/AuthContext";

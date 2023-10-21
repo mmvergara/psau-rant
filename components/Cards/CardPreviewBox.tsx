@@ -12,7 +12,7 @@ import Divider from "@mui/material/Divider";
 import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { deleteCardSetById } from "@/firebase/services/cards_services";
+import { deleteCardSetById } from "@/firebase/services/CardsService";
 import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 import { useState } from "react";

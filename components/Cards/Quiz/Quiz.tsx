@@ -3,7 +3,7 @@ import QuizControl from "./QuizControl";
 import { CardQuiz, ChoicesType } from "@/types/models/CardTypes";
 import { useEffect, useState } from "react";
 import { generateCardQuiz } from "@/utilities/QuizGenerators";
-import { getCardSetById } from "@/firebase/services/cards_services";
+import { getCardSetById } from "@/firebase/services/CardsService";
 import { useRouter } from "next/router";
 import { Container } from "@mui/material";
 import { toast } from "react-toastify";

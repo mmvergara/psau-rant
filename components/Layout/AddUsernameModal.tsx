@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { updateUsernameSchema } from "@/utilities/ValidationSchemas";
-import { addUserUsername } from "@/firebase/services/auth_service";
+import { addUserUsername } from "@/firebase/services/AuthService";
 import { useUserData } from "@/context/AuthContext";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";

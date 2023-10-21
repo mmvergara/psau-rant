@@ -10,7 +10,7 @@ import { rantSchema } from "@/utilities/ValidationSchemas";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { addRant } from "@/firebase/services/rant_services";
+import { addRant } from "@/firebase/services/RantService";
 import { toast } from "react-toastify";
 
 const RantCreate = () => {

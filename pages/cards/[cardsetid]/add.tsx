@@ -1,4 +1,4 @@
-import { addCardToCardSet } from "@/firebase/services/cards_services";
+import { addCardToCardSet } from "@/firebase/services/CardsService";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-toastify";

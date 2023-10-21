@@ -6,7 +6,7 @@ import FlashCard from "./FlashCard";
 import Container from "@mui/material/Container";
 import { Card, CardExamConfig } from "@/types/models/CardTypes";
 import { useEffect, useState } from "react";
-import { getCardSetById } from "@/firebase/services/cards_services";
+import { getCardSetById } from "@/firebase/services/CardsService";
 import { Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";

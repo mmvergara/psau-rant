@@ -9,7 +9,7 @@ import Divider from "@mui/material/Divider";
 import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { createCardSet } from "@/firebase/services/cards_services";
+import { createCardSet } from "@/firebase/services/CardsService";
 import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 import { useState } from "react";

@@ -1,7 +1,7 @@
 import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
 import Navbar from "@/components/Layout/Navbar";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
-import { getUserDataById } from "@/firebase/services/auth_service";
+import { getUserDataById } from "@/firebase/services/AuthService";
 import { User } from "firebase/auth";
 import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";

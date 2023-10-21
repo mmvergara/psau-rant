@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography";
 import StyleIcon from "@mui/icons-material/Style";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { AnsweredResults, CardQuiz } from "@/types/models/card_types";
+import { AnsweredResults, CardQuiz } from "@/types/models/CardTypes";
 import { useRouter } from "next/router";
 
 type Props = {

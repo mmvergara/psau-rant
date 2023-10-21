@@ -8,7 +8,7 @@ import {
   AnsweredResults,
   CardQuiz,
   ChoicesType,
-} from "@/types/models/card_types";
+} from "@/types/models/CardTypes";
 import { useState } from "react";
 import { toast } from "react-toastify";
 

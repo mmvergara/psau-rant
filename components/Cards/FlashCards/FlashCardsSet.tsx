@@ -4,14 +4,16 @@ import FlashCardsResults from "./FlashCardsResults";
 import useKeyPress from "@/utilities/hooks/useKeyPress";
 import FlashCard from "./FlashCard";
 import Container from "@mui/material/Container";
-import { Card, CardExamConfig } from "@/types/models/card_types";
+import { Card, CardExamConfig } from "@/types/models/CardTypes";
 import { useEffect, useState } from "react";
-import { getCardSetById } from "@/firebase/services/cards_services";
+import { getCardSetById } from "@/firebase/services/CardsService";
 import { Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { useMainTheme } from "@/theme/ThemeContextProvider";
 
 const FlashCardsSet = () => {
+  const { mode } = useMainTheme();
   const router = useRouter();
   const cardsetid = router.query.cardsetid as string;
   const questionFirst = !!router.query.questionFirst;
@@ -173,10 +175,10 @@ const FlashCardsSet = () => {
           <Typography
             sx={{
               fontWeight: 600,
-              color: "primary.main",
               borderRadius: 1,
               textAlign: "center",
               mb: 2,
+              color: mode === "light" ? "black" : "white",
             }}
           >
             {`${config.activeCardId} / ${cardSet.length}`}

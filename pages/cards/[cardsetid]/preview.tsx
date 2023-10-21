@@ -2,10 +2,10 @@ import CardPreviewContent from "@/components/Cards/CardPreviewBox";
 import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import { getCardSetById } from "@/firebase/services/cards_services";
+import { getCardSetById } from "@/firebase/services/CardsService";
 import { Container } from "@mui/material";
 import { useRouter } from "next/router";
-import { CardSet } from "@/types/models/card_types";
+import { CardSet } from "@/types/models/CardTypes";
 import { toast } from "react-toastify";
 
 const CardPreviewPage = () => {

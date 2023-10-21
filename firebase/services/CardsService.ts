@@ -1,4 +1,4 @@
-import { Card, CardSet } from "@/types/models/card_types";
+import { Card, CardSet } from "@/types/models/CardTypes";
 import { FirebaseError } from "firebase/app";
 import {
   addDoc,

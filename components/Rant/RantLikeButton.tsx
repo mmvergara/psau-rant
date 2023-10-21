@@ -1,7 +1,7 @@
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Button from "@mui/material/Button";
-import { handleLikeRant } from "@/firebase/services/rant_services";
+import { handleLikeRant } from "@/firebase/services/RantService";
 import { useUserData } from "@/context/AuthContext";
 import { useState } from "react";
 import { toast } from "react-toastify";

@@ -1,17 +1,17 @@
-import { signupSchema } from "@/utilities/ValidationSchemas";
-import { useFormik } from "formik";
-import { useState } from "react";
-import { toast } from "react-toastify";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
-import { signUpFirebaseWithEmailAndPassword } from "@/firebase/services/auth_service";
+import { signUpFirebaseWithEmailAndPassword } from "@/firebase/services/AuthService";
 import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
+import { signupSchema } from "@/utilities/ValidationSchemas";
+import { useFormik } from "formik";
+import { useState } from "react";
+import { toast } from "react-toastify";
+
 import Head from "next/head";
 
 const SignInPage = () => {
@@ -50,7 +50,7 @@ const SignInPage = () => {
   return (
     <>
       <Head>
-        <title>Sign In</title>
+        <title>PSAU Rant | Sign Up</title>
       </Head>
       <Container maxWidth="md" sx={{ marginTop: "5vh" }}>
         <Box

@@ -1,4 +1,6 @@
 import AddUsernameModal from "./AddUsernameModal";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -17,6 +19,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
+import { useMainTheme } from "@/theme/ThemeContextProvider";
 
 type Props = {
   authIsLoading: boolean;
@@ -24,6 +27,7 @@ type Props = {
 };
 
 const Navbar = ({ authIsLoading, needToSetUsername }: Props) => {
+  const { toggleColorMode, mode } = useMainTheme();
   const router = useRouter();
   const { user } = useUserData();
 
@@ -75,6 +79,7 @@ const Navbar = ({ authIsLoading, needToSetUsername }: Props) => {
               <MenuIcon />
             </IconButton>
           )}
+
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             <Link
               href="/"
@@ -87,6 +92,10 @@ const Navbar = ({ authIsLoading, needToSetUsername }: Props) => {
               PSAU Rant
             </Link>
           </Typography>
+          <IconButton size="large" color="inherit" onClick={toggleColorMode}>
+            {mode === "light" ? <DarkModeIcon /> : <Brightness7Icon />}
+          </IconButton>
+
           {!authIsLoading && (
             <>
               {user ? (
@@ -109,6 +118,7 @@ const Navbar = ({ authIsLoading, needToSetUsername }: Props) => {
               )}
             </>
           )}
+
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}

@@ -3,16 +3,18 @@ import CardPlayModal from "./CardPlayModal";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-import { getAllCardsByUserId } from "@/firebase/services/cards_services";
+import { getAllCardsByUserId } from "@/firebase/services/CardsService";
 import { useEffect, useState } from "react";
 import { truncateString } from "@/utilities/StringFormatter";
 import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
-import { CardSet } from "@/types/models/card_types";
+import { CardSet } from "@/types/models/CardTypes";
 import { toast } from "react-toastify";
+import useColorValue from "@/utilities/hooks/useColorValue";
 
 const CardsList = () => {
   const router = useRouter();
+  const cardBgColor = useColorValue("white", "hsl(0,0%,85%)");
   const { activeCard } = router.query;
   const { user } = useUserData();
   const [loading, setLoading] = useState<boolean>(true);
@@ -64,15 +66,15 @@ const CardsList = () => {
       )}
       {cardSets.map((cardSet) => {
         return (
-          <Paper
-            component="button"
-            elevation={5}
-            variant="outlined"
+          <Box
             sx={{
+              bgcolor: cardBgColor,
               height: "140px",
               width: "280px",
               p: 2,
+              border: "1px solid",
               borderColor: "forestgreen",
+              borderRadius: "5px",
               cursor: "pointer",
               overflow: "hidden",
               ":hover": { bgcolor: "#d1ffbd", boxShadow: 4 },
@@ -82,7 +84,7 @@ const CardsList = () => {
             onClick={() => handleActiveCardSet(cardSet)}
           >
             <Typography>{truncateString(cardSet.card_set_name, 90)}</Typography>
-          </Paper>
+          </Box>
         );
       })}
     </Box>

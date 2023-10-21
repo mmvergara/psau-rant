@@ -4,8 +4,8 @@ import DownloadApp from "../DownloadApp/DownloadApp";
 import Container from "@mui/material/Container";
 import Rant from "./RantPiece";
 import { useEffect, useState } from "react";
-import { getAllRant } from "@/firebase/services/rant_services";
-import { RantWithId } from "@/types/models/rant_types";
+import { getAllRant } from "@/firebase/services/RantService";
+import { RantWithId } from "@/types/models/RantTypes";
 import { useUserData } from "@/context/AuthContext";
 import { toast } from "react-toastify";
 

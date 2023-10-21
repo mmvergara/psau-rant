@@ -1,8 +1,8 @@
-import { addCardToCardSet } from "@/firebase/services/cards_services";
+import { addCardToCardSet } from "@/firebase/services/CardsService";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { Card } from "@/types/models/card_types";
+import { Card } from "@/types/models/CardTypes";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Head from "next/head";

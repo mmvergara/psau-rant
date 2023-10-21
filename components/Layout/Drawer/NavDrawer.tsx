@@ -32,7 +32,7 @@ const NavDrawer = ({ drawerOpen, toggleDrawer }: Props) => {
   const drawerLinks: DrawerLinks[] = [
     { name: "Home", icon: <HomeIcon htmlColor="#ffffff" />, url: "/" },
     {
-      name: "Flip Cards",
+      name: "Flash Cards",
       icon: <StyleIcon htmlColor="#ffffff" />,
       url: "/cards",
     },
@@ -146,7 +146,7 @@ const NavDrawer = ({ drawerOpen, toggleDrawer }: Props) => {
               }}
             >
               Made with 💘 by: <br />
-              Mark Matthew Vergara <br /> BSIT2-A PSAU
+              Mark Matthew Vergara <br /> BSIT 3-A PSAU (2023)
             </Typography>
             <Button
               sx={{

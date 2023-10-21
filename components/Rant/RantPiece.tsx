@@ -7,7 +7,7 @@ import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import { getTimeElapsedString } from "@/utilities/Date";
 import { useUserData } from "@/context/AuthContext";
-import { RantWithId } from "@/types/models/rant_types";
+import { RantWithId } from "@/types/models/RantTypes";
 import { deleteRant } from "@/firebase/services/rant_services";
 import { useState } from "react";
 import { toast } from "react-toastify";

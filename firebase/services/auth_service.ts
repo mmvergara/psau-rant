@@ -1,4 +1,4 @@
-import { FirestoreUser } from "@/types/models/user_types";
+import { FirestoreUser } from "@/types/models/UserTypes";
 import { simplifyFirebaseAuthError } from "@/utilities/StringFormatter";
 import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword } from "firebase/auth";

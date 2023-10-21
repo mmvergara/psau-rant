@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { getCardSetById } from "@/firebase/services/cards_services";
 import { Container } from "@mui/material";
 import { useRouter } from "next/router";
-import { CardSet } from "@/types/models/card_types";
+import { CardSet } from "@/types/models/CardTypes";
 import { toast } from "react-toastify";
 
 const CardPreviewPage = () => {

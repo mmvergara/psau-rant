@@ -1,6 +1,6 @@
 import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
 import QuizControl from "./QuizControl";
-import { CardQuiz, ChoicesType } from "@/types/models/card_types";
+import { CardQuiz, ChoicesType } from "@/types/models/CardTypes";
 import { useEffect, useState } from "react";
 import { generateCardQuiz } from "@/utilities/QuizGenerators";
 import { getCardSetById } from "@/firebase/services/cards_services";

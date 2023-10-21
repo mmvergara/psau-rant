@@ -1,4 +1,4 @@
-import { RantNoId, RantWithId } from "@/types/models/rant_types";
+import { RantNoId, RantWithId } from "@/types/models/RantTypes";
 import { FirebaseError } from "firebase/app";
 import {
   addDoc,

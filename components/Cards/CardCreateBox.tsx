@@ -1,7 +1,7 @@
 import TextField from "@mui/material/TextField";
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
-import { CardField } from "@/types/models/card_types";
+import { CardField } from "@/types/models/CardTypes";
 import { useState } from "react";
 import { Button } from "@mui/material";
 

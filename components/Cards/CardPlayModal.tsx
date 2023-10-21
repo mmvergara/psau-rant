@@ -1,7 +1,7 @@
 import CardPreviewContent from "./CardPreviewBox";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import { CardSet } from "@/types/models/card_types";
+import { CardSet } from "@/types/models/CardTypes";
 
 type Props = {
   activeCardSet: CardSet | null;

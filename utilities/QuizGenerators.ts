@@ -1,4 +1,4 @@
-import { Card, CardQuiz, ChoicesType } from "@/types/models/card_types";
+import { Card, CardQuiz, ChoicesType } from "@/types/models/CardTypes";
 
 export const generateCardQuiz = (
   cards: Card[],

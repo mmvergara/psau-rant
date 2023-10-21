@@ -4,7 +4,7 @@ import FlashCardsResults from "./FlashCardsResults";
 import useKeyPress from "@/utilities/hooks/useKeyPress";
 import FlashCard from "./FlashCard";
 import Container from "@mui/material/Container";
-import { Card, CardExamConfig } from "@/types/models/card_types";
+import { Card, CardExamConfig } from "@/types/models/CardTypes";
 import { useEffect, useState } from "react";
 import { getCardSetById } from "@/firebase/services/cards_services";
 import { Typography } from "@mui/material";

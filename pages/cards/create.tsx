@@ -14,7 +14,7 @@ import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { Card, CardField } from "@/types/models/card_types";
+import { Card, CardField } from "@/types/models/CardTypes";
 import CardCreateBox from "@/components/Cards/CardCreateBox";
 import Head from "next/head";
 

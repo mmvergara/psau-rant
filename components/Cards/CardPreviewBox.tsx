@@ -16,7 +16,7 @@ import { deleteCardSetById } from "@/firebase/services/cards_services";
 import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { CardSet, ChoicesType } from "@/types/models/card_types";
+import { CardSet, ChoicesType } from "@/types/models/CardTypes";
 import { toast } from "react-toastify";
 
 type Props = {

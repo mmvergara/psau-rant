@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { truncateString } from "@/utilities/StringFormatter";
 import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
-import { CardSet } from "@/types/models/card_types";
+import { CardSet } from "@/types/models/CardTypes";
 import { toast } from "react-toastify";
 
 const CardsList = () => {

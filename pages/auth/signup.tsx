@@ -50,7 +50,7 @@ const SignInPage = () => {
   return (
     <>
       <Head>
-        <title>Sign In</title>
+        <title>PSAU Rant | Sign Up</title>
       </Head>
       <Container maxWidth="md" sx={{ marginTop: "5vh" }}>
         <Box

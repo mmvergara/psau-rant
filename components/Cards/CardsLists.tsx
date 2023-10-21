@@ -10,9 +10,11 @@ import { useUserData } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 import { CardSet } from "@/types/models/CardTypes";
 import { toast } from "react-toastify";
+import useColorValue from "@/utilities/hooks/useColorValue";
 
 const CardsList = () => {
   const router = useRouter();
+  const cardBgColor = useColorValue("white", "hsl(0,0%,85%)");
   const { activeCard } = router.query;
   const { user } = useUserData();
   const [loading, setLoading] = useState<boolean>(true);
@@ -66,7 +68,7 @@ const CardsList = () => {
         return (
           <Box
             sx={{
-              bgcolor: "white",
+              bgcolor: cardBgColor,
               height: "140px",
               width: "280px",
               p: 2,

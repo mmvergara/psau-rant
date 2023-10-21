@@ -2,6 +2,9 @@ import CenterCircularProgress from "@/components/Layout/CenterCircularProgress";
 import Navbar from "@/components/Layout/Navbar";
 import { FirebaseAuth } from "@/firebase/Firebase-Client";
 import { getUserDataById } from "@/firebase/services/AuthService";
+import { MainTheme } from "@/theme/Theme";
+import { useMainTheme } from "@/theme/ThemeContextProvider";
+import { ThemeProvider } from "@mui/material";
 import { User } from "firebase/auth";
 import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
@@ -29,6 +32,7 @@ export const useUserData = () => {
 };
 
 export const UserDataProvider = ({ children }: providerProps) => {
+  const { mode } = useMainTheme();
   const [user, authStateLoading] = useAuthState(FirebaseAuth);
   const [userData, setUserData] = useState<userData>({
     user: null,
@@ -60,6 +64,7 @@ export const UserDataProvider = ({ children }: providerProps) => {
     username: userData?.username,
     user,
   };
+
   return (
     <UserDataContext.Provider value={value}>
       <Navbar authIsLoading={loading} needToSetUsername={needToSetUsername} />

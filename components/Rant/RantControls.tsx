@@ -16,12 +16,13 @@ const RantControls = () => {
         mt: 3,
         p: "20px",
       }}
+      boxShadow={5}
     >
       {/* <TextField sx={{ borderRadius: 10 }} label="Search Rants" /> */}
       {/* <Divider sx={{ my: 2 }} /> */}
-      <Box sx={{ display: "flex", gap: 4 }}>
+      <Box sx={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
         <Button
-          sx={{ flexGrow: 1,py:4 }}
+          sx={{ flexGrow: 1, py: 4 }}
           variant="contained"
           onClick={() => router.push("/rant/create")}
           startIcon={<CampaignIcon />}
@@ -29,7 +30,7 @@ const RantControls = () => {
           Create Rant
         </Button>
         <Button
-          sx={{ flexGrow: 1,py:4 }}
+          sx={{ flexGrow: 1, py: 4 }}
           variant="contained"
           onClick={() => router.push("/cards/")}
           startIcon={<StyleIcon />}

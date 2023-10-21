@@ -146,7 +146,7 @@ const NavDrawer = ({ drawerOpen, toggleDrawer }: Props) => {
               }}
             >
               Made with 💘 by: <br />
-              Mark Matthew Vergara <br /> BSIT2-A PSAU
+              Mark Matthew Vergara <br /> BSIT 3-A PSAU (2023)
             </Typography>
             <Button
               sx={{

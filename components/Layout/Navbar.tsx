@@ -1,4 +1,6 @@
 import AddUsernameModal from "./AddUsernameModal";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -25,7 +27,7 @@ type Props = {
 };
 
 const Navbar = ({ authIsLoading, needToSetUsername }: Props) => {
-  const { toggleColorMode } = useMainTheme();
+  const { toggleColorMode, mode } = useMainTheme();
   const router = useRouter();
   const { user } = useUserData();
 
@@ -91,7 +93,7 @@ const Navbar = ({ authIsLoading, needToSetUsername }: Props) => {
             </Link>
           </Typography>
           <IconButton size="large" color="inherit" onClick={toggleColorMode}>
-            <AccountCircle />
+            {mode === "light" ? <DarkModeIcon /> : <Brightness7Icon />}
           </IconButton>
 
           {!authIsLoading && (

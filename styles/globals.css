@@ -6,12 +6,6 @@
   box-sizing: border-box;
 }
 
-
-body {
-  background-color: #0f5f22;
-  background-color: #ecd8a4;
-}
-
 .flippable-card {
   width: 100%;
   max-width: 90vw;
@@ -64,7 +58,6 @@ body {
   flex-direction: column;
   border-radius: 7px;
   padding: 1rem;
-
 }
 
 .front {

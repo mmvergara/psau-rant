@@ -18,6 +18,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { CardSet, ChoicesType } from "@/types/models/CardTypes";
 import { toast } from "react-toastify";
+import { useMainTheme } from "@/theme/ThemeContextProvider";
 
 type Props = {
   cardSet: CardSet;
@@ -25,6 +26,7 @@ type Props = {
 };
 
 const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
+  const { mode } = useMainTheme();
   const router = useRouter();
   const { user } = useUserData();
   const { card_set_id, card_set_name } = cardSet;
@@ -83,7 +85,9 @@ const CardPreviewContent = ({ cardSet, onCardDelete }: Props) => {
         onClose={() => setCardExportModalOpen(false)}
         children={<></>}
       />
-      <Typography fontSize={20}>Card Set : {card_set_name}</Typography>
+      <Typography fontSize={20} color={mode === "dark" ? "white" : "black"}>
+        Card Set : {card_set_name}
+      </Typography>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <FormGroup
           sx={{

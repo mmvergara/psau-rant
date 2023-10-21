@@ -12,6 +12,10 @@ const lightModeTheme: PaletteOptions = {
     "100": "#E8E8CC",
     "200": "#FFCC1D",
   },
+  background: {
+    default: "#f0e2bf",
+    paper: "hsl(43,62%,80%)",
+  },
 };
 
 const darkModeTheme: PaletteOptions = {
@@ -20,9 +24,14 @@ const darkModeTheme: PaletteOptions = {
     "100": "#116530",
   },
   secondary: {
-    main: "#ecd8a4",
+    main: "#242424",
     "100": "#E8E8CC",
     "200": "#FFCC1D",
+  },
+
+  background: {
+    default: "#242424",
+    paper: "#555555",
   },
 };
 

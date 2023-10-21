@@ -8,11 +8,13 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Link from "next/link";
 import Box from "@mui/material/Box";
+import StyleIcon from "@mui/icons-material/Style";
+import { Paper } from "@mui/material";
 
 const CardsDashboard = () => {
   return (
     <Container sx={{ mt: 3 }}>
-      <Box sx={{ bgcolor: "white" }}>
+      <Paper>
         <Box
           sx={{
             bgcolor: "primary.main",
@@ -22,7 +24,19 @@ const CardsDashboard = () => {
             p: 1,
           }}
         >
-          <Typography sx={{ color: "white" }}>Flip Cards </Typography>
+          <Typography
+            sx={{
+              color: "white",
+              ml: 2,
+              py: 2,
+              display: "flex",
+              justifyContent: "center",
+              gap:1,
+              alignItems: "center", 
+            }}
+          >
+            My Flash Cards <StyleIcon />
+          </Typography>
         </Box>
         <Box sx={{ p: 2 }}>
           <Stack spacing={2}>
@@ -35,15 +49,12 @@ const CardsDashboard = () => {
             >
               Create New Card Set
             </Button>
-            <TextField
-              label="Search Flip Cards"
-              sx={{ width: "fit-content" }}
-            />
+
             <Divider />
             <CardsList />
           </Stack>
         </Box>
-      </Box>
+      </Paper>
     </Container>
   );
 };

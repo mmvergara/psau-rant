@@ -21,7 +21,7 @@ const RantControls = () => {
       {/* <Divider sx={{ my: 2 }} /> */}
       <Box sx={{ display: "flex", gap: 4 }}>
         <Button
-          sx={{ flexGrow: 1 }}
+          sx={{ flexGrow: 1,py:4 }}
           variant="contained"
           onClick={() => router.push("/rant/create")}
           startIcon={<CampaignIcon />}
@@ -29,12 +29,12 @@ const RantControls = () => {
           Create Rant
         </Button>
         <Button
-          sx={{ flexGrow: 1 }}
+          sx={{ flexGrow: 1,py:4 }}
           variant="contained"
           onClick={() => router.push("/cards/")}
           startIcon={<StyleIcon />}
         >
-          Flip Cards
+          Flash Cards
         </Button>
       </Box>
     </Box>

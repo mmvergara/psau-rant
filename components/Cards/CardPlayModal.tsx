@@ -33,7 +33,7 @@ const CardPlayModal = ({
           boxShadow: 24,
           p: 4,
           outline: "none",
-          backgroundColor: mode === "light" ? "primary" : "#333",
+          backgroundColor: mode === "light" ? "#ecd8a4" : "#333",
         }}
       >
         <CardPreviewContent

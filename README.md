@@ -15,6 +15,7 @@ A Next.js web application for creating and studying flash cards with user authen
 ---
 
 Thank you for 49 users!, Mobile version available made using [flutter](https://github.com/mmvergara/psau-rant-flutter/).
+or you can download on https://psaurant.vercel.app/app
 
 ## Installation
 
